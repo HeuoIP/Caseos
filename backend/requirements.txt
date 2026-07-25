@@ -1,2 +1,7 @@
-fastapi>=0.115
-uvicorn[standard]>=0.30
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+pgvector
+pydantic
+python-dotenv
