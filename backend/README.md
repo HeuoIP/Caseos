@@ -2,6 +2,10 @@
 
 Minimal FastAPI skeleton following Clean Architecture layering.
 
+## Requirements
+
+- Python 3.12
+
 ## Layout
 
 ```
@@ -19,7 +23,7 @@ backend/
 ## Run
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
