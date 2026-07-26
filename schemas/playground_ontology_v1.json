@@ -1,0 +1,56 @@
+{
+  "design_concept": {
+    "theme": "",
+    "story": "",
+    "design_goal": ""
+  },
+
+  "experience": {
+    "play_journey": [
+      {
+        "stage": "进入",
+        "experience": ""
+      },
+      {
+        "stage": "探索",
+        "experience": ""
+      },
+      {
+        "stage": "挑战",
+        "experience": ""
+      },
+      {
+        "stage": "社交",
+        "experience": ""
+      },
+      {
+        "stage": "离开",
+        "experience": ""
+      }
+    ]
+  },
+
+  "space": {
+    "layout_type": "",
+    "circulation": "",
+    "functional_nodes": []
+  },
+
+  "design_strategy": {
+    "behavior_guidance": [],
+    "visual_focus": [],
+    "parent_child_interaction": [],
+    "inclusive_design": []
+  },
+
+  "equipment": {
+    "equipment_role": [],
+    "equipment_list": []
+  },
+
+  "implementation": {
+    "materials": [],
+    "colors": [],
+    "maintenance": ""
+  }
+}
