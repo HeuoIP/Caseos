@@ -1,0 +1,80 @@
+{
+  "basic_info": {
+    "project_name": "",
+    "case_id": "",
+    "site_type": "",
+    "country": "",
+    "city": ""
+  },
+
+  "design": {
+    "theme": "",
+    "style": "",
+    "design_language": [],
+    "design_story": "",
+    "design_highlights": []
+  },
+
+  "target_users": {
+    "age_group": [],
+    "user_type": [],
+    "estimated_capacity": ""
+  },
+
+  "play_experience": {
+    "play_behaviors": [],
+    "play_value": [],
+    "challenge_level": "",
+    "interaction_type": []
+  },
+
+  "space": {
+    "space_structure": "",
+    "functional_zones": [],
+    "circulation": "",
+    "viewpoints": []
+  },
+
+  "equipment": {
+    "functional_units": [],
+    "core_equipment": [],
+    "interactive_devices": []
+  },
+
+  "landscape": {
+    "planting": [],
+    "terrain": "",
+    "water_features": [],
+    "shade": ""
+  },
+
+  "materials": {
+    "main_materials": [],
+    "ground_materials": [],
+    "safety_surface": []
+  },
+
+  "color": {
+    "color_palette": [],
+    "main_color": "",
+    "color_strategy": ""
+  },
+
+  "safety": {
+    "estimated_age_range": "",
+    "risk_level": "",
+    "inclusive_design": false
+  },
+
+  "commercial": {
+    "applicable_scene": [],
+    "commercial_value": [],
+    "operation_features": []
+  },
+
+  "ai_analysis": {
+    "keywords": [],
+    "description": "",
+    "confidence": 0.0
+  }
+}
