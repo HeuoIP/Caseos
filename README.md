@@ -1,15 +1,15 @@
 CaseOS
 
-AI Case Engine for Playground Design
+用于游乐场设计的AI案例引擎
 
-Mission:
+任务：
 
-Upload a site photo.
-
-↓
-
-Find similar cases.
+上传场地照片。
 
 ↓
 
-Generate professional playground concepts.
+查找相似案例。
+
+↓
+
+生成专业的游乐场概念。
