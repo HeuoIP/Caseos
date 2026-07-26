@@ -1,3 +1,7 @@
 .tools/
 .Python3*
 .env
+data/analysis/
+data/images/0001.png
+data/images/0002.png
+*.pyc
