@@ -1,29 +1,30 @@
-"""Qwen-VL provider for CaseOS V1.
+"""Qwen-VL provider for CaseOS.
 
-Makes a single chat-completions call against the DashScope compatible-mode
-endpoint using ``qwen3.7-plus``. Reads ``QWEN_API_KEY`` from the environment
-(populated by ``python-dotenv`` at script level).
+HTTP-only implementation. Returns the raw JSON text from the model;
+schema/taxonomy/prompt concerns live in ``CaseVisionAnalyzer``.
+
+Reads ``QWEN_API_KEY`` from the environment (populated by
+``python-dotenv`` at script level).
 """
 
 from __future__ import annotations
 
-import base64
 import json
 import os
 import urllib.error
 import urllib.request
 from pathlib import Path
-from typing import Any
 
-from app.services.vision.analyzer import VisionAnalyzer
+from app.services.vision.providers.base import Provider, ProviderResult
+
 
 DEFAULT_BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
 DEFAULT_MODEL = "qwen3.7-plus"
 DEFAULT_TIMEOUT = 180
 
 
-class QwenVisionAnalyzer(VisionAnalyzer):
-    """Vision analyzer backed by Qwen3.7-Plus via DashScope."""
+class QwenProvider(Provider):
+    """HTTP client for Qwen3.7-Plus via DashScope OpenAI-compatible API."""
 
     def __init__(
         self,
@@ -41,27 +42,21 @@ class QwenVisionAnalyzer(VisionAnalyzer):
         self._base_url = base_url.rstrip("/")
         self._timeout = timeout
 
-    def analyze(self, image_path: str, *, prompt: str) -> dict[str, Any]:
-        """Run the vision model on ``image_path`` using ``prompt``.
+    def complete(self, prompt: str, image_url: str) -> ProviderResult:
+        """POST prompt + image_url to DashScope, return raw JSON text.
 
         Returns:
-            The parsed CaseOS analysis JSON returned by the model.
+            ProviderResult whose ``raw_text`` is the model's JSON
+            response (parsed once at HTTP boundary; the message content
+            itself is JSON because we set ``response_format: json_object``).
         """
-
-        path = Path(image_path)
-        if not path.exists():
-            raise FileNotFoundError(image_path)
-
-        encoded = base64.b64encode(path.read_bytes()).decode("ascii")
-        image_data_url = f"data:image/png;base64,{encoded}"
-
         body = {
             "model": self._model,
             "messages": [
                 {
                     "role": "user",
                     "content": [
-                        {"type": "image_url", "image_url": {"url": image_data_url}},
+                        {"type": "image_url", "image_url": {"url": image_url}},
                         {"type": "text", "text": prompt},
                     ],
                 }
@@ -87,9 +82,19 @@ class QwenVisionAnalyzer(VisionAnalyzer):
 
         obj = json.loads(payload)
         message = obj["choices"][0]["message"]["content"]
+        finish = obj["choices"][0].get("finish_reason", "")
 
         if isinstance(message, str):
-            return json.loads(message)
+            return ProviderResult(raw_text=message, model=self._model, finish_reason=finish)
         if isinstance(message, dict):
-            return message
-        raise RuntimeError(f"Unexpected Qwen response payload: {type(message).__name__}")
+            return ProviderResult(
+                raw_text=json.dumps(message, ensure_ascii=False),
+                model=self._model,
+                finish_reason=finish,
+            )
+        raise RuntimeError(
+            f"Unexpected Qwen response payload type: {type(message).__name__}"
+        )
+
+
+__all__ = ["QwenProvider"]

@@ -8,12 +8,15 @@ Pipeline:
 
 1. Receive a single image path, a directory path, or nothing (default
    ``data/images/``).
-2. Read the registered ``VisionAnalyzer`` from ``app.services.vision.factory``.
-3. Load ``backend/prompts/vision_prompt_v1.md`` automatically.
-4. Call ``Qwen3.7-Plus`` via DashScope.
-5. Persist each response to ``data/analysis/<image>.json``.
+2. Build the ``VisionAnalyzer`` from ``app.services.vision.factory``.
+   The analyzer loads its own prompt + schema + taxonomy libraries.
+3. For each image: call ``analyzer.analyze(image_path)``; persist the
+   resulting JSON to ``data/analysis/<image>.json``.
 
 Pass ``--force`` to re-analyze images whose JSON already exists.
+
+Note: the analyzer is self-sufficient, so this orchestrator does not
+load the prompt. Removing ``prompt_loader`` from the call chain.
 """
 
 from __future__ import annotations
@@ -35,7 +38,7 @@ def _ensure_path_on_sys_path() -> None:
 
 
 def _load_analyzer():
-    """Import and resolve the analyzer after sys.path fixup."""
+    """Build a self-sufficient VisionAnalyzer after sys.path fixup."""
 
     _ensure_path_on_sys_path()
     from dotenv import load_dotenv
@@ -45,14 +48,6 @@ def _load_analyzer():
     from app.services.vision.factory import build_vision_analyzer
 
     return build_vision_analyzer("qwen")
-
-
-def _load_prompt() -> str:
-    """Read the V1 vision prompt off disk."""
-
-    from scripts.vision.prompt_loader import load_vision_prompt
-
-    return load_vision_prompt()
 
 
 def _iter_images(target: Path) -> list[Path]:
@@ -115,10 +110,10 @@ def run(target: str | None = None, *, indent: int = 2, force: bool = False) -> l
         )
 
     analyzer = _load_analyzer()
-    prompt = _load_prompt()
 
     print(f"[CaseOS] analyzer : {type(analyzer).__name__}")
-    print(f"[CaseOS] prompt   : {len(prompt)} chars")
+    print(f"[CaseOS] libraries: {analyzer.library_summary}")
+    print(f"[CaseOS] prompt   : {analyzer.prompt_length} chars (composed at construct)")
     print(f"[CaseOS] inputs   : {len(image_paths)} image(s)")
 
     out_dir = _analysis_dir()
@@ -131,7 +126,7 @@ def run(target: str | None = None, *, indent: int = 2, force: bool = False) -> l
             continue
         print(f"[{idx}/{len(image_paths)}] start : {image_path.name}")
         try:
-            payload: dict[str, Any] = analyzer.analyze(str(image_path), prompt=prompt)
+            payload: dict[str, Any] = analyzer.analyze(str(image_path))
             out_path.write_text(
                 json.dumps(payload, ensure_ascii=False, indent=indent) + "\n",
                 encoding="utf-8",
