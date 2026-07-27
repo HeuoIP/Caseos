@@ -1,0 +1,90 @@
+{
+  "$schema": "https://caseos.local/schemas/case_analysis_v3.json",
+  "version": "3",
+  "description": "CaseOS Case Analysis V3. Taxonomy fields use stable IDs in the form GROUP.LEAF (e.g. NATURE.FOREST). Free-text fields remain for descriptive content.",
+  "basic_info": {
+    "project_name": "",
+    "case_id": "",
+    "site_type": "SITE.<ID>",
+    "country": "",
+    "city": ""
+  },
+  "design": {
+    "theme": [
+      {
+        "id": "THEME.<ID>",
+        "role": "primary|secondary",
+        "confidence": 0.0
+      }
+    ],
+    "style": [
+      "STYLE.<ID>"
+    ],
+    "design_language": [],
+    "design_story": "",
+    "design_highlights": []
+  },
+  "target_users": {
+    "age_group": [
+      "AGE.<ID>"
+    ],
+    "user_type": [],
+    "estimated_capacity": ""
+  },
+  "play_experience": {
+    "play_behaviors": [
+      "PLAY.<ID>"
+    ],
+    "play_value": [],
+    "challenge_level": "",
+    "interaction_type": []
+  },
+  "space": {
+    "space_structure": "",
+    "functional_zones": [],
+    "circulation": "",
+    "viewpoints": []
+  },
+  "equipment": {
+    "functional_units": [
+      "UNIT.<ID>"
+    ],
+    "core_equipment": [],
+    "interactive_devices": []
+  },
+  "landscape": {
+    "planting": [],
+    "terrain": "",
+    "water_features": [],
+    "shade": ""
+  },
+  "materials": {
+    "main_materials": [
+      "MATERIAL.<ID>"
+    ],
+    "ground_materials": [],
+    "safety_surface": []
+  },
+  "color": {
+    "colors": [
+      "COLOR.<ID>"
+    ],
+    "main_color": "",
+    "color_strategy": ""
+  },
+  "safety": {
+    "estimated_age_range": "",
+    "risk_level": "",
+    "inclusive_design": false
+  },
+  "commercial": {
+    "applicable_scene": [],
+    "commercial_value": [],
+    "operation_features": []
+  },
+  "ai_analysis": {
+    "keywords": [],
+    "description": "",
+    "confidence": 0.0
+  }
+}
