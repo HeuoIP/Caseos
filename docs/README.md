@@ -22,10 +22,12 @@ This directory holds the canonical documentation for CaseOS.
   - `Prompt_Principles.md`
 - `benchmark/` — Reserved for future benchmarking artifacts.
 
-## Schemas
+## Schemas and Knowledge
 
-JSON schemas for AI input / output live in `../schemas/`:
+Schemas and knowledge artifacts are spread across two locations:
 
-- `case_analysis_v2.json` — vision analysis output (12 groups).
-- `playground_ontology_v1.json` — playground ontology (6 groups + 5 stage journey).
-- `output/CaseOS_Output_Schema_V1.md` — output contract for one case.
+- `../knowledge/` — long-lived knowledge JSON:
+  - `playground_ontology_v1.json` — playground ontology (6 groups + 5 stage journey).
+- `../schemas/` — input/output schemas:
+  - `case_analysis_v2.json` — vision analysis output (12 groups).
+  - `output/CaseOS_Output_Schema_V1.md` — output contract for one case.
