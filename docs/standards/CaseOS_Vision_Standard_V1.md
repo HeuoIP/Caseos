@@ -16,64 +16,76 @@
 
 ## 4. Theme Taxonomy
 
-### NATURE — Nature（自然系）
-- `NATURE.FOREST` — Forest（森林）
-- `NATURE.JUNGLE` — Jungle（丛林）
-- `NATURE.MOUNTAIN` — Mountain（山地）
-- `NATURE.WETLAND` — Wetland（湿地）
-- `NATURE.RIVER` — River（河流）
-- `NATURE.GARDEN` — Garden（花园）
+Theme = the **head** classification of a playground case
+(e.g. is this case "Forest-themed" or "Pirate-themed"?).
 
-### ANIMAL — Animal（动物系）
-- `ANIMAL.BEAR` — Bear（熊）
-- `ANIMAL.FOX` — Fox（狐狸）
-- `ANIMAL.RABBIT` — Rabbit（兔子）
-- `ANIMAL.WOLF` — Wolf（狼）
-- `ANIMAL.LION` — Lion（狮子）
-- `ANIMAL.DINOSAUR` — Dinosaur（恐龙）
-- `ANIMAL.WHALE` — Whale（鲸鱼）
-- `ANIMAL.DOLPHIN` — Dolphin（海豚）
+### 4.1 Identifier Schema
 
-### OCEAN — Ocean（海洋系）
-- `OCEAN.CORAL` — Coral（珊瑚）
-- `OCEAN.PIRATE` — Pirate（海盗）
-- `OCEAN.LIGHTHOUSE` — Lighthouse（灯塔）
-- `OCEAN.ISLAND` — Island（海岛）
-- `OCEAN.DEEP_SEA` — Deep Sea（深海）
+Each theme has a stable ID of the form `<GROUP>.<LEAF>`. Both halves are
+stored verbatim in JSON outputs.
 
-### SPACE — Space（宇宙系）
-- `SPACE.ROCKET` — Rocket（火箭）
-- `SPACE.PLANET` — Planet（星球）
-- `SPACE.GALAXY` — Galaxy（银河）
-- `SPACE.METEOR` — Meteor（陨石）
-- `SPACE.SPACE_STATION` — Space Station（空间站）
+- **9 groups:** NATURE, ANIMAL, OCEAN, SPACE, CASTLE, TRANSPORTATION,
+  FANTASY, SCIENCE, TRADITIONAL_CULTURE.
+- **41 leaves** in total. The full list lives in the library.
 
-### CASTLE — Castle（城堡系）
-- `CASTLE.CASTLE` — Castle（城堡）
-- `CASTLE.KNIGHT` — Knight（骑士）
-- `CASTLE.PRINCESS` — Princess（公主）
+### 4.2 Theme Library (content lives in `knowledge/`)
 
-### TRANSPORTATION — Transportation（交通工具系）
-- `TRANSPORTATION.TRAIN` — Train（火车）
-- `TRANSPORTATION.AIRCRAFT` — Aircraft（飞机）
-- `TRANSPORTATION.SHIP` — Ship（轮船）
-- `TRANSPORTATION.CAR` — Car（汽车）
+The actual theme definitions live in `knowledge/taxonomy/theme/`. One MD
+per leaf, named `<Label>.md` (spaces as underscores, e.g. `Deep_Sea.md`).
 
-### FANTASY — Fantasy（幻想系）
-- `FANTASY.FAIRY_TALE` — Fairy Tale（童话）
-- `FANTASY.MAGIC` — Magic（魔法）
-- `FANTASY.ELF` — Elf（精灵）
-- `FANTASY.DRAGON` — Dragon（巨龙）
+Each leaf MD has 11 fixed sections:
 
-### SCIENCE — Science（科学系）
-- `SCIENCE.LABORATORY` — Laboratory（实验室）
-- `SCIENCE.ROBOT` — Robot（机器人）
-- `SCIENCE.AI` — AI（人工智能）
+Story Core, Core Emotion, Learning Goal, Typical Color, Materials,
+Landscape, Children Behavior, Storyline (5 stages), Design Language,
+Engineering, Maintain.
 
-### TRADITIONAL_CULTURE — Traditional Culture（传统文化系）
-- `TRADITIONAL_CULTURE.CHINESE_CULTURE` — Chinese Culture（中国传统文化）
-- `TRADITIONAL_CULTURE.FOLK_STORY` — Folk Story（民间故事）
-- `TRADITIONAL_CULTURE.FESTIVAL` — Festival（节庆）
+See `knowledge/taxonomy/theme/Forest.md` as the canonical reference.
+
+### 4.3 Multi-Theme Output Schema
+
+A case may carry more than one theme. Always output **at least one**
+theme per case.
+
+Required shape:
+
+```json
+{
+  "theme": [
+    {"id": "NATURE.FOREST", "role": "primary",   "confidence": 0.92},
+    {"id": "ANIMAL.WOLF",   "role": "secondary", "confidence": 0.61}
+  ]
+}
+```
+
+| Field | Rule |
+| --- | --- |
+| `id` | Stable ID `<GROUP>.<LEAF>` from the library. Never free text. |
+| `role` | `"primary"` (exactly one) or `"secondary"` (zero to two). |
+| `confidence` | Float, `0.0`–`1.0`. See calibration below. |
+
+### 4.4 Selection Workflow
+
+1. **Identify** — scan the image for visual cues (sculpted forms,
+   signage text, color saturation, props, character imagery) and propose
+   candidate IDs from any group.
+2. **Pick primary** — the most dominant story / spatial cue. Exactly one.
+3. **Pick secondary** — up to 2, only when at least one clear supporting
+   cue exists and `confidence >= 0.5`.
+4. **Calibrate confidence**:
+   - `0.9–1.0`: multiple strong cues align (sculpted form + signage +
+     color saturation all match the same leaf).
+   - `0.7–0.9`: one strong cue plus supporting cues.
+   - `0.5–0.7`: one cue, ambiguous backdrop.
+   - below `0.5`: omit. Do not guess.
+5. **Cross-check** — if the chosen `theme` contradicts visible evidence,
+   lower confidence or omit.
+
+### 4.5 Forbidden
+
+- Free-text labels like `"forest"` or `"森林"`. Always use the stable ID.
+- Picking a theme with no matching visual cue.
+- Emitting two `primary` themes for one case.
+- Mixing taxonomies: a `theme` is **not** a `play_behavior` or a `style`.
 
 ## 5. Style Taxonomy
 
