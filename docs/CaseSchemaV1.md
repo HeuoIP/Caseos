@@ -1,4 +1,4 @@
-# Case Schema V1
+# Case output Schema V1
 
 ## 01 项目基本信息
 
