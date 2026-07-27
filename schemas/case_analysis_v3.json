@@ -1,7 +1,7 @@
 {
   "$schema": "https://caseos.local/schemas/case_analysis_v3.json",
-  "version": "3",
-  "description": "CaseOS Case Analysis V3. Taxonomy fields use stable IDs in the form GROUP.LEAF (e.g. NATURE.FOREST). Free-text fields remain for descriptive content.",
+  "version": "3.1",
+  "description": "CaseOS Case Analysis V3. Taxonomy fields use stable IDs in the form GROUP.LEAF (e.g. NATURE.FOREST). The description field is split into vision_summary (search-layer / factual) and design_interpretation (understanding-layer / analytical).",
   "basic_info": {
     "project_name": "",
     "case_id": "",
@@ -84,7 +84,8 @@
   },
   "ai_analysis": {
     "keywords": [],
-    "description": "",
+    "vision_summary": "",
+    "design_interpretation": "",
     "confidence": 0.0
   }
 }

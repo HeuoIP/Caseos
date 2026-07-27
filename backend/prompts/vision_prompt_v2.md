@@ -44,7 +44,8 @@ Return ONLY this JSON (no markdown, no explanation):
   "materials": ["GROUP.LEAF"],
   "colors": ["GROUP.LEAF"],
   "design_keywords": ["<keyword>", "<keyword>"],
-  "description": "<2-4 sentence professional summary>"
+  "vision_summary": "<1-2 sentences of observable features only>",
+  "design_interpretation": "<1-3 sentences of professional analysis>"
 }
 ```
 
@@ -54,7 +55,71 @@ Field-by-field:
 - `site_type`: a single stable ID, NOT an array.
 - All other taxonomy fields: array of stable IDs.
 - `design_keywords`: free-text English keywords for indexing.
-- `description`: 2-4 sentences of professional designer prose.
+- `vision_summary` and `design_interpretation`: see next section.
+
+## Description Split: vision_summary vs design_interpretation
+
+The previous single `description` field mixed marketing copy with analysis.
+CaseOS now requires two separate fields with very different roles.
+
+### `vision_summary` -- the SEARCH layer
+
+This is what the IMAGE LOOKS LIKE. It feeds a CLIP/vector embedding index
+for similarity search when a customer uploads a new site photo. Therefore
+it must be:
+
+- 1-2 sentences.
+- Purely observational: physical features only.
+- Factual vocabulary (concrete nouns, measurable attributes).
+- No opinions, no recommendations, no age claims, no play-value claims.
+
+#### FORBIDDEN words (marketing language)
+
+The model will be rejected if any of these appear in `vision_summary`:
+
+- striking, beautiful, amazing, impressive, iconic, world-class
+- stunning, gorgeous, magnificent, breathtaking, spectacular
+- incredible, fantastic, wonderful, epic, magical
+
+#### ALLOWED style (factual vocabulary)
+
+large-scale, circular canopy, stainless steel spiral slide,
+multi-level climbing structure, rope net, rubber safety surfacing,
+open park setting, wooden deck, sloped terrain, etc.
+
+#### vision_summary example (good)
+
+> "A public park playground with a rainbow circular canopy,
+> multi-level wooden climbing structure, stainless steel spiral slide,
+> rope nets, and rubber safety surfacing."
+
+#### vision_summary example (bad -- will be rejected)
+
+> "A striking, iconic playground featuring a beautiful rainbow canopy
+> that creates an amazing visual landmark."
+
+### `design_interpretation` -- the UNDERSTANDING layer
+
+This is what CaseOS thinks the design DOES. It powers the AI
+recommendation rationale when surfacing similar cases. Therefore it must:
+
+- 1-3 sentences.
+- Be analytical: composition, circulation, behavior affordances, age fit.
+- Use professional designer vocabulary (organize, anchor, sequence,
+  circulation, focal point, scale, threshold, transition).
+- You MAY reference age groups, play values, spatial logic here.
+
+#### design_interpretation example (good)
+
+> "The composition uses a central landmark ring to organize circulation
+> and encourages climbing, exploration, and social interaction for
+> children aged 3 to 9."
+
+#### design_interpretation example (bad)
+
+> "It is an amazing, magical place where kids will have incredible fun."
+
+(That belongs in a brochure, not in CaseOS.)
 
 ## Hard Rules
 
@@ -62,4 +127,5 @@ Field-by-field:
 - Do not output any text before or after the JSON.
 - Every taxonomy ID MUST appear verbatim in the appendix.
 - Never invent a new ID; pick the closest match if uncertain.
+- `vision_summary` MUST NOT contain any of the forbidden words above.
 - Return valid JSON only.

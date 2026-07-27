@@ -236,6 +236,16 @@ class CaseVisionAnalyzer(VisionAnalyzer):
 
     # ── Validation ──────────────────────────────────────────────────────
 
+    # Marketing-language words forbidden in vision_summary. These signal
+    # brochure copy, not observation. Validated locally so the model
+    # cannot smuggle them in.
+    FORBIDDEN_SUMMARY_WORDS: tuple[str, ...] = (
+        "striking", "beautiful", "amazing", "impressive", "iconic",
+        "world-class", "stunning", "gorgeous", "magnificent",
+        "breathtaking", "spectacular", "incredible", "fantastic",
+        "wonderful", "epic", "magical",
+    )
+
     def _validate(self, data: dict[str, Any]) -> None:
         for field in TAXONOMY_FIELDS:
             if field not in data:
@@ -253,6 +263,30 @@ class CaseVisionAnalyzer(VisionAnalyzer):
             "colors",
         ]:
             self._validate_id_list(field, data[field])
+
+        # Description split: vision_summary (search layer) + 
+        # design_interpretation (understanding layer). 
+        # Replaces the legacy single "description" field.
+        self._validate_text_field(data, "vision_summary")
+        self._validate_text_field(data, "design_interpretation")
+        self._check_forbidden_summary_words(data["vision_summary"])
+
+    def _validate_text_field(self, data: dict[str, Any], field: str) -> None:
+        val = data.get(field)
+        if not isinstance(val, str) or not val.strip():
+            raise AnalysisValidationError(
+                f"{field} must be a non-empty string"
+            )
+
+    def _check_forbidden_summary_words(self, summary: str) -> None:
+        lowered = summary.lower()
+        hits = [w for w in self.FORBIDDEN_SUMMARY_WORDS if w in lowered]
+        if hits:
+            raise AnalysisValidationError(
+                f"ision_summary contains forbidden marketing word(s): {hits}. "
+                f"Use factual vocabulary only (e.g. large-scale, circular canopy, "
+                f"stainless steel slide, rope net). See vision_prompt_v2.md."
+            )
 
     def _validate_theme(self, theme: Any) -> None:
         if not isinstance(theme, list) or not theme:
