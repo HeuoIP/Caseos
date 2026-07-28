@@ -26,7 +26,7 @@ exists only so the operator can invoke CaseOS without knowing the
 backend layout.
 
 Usage:
-    python scripts/analyze_cases.py                       # data/images/
+    python scripts/analyze_cases.py                          # data/images/cases/
     python scripts/analyze_cases.py path/to/one.png
     python scripts/analyze_cases.py path/to/folder
     python scripts/analyze_cases.py data/images --force
