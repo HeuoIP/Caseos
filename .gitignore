@@ -1,6 +1,4 @@
 .tools/
 .Python3*
 .env
-data/analysis/
-data/images/
 *.pyc

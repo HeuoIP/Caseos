@@ -1,0 +1,39 @@
+{
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "avg_score": 96.67,
+    "generated_at": "2026-07-28T11:08:35"
+  },
+  "results": [
+    {
+      "file": "0001.json",
+      "passed": true,
+      "score": 100,
+      "errors": [],
+      "warnings": [],
+      "suggestions": []
+    },
+    {
+      "file": "0002.json",
+      "passed": true,
+      "score": 95,
+      "errors": [],
+      "warnings": [
+        "`metadata` block missing; on-disk JSON should carry provenance"
+      ],
+      "suggestions": []
+    },
+    {
+      "file": "sample_playground.json",
+      "passed": true,
+      "score": 95,
+      "errors": [],
+      "warnings": [
+        "`metadata` block missing; on-disk JSON should carry provenance"
+      ],
+      "suggestions": []
+    }
+  ]
+}

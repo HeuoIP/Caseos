@@ -1,0 +1,30 @@
+[
+  {
+    "filename": "0001.png",
+    "status": "success",
+    "model": "qwen3.7-plus",
+    "prompt_version": "vision_prompt_v2",
+    "analysis_version": "CaseOS_Output_Schema_V2",
+    "time": "2026-07-28T10:39:35",
+    "duration": 65.0
+  },
+  {
+    "filename": "0001.png",
+    "status": "failed",
+    "model": "qwen3.7-plus",
+    "prompt_version": "vision_prompt_v2",
+    "output_schema": "CaseOS_Output_Schema_V2",
+    "time": "2026-07-28T10:49:55",
+    "duration": 83.031,
+    "error": "name '_wrap_metadata' is not defined"
+  },
+  {
+    "filename": "0001.png",
+    "status": "success",
+    "model": "qwen3.7-plus",
+    "prompt_version": "vision_prompt_v2",
+    "output_schema": "CaseOS_Output_Schema_V2",
+    "time": "2026-07-28T10:51:38",
+    "duration": 69.609
+  }
+]
