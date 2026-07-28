@@ -83,3 +83,17 @@
 ## Maintain
 
 - 装饰年更换
+
+## Recommended Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — storybook-cottage or gingerbread treehouse IS the fairy-tale anchor.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — fairy-tale figure or castle sculpture anchors the storybook narrative.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — story-circle reading nook is the strongest inclusion fit for fairy tales.
+## Unsuitable Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern educational panels break the storybook fairy-tale atmosphere.
+## Alternative Objects
+
+- **Maze** — hedge maze in the fairy-tale forest vocabulary.
+- **Pergola** — shaded structure in the storybook garden vocabulary.
+- **Hedge garden** — non-equipment garden in the storybook vocabulary.

@@ -84,3 +84,17 @@
 
 - 仿真皮年保养
 - 防水灯具季检查
+
+## Recommended Objects
+
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — dolphin or pod sculpture anchors the marine story.
+- **Slide** (`OBJECT.SLIDE`) — wave-shape or arc slide extends the marine-leap narrative.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — sheltered reading nook supports marine-ecology stories.
+## Unsuitable Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the marine atmosphere.
+- **Treehouse** (`OBJECT.TREEHOUSE`) — treehouse vocabulary clashes with the ocean setting.
+## Alternative Objects
+
+- **Water play** — pump, channel, and dam play in the ocean vocabulary.
+- **Sand pit** — low-arousal beach material play.

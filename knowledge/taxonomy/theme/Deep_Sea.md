@@ -84,3 +84,17 @@
 
 - 防水灯具季点检
 - 暗区监控摄像维护
+
+## Recommended Objects
+
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — jellyfish or deep-sea creature sculpture anchors the abyssal narrative.
+- **Slide** (`OBJECT.SLIDE`) — submarine tube slide reads as a deep-sea descent.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — glowing low-light panels match the bioluminescent atmosphere.
+## Unsuitable Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — above-water treehouse vocabulary clashes with the deep-sea setting.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — above-water reading nook clashes with the deep-sea setting.
+## Alternative Objects
+
+- **Climbing net** — tentacle-like climbing in the deep-sea vocabulary.
+- **Light installation** — non-equipment light piece in the bioluminescent vocabulary.

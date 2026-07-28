@@ -85,3 +85,16 @@
 - FRP 年修色
 - 骨骼年检
 - 防火测试
+
+## Recommended Objects
+
+- **Slide** (`OBJECT.SLIDE`) — dinosaur-spine slide is the strongest themed descent in the library.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — dinosaur figure or skeleton anchors the prehistoric narrative.
+## Unsuitable Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the dinosaur-adventure energy.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the prehistoric atmosphere.
+## Alternative Objects
+
+- **Fossil dig sand pit** — low-arousal sand play with buried replica fossils.
+- **Maze** — prehistoric-themed planting maze.

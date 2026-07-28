@@ -84,3 +84,18 @@
 
 - 季节性花期补植
 - 绿化维护频率高
+
+## Recommended Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — garden pavilion is the strongest fit; a reading nook completes the garden.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — garden-figure or animal sculpture fits the curated planting.
+- **Treehouse** (`OBJECT.TREEHOUSE`) — small garden treehouse reads as a folly in the cultivated landscape.
+## Unsuitable Objects
+
+- **Slide** (`OBJECT.SLIDE`) — prefabricated metal slide disrupts the curated garden language.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern educational panels break the cultivated plant-forward atmosphere.
+## Alternative Objects
+
+- **Pergola** — shaded structure for slow garden use.
+- **Maze** — hedge or planting maze in the garden vocabulary.
+- **Planting beds** — interactive planting for hands-on garden engagement.

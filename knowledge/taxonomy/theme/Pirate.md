@@ -84,3 +84,18 @@
 
 - 木质年防腐
 - 索具季点检
+
+## Recommended Objects
+
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — pirate ship or figure sculpture anchors the high-seas narrative.
+- **Slide** (`OBJECT.SLIDE`) — rope-rigging or plank slide extends the pirate-adventure story.
+- **Treehouse** (`OBJECT.TREEHOUSE`) — crow nest platform reads as the lookout of a pirate ship.
+## Unsuitable Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the pirate-adventure energy.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the pirate-swashbuckler atmosphere.
+## Alternative Objects
+
+- **Rope bridge** — ship-to-ship crossing in the pirate vocabulary.
+- **Climbing net** — rigging-style climbing in the nautical material vocabulary.
+- **Sand pit** — treasure-dig sand play.

@@ -84,3 +84,16 @@
 
 - LED 季点检
 - 反光面季清洁
+
+## Recommended Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — constellation or starmap panel is the strongest fit for a quiet, vast theme.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — spiral-galaxy or stardust sculpture anchors the deep-space narrative.
+## Unsuitable Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — wooden treehouse vocabulary clashes with the deep-space setting.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — indoor reading nook undercuts the cosmic-vast energy.
+## Alternative Objects
+
+- **Lighting installation** — non-equipment fibre-optic or projection piece in the starmap vocabulary.
+- **Climbing net** — non-IP vertical structure in the gravity-free vocabulary.

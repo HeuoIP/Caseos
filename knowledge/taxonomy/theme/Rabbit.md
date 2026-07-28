@@ -84,3 +84,16 @@
 
 - 仿皮毛清洁
 - 弹簧年检
+
+## Recommended Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — carrot-garden and story-circle reading station fits the gentle rabbit mood.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — rabbit family sculpture anchors the theme with a small character.
+- **Treehouse** (`OBJECT.TREEHOUSE`) — small low platform reads as a rabbit hutch raised on stilts.
+## Unsuitable Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the gentle rabbit-warren atmosphere.
+## Alternative Objects
+
+- **Maze** — hedge or planting maze in the rabbit-warren vocabulary.
+- **Burrow tunnel** — low crawl that reads as a rabbit warren.

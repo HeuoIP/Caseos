@@ -84,3 +84,16 @@
 
 - 灯具季点检
 - 装饰年保养
+
+## Recommended Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — wizard-tower or hat-shaped treehouse IS the magic anchor.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — wizard figure or magical-creature sculpture anchors the spell-casting narrative.
+## Unsuitable Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the magical atmosphere.
+## Alternative Objects
+
+- **Maze** — planting maze in the magical-garden vocabulary.
+- **Pergola** — shaded structure in the magical-garden vocabulary.
+- **Lighting installation** — fibre-optic or projection piece in the spell-glow vocabulary.

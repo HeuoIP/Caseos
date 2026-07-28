@@ -84,3 +84,17 @@
 
 - 仿真皮定期清洁
 - 防水灯具检查
+
+## Recommended Objects
+
+- **Slide** (`OBJECT.SLIDE`) — whale-shaped or tube slide extends the ocean-mammal narrative.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — whale or calf sculpture anchors the marine-mammal story.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — ocean-view reading station supports marine-ecology stories.
+## Unsuitable Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the marine-mammal atmosphere.
+- **Treehouse** (`OBJECT.TREEHOUSE`) — treehouse vocabulary clashes with the ocean-mammal setting.
+## Alternative Objects
+
+- **Water play** — pump, channel, and dam play in the ocean vocabulary.
+- **Sand pit** — low-arousal beach material play.

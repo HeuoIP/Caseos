@@ -84,3 +84,16 @@
 
 - 仿真植物年更换
 - 木结构防腐季刷新
+
+## Recommended Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — high tree-top treehouse IS the elf-roost anchor.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — elf or woodland-creature sculpture anchors the hidden-people narrative.
+## Unsuitable Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the woodland-elf atmosphere.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet urban reading nook clashes with the hidden-people atmosphere.
+## Alternative Objects
+
+- **Rope bridge** — canopy crossing in the woodland-elf vocabulary.
+- **Climbing net** — non-IP vertical structure in the woodland-elf vocabulary.

@@ -83,3 +83,17 @@
 ## Maintain
 
 - 仿真珊瑚颜色年修护
+
+## Recommended Objects
+
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — coral or reef-inspired sculpture anchors the underwater-reef narrative.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — reef-science reading station supports ecology learning.
+- **Slide** (`OBJECT.SLIDE`) — tube slide reads as a submarine passage through the reef.
+## Unsuitable Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the underwater-reef atmosphere.
+## Alternative Objects
+
+- **Water play** — pump, channel, and dam play in the reef vocabulary.
+- **Sand pit** — low-arousal beach material play.
+- **Stepping stones** — reef-crossing low-arousal movement.

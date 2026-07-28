@@ -83,3 +83,16 @@
 
 - 仿真皮毛季度清洗
 - 蜂蜜罐年检
+
+## Recommended Objects
+
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — bear sculpture is the strongest thematic anchor for this theme.
+- **Treehouse** (`OBJECT.TREEHOUSE`) — den-lookout structure extends the bear habitat story.
+## Unsuitable Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook clashes with the rugged bear-habitat energy.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the woodland bear atmosphere.
+## Alternative Objects
+
+- **Wooden climbing frame** — non-branded climbing alternative in the bear material vocabulary.
+- **Crawl tunnel** — den-entry experience without a bear character prop.

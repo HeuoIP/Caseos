@@ -84,3 +84,17 @@
 
 - FRP 年修色
 - 防火涂层年测试
+
+## Recommended Objects
+
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — aircraft sculpture or full-scale fuselage anchors the flight narrative.
+- **Slide** (`OBJECT.SLIDE`) — wing slide extends the take-off descent story.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — cockpit or instrument-panel wall extends the pilot narrative.
+## Unsuitable Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — wooden treehouse vocabulary clashes with the flight setting.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the take-off energy.
+## Alternative Objects
+
+- **Climbing frame** — non-IP vertical structure in the aircraft-wing vocabulary.
+- **Climbing tower** — non-IP control-tower structure.

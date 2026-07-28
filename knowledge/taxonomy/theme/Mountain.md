@@ -86,3 +86,17 @@
 - 岩壁接缝季度检查
 - 攀爬点磨损巡查
 - 缓冲垫清洁
+
+## Recommended Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — lookout platform echoes a mountain hut or alpine cabin.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — sheltered viewpoint for slow landscape appreciation.
+## Unsuitable Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern educational panels break the natural alpine atmosphere.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — branded character landmark overpowers the landscape own scale.
+## Alternative Objects
+
+- **Stone step climbing** — non-equipment ascent that uses local geology.
+- **Observation deck** — open viewing platform with no narrative prop.
+- **Balance beam course** — non-themed low-arousal movement sequence.

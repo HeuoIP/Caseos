@@ -84,3 +84,16 @@
 
 - 灯具季清洁
 - 防腐涂装年刷新
+
+## Recommended Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — tall lookout structure IS the lighthouse; the strongest single-object match.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — lighthouse-keeper or coastal-figure sculpture extends the story.
+## Unsuitable Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — reading nook undercuts the dramatic lookout energy.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the maritime-lighthouse atmosphere.
+## Alternative Objects
+
+- **Observation deck** — non-IP elevated viewpoint that reads as a lighthouse gallery.
+- **Climbing tower** — non-IP vertical structure in the lighthouse vocabulary.

@@ -84,3 +84,16 @@
 
 - 仿真狼皮毛维护
 - 钢索季度点检
+
+## Recommended Objects
+
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — wolf sculpture or pack figures anchor the pack-hunting narrative.
+- **Treehouse** (`OBJECT.TREEHOUSE`) — den-lookout structure extends the pack territory story.
+## Unsuitable Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the wolf pack narrative.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern educational panels break the wild-wolf atmosphere.
+## Alternative Objects
+
+- **Wooden climbing frame** — non-branded climbing alternative in the wolf-pack material vocabulary.
+- **Howling platform** — non-IP elevated viewpoint that reads as a wolf lookout.

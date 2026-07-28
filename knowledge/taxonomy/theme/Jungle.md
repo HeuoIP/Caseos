@@ -87,3 +87,17 @@
 - 仿真藤蔓每季检查
 - 落叶清理
 - 防湿涂层补刷
+
+## Recommended Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — canopy-level platform reads as the jungle high-canopy layer.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — jungle creature figures carry the biodiversity story.
+## Unsuitable Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — too calm and too urban-furnished for a layered, shadowed jungle.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the immersive natural atmosphere.
+## Alternative Objects
+
+- **Rope bridge** — canopy crossing that extends the jungle adventure story.
+- **Bamboo climbing frame** — non-IP climbing alternative in the jungle material language.
+- **Vine tunnel** — low crawl that reads as a jungle understory element.

@@ -83,3 +83,17 @@
 
 - 水质管理
 - 木栈道防滑涂层补刷
+
+## Recommended Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — boardwalk-side storytelling station for wetland ecology.
+- **Treehouse** (`OBJECT.TREEHOUSE`) — elevated watchtower matches the bird-watching and conservation narrative.
+## Unsuitable Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the wetland natural atmosphere.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — branded character landmark competes with the wildlife focus.
+## Alternative Objects
+
+- **Boardwalk loop** — accessible elevated path that is the wetland experience itself.
+- **Stepping stones** — low-cost water-crossing play.
+- **Water play** — pump-and-channel table for hands-on water engagement.

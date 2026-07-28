@@ -84,3 +84,16 @@ AI 对话屏幕
 
 - 显示屏季清洁
 - 投影年保养
+
+## Recommended Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — neural-network or sensor-panel wall IS the AI experience.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — AI figure or core sculpture anchors the intelligence narrative.
+## Unsuitable Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — wooden treehouse vocabulary clashes with the AI setting.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — calm reading nook undercuts the data-energy narrative.
+## Alternative Objects
+
+- **Climbing tower** — non-IP vertical structure in the server-rack vocabulary.
+- **Lighting installation** — uplighting that reads as a server-room indicator.

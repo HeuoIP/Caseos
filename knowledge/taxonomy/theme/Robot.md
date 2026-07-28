@@ -84,3 +84,16 @@
 
 - 互动季点检
 - 涂装年刷新
+
+## Recommended Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — robot-control or gear-panel wall IS the robot experience.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — oversized robot sculpture anchors the friendly-machine narrative.
+## Unsuitable Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — wooden treehouse vocabulary clashes with the robot setting.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — calm reading nook undercuts the robot-energy narrative.
+## Alternative Objects
+
+- **Climbing tower** — non-IP vertical structure in the robot-frame vocabulary.
+- **Lighting installation** — uplighting that reads as a robot eye.

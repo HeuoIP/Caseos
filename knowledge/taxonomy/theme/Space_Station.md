@@ -84,3 +84,17 @@
 
 - 模块装置季点检
 - 涂装年刷新
+
+## Recommended Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — mission-control or instrument-panel wall IS the space-station experience.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — space-station module or astronaut sculpture anchors the orbital narrative.
+- **Slide** (`OBJECT.SLIDE`) — escape-pod or airlock tube slide extends the orbital narrative.
+## Unsuitable Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — wooden treehouse vocabulary clashes with the orbital setting.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the mission-control energy.
+## Alternative Objects
+
+- **Climbing net** — non-IP vertical structure in the zero-gravity vocabulary.
+- **Lighting installation** — uplighting that reads as an orbital warning beacon.

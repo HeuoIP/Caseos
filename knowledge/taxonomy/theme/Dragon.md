@@ -84,3 +84,17 @@
 
 - FRP 年修色
 - 防火测试年度
+
+## Recommended Objects
+
+- **Slide** (`OBJECT.SLIDE`) — dragon-spine or fire-breath slide IS the dragon-descent anchor.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — dragon or dragon-treasure sculpture anchors the epic narrative.
+- **Treehouse** (`OBJECT.TREEHOUSE`) — dragon-roost or wizard-tower treehouse extends the high-fantasy story.
+## Unsuitable Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the dragon-quest energy.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the epic-dragon atmosphere.
+## Alternative Objects
+
+- **Climbing wall** — non-IP vertical structure in the dragon-cave vocabulary.
+- **Rope bridge** — lava-bridge or treasure-vault crossing in the dragon vocabulary.

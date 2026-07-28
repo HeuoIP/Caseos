@@ -84,3 +84,16 @@
 
 - 木年防腐
 - 灯季点检
+
+## Recommended Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — pavilion-style reading nook IS the Chinese-garden anchor.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — cultural figure or zodiac sculpture anchors the heritage narrative.
+## Unsuitable Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — digital educational panels break the traditional cultural atmosphere.
+## Alternative Objects
+
+- **Pergola** — shaded structure in the 廊 (corridor) vocabulary.
+- **Stone path** — stepping path in the 园林 (garden) vocabulary.
+- **Planting** — bamboo or plum planting in the 园林 vocabulary.

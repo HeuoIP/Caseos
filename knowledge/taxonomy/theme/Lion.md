@@ -84,3 +84,16 @@
 
 - 仿真鬓毛防腐
 - 王石季检
+
+## Recommended Objects
+
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — lion or pride sculpture anchors the savanna narrative.
+- **Treehouse** (`OBJECT.TREEHOUSE`) — rocky-outcrop platform reads as a savanna kopje lookout.
+## Unsuitable Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the lion-pride energy.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the savanna atmosphere.
+## Alternative Objects
+
+- **Rock climbing** — boulder-style climbing in the savanna-kopje vocabulary.
+- **Lookout deck** — non-IP elevated viewpoint that reads as a savanna kopje.

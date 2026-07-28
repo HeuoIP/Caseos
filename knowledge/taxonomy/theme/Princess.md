@@ -84,3 +84,17 @@
 
 - 旋转季点检
 - 装饰年更换
+
+## Recommended Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — elegant tower treehouse reads as a princess tower.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — princess figure or castle sculpture anchors the royal-court narrative.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — castle-library reading nook supports the story-circle use case.
+## Unsuitable Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern educational panels break the royal-court atmosphere.
+## Alternative Objects
+
+- **Pergola** — shaded structure in the castle-garden vocabulary.
+- **Maze** — hedge maze in the royal-garden vocabulary.
+- **Hedge garden** — non-equipment garden in the royal-garden vocabulary.

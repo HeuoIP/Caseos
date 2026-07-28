@@ -84,3 +84,17 @@
 
 - 木甲板年防腐
 - 索具季点检
+
+## Recommended Objects
+
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — ship or galleon sculpture anchors the sea-voyage narrative.
+- **Slide** (`OBJECT.SLIDE`) — deck or gangway slide extends the ship-board story.
+- **Treehouse** (`OBJECT.TREEHOUSE`) — crow nest platform reads as the ship masthead.
+## Unsuitable Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the sea-voyage energy.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the wooden-ships atmosphere.
+## Alternative Objects
+
+- **Rope bridge** — ship-to-ship crossing in the nautical vocabulary.
+- **Climbing net** — rigging-style climbing in the nautical material vocabulary.

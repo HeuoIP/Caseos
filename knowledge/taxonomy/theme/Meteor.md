@@ -83,3 +83,16 @@
 ## Maintain
 
 - 滑梯制动季检测
+
+## Recommended Objects
+
+- **Slide** (`OBJECT.SLIDE`) — meteor-shaped or fast-straight slide extends the impact-descent story.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — crater or meteorite sculpture anchors the impact narrative.
+## Unsuitable Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — wooden treehouse vocabulary clashes with the meteor-impact setting.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the meteor-impact energy.
+## Alternative Objects
+
+- **Climbing net** — non-IP vertical structure in the impact-crater vocabulary.
+- **Lighting installation** — uplighting that reads as a meteor trail at night.

@@ -82,3 +82,16 @@
 
 - 仿真毛皮季检
 - 狐尾年检
+
+## Recommended Objects
+
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — fox sculpture anchors the theme with a single, clear figure.
+- **Treehouse** (`OBJECT.TREEHOUSE`) — small treehouse or burrow-lookout structure extends the fox story.
+## Unsuitable Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the fox cleverness narrative.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern educational panels break the woodland fox atmosphere.
+## Alternative Objects
+
+- **Climbing log** — natural-material climbing element in the forest vocabulary.
+- **Burrow tunnel** — low crawl that reads as a fox den.

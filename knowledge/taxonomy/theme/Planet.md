@@ -84,3 +84,17 @@
 
 - FRP 年修色
 - 球体年检
+
+## Recommended Objects
+
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — ringed planet or planet-cluster sculpture anchors the solar-system narrative.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — orbit-panel or dashboard wall extends the planetary-explorer narrative.
+- **Slide** (`OBJECT.SLIDE`) — orbital-arc or ring slide extends the planetary-motion story.
+## Unsuitable Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — wooden treehouse vocabulary clashes with the planetary setting.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the planetary-explorer energy.
+## Alternative Objects
+
+- **Climbing tower** — non-IP vertical structure in the rocket vocabulary.
+- **Lighting installation** — uplighting that reads as a planetary ring at night.

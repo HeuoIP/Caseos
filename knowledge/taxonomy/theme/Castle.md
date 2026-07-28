@@ -84,3 +84,17 @@
 
 - FRP 石年修色
 - 表面防水测试
+
+## Recommended Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — tall turret-like treehouse reads as a castle tower.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — castle or coat-of-arms sculpture anchors the royal-fortress narrative.
+- **Slide** (`OBJECT.SLIDE`) — turret slide extends the castle-defence story.
+## Unsuitable Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern educational panels break the medieval castle atmosphere.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the castle-adventure energy.
+## Alternative Objects
+
+- **Climbing wall** — non-IP vertical structure in the castle-stonewall vocabulary.
+- **Rope bridge** — drawbridge or wall-walk crossing in the castle vocabulary.

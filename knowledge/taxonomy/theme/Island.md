@@ -84,3 +84,18 @@
 
 - 棕榆叶年更换
 - 戏水季检测
+
+## Recommended Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — palm-tree treehouse reads as the island signature structure.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — tropical or island-figure sculpture anchors the castaway narrative.
+- **Slide** (`OBJECT.SLIDE`) — wave or cascade slide extends the island adventure story.
+## Unsuitable Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the island-adventure energy.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — modern panel language breaks the tropical-island atmosphere.
+## Alternative Objects
+
+- **Sand pit** — beach material play in the island vocabulary.
+- **Water play** — pump, channel, and dam play in the lagoon vocabulary.
+- **Hammock grove** — non-equipment social rest area in the island vocabulary.

@@ -84,3 +84,17 @@
 
 - 轨道季检
 - 制动半年检
+
+## Recommended Objects
+
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — train or locomotive sculpture anchors the rail-journey narrative.
+- **Slide** (`OBJECT.SLIDE`) — carriage slide extends the train-ride story.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — cab or dashboard wall extends the conductor narrative.
+## Unsuitable Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — wooden treehouse vocabulary clashes with the rail-journey setting.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the rail-journey energy.
+## Alternative Objects
+
+- **Climbing carriage** — non-IP climbable carriage in the train vocabulary.
+- **Track maze** — low-arousal ground maze in the rail vocabulary.

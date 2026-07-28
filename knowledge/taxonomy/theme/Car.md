@@ -84,3 +84,16 @@
 
 - 车辆季点检
 - 轨道缓冲垫清洁
+
+## Recommended Objects
+
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — car sculpture anchors the road-trip narrative.
+- **Slide** (`OBJECT.SLIDE`) — race-track slide extends the driving-thrill story.
+## Unsuitable Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — wooden treehouse vocabulary clashes with the road-trip setting.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the road-trip energy.
+## Alternative Objects
+
+- **Track maze** — low-arousal ground maze in the road-track vocabulary.
+- **Climbing frame** — non-IP climbable structure in the road-vehicle vocabulary.

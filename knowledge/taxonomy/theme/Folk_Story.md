@@ -84,3 +84,16 @@
 
 - 灯季点检
 - 装饰年更换
+
+## Recommended Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — story-circle reading nook is the strongest fit for folk storytelling.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — folk-character sculpture anchors the regional-narrative story.
+## Unsuitable Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — digital educational panels break the folk-story atmosphere.
+## Alternative Objects
+
+- **Pergola** — shaded structure in the village-square vocabulary.
+- **Stone path** — stepping path in the village vocabulary.
+- **Planting** — regional planting in the folk-landscape vocabulary.

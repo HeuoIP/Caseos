@@ -84,3 +84,17 @@
 
 - 装饰年更换
 - 灯季点检
+
+## Recommended Objects
+
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — story-circle reading nook supports festival-origin storytelling.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — festival-figure or lantern sculpture anchors the celebration narrative.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — festive interactive panels (drums, lights) extend the celebration energy.
+## Unsuitable Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — wooden treehouse vocabulary clashes with the festival-ground setting.
+## Alternative Objects
+
+- **Pergola** — shaded structure in the festival-stage vocabulary.
+- **Stage platform** — non-IP performance platform in the festival vocabulary.
+- **Lighting installation** — lantern-style lighting in the festival vocabulary.

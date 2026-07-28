@@ -84,3 +84,17 @@
 
 - FRP 年修色
 - 防火涂层年测试
+
+## Recommended Objects
+
+- **Slide** (`OBJECT.SLIDE`) — rocket-shaped tube slide IS the launch-and-descent moment.
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — control-panel wall extends the mission-console narrative.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — rocket or astronaut sculpture anchors the launch narrative.
+## Unsuitable Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — wooden treehouse vocabulary clashes with the steel-and-composite rocket setting.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — quiet reading nook undercuts the rocket-launch energy.
+## Alternative Objects
+
+- **Climbing tower** — non-IP vertical structure in the rocket vocabulary.
+- **Lighting installation** — uplighting that reads as a launch pad at night.

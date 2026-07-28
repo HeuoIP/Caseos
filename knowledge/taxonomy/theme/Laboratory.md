@@ -84,3 +84,16 @@
 
 - 互动季点检
 - LED 年更换
+
+## Recommended Objects
+
+- **Interactive_Wall** (`OBJECT.INTERACTIVE_WALL`) — lab-bench panel wall IS the laboratory experience.
+- **IP_Sculpture** (`OBJECT.IP_SCULPTURE`) — oversized flask or microscope sculpture anchors the discovery narrative.
+## Unsuitable Objects
+
+- **Treehouse** (`OBJECT.TREEHOUSE`) — wooden treehouse vocabulary clashes with the laboratory setting.
+- **Reading_Corner** (`OBJECT.READING_CORNER`) — calm reading nook undercuts the experiment energy.
+## Alternative Objects
+
+- **Climbing tower** — non-IP vertical structure in the laboratory-platform vocabulary.
+- **Lighting installation** — uplighting that reads as a sterile lab light.
