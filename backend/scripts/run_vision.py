@@ -36,9 +36,16 @@ SUPPORTED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp"}
 # Logical schema version reported in manifest entries. Source of truth
 # lives in ``schemas/case_analysis_v3.json``; this label is what callers
 # should read to know which contract an analysis was produced under.
-ANALYSIS_VERSION = "CaseOS_Output_Schema_V2"
+OUTPUT_SCHEMA_VERSION = "CaseOS_Output_Schema_V2"
 
-# Default model name reported in manifest entries.
+# Vision Standard version embedded in every analysis JSON's `metadata`
+# block. Source of truth lives in
+# `docs/standards/CaseOS_Vision_Standard_V1.md`.
+VISION_STANDARD_VERSION = "CaseOS_Vision_Standard_V1"
+
+# Default model name embedded in every analysis JSON's `metadata`
+# block AND reported in the manifest log. Overridden by a future
+# multi-provider factory once a second backend lands.
 DEFAULT_MODEL_NAME = "qwen3.7-plus"
 
 # Default repo-rooted locations (image input / analysis output /
@@ -171,6 +178,31 @@ def _now_iso() -> str:
     return datetime.now().isoformat(timespec="seconds")
 
 
+def _wrap_metadata(payload: dict[str, Any], *, model: str) -> dict[str, Any]:
+    """Wrap the analyzer payload with a provenance `metadata` block.
+
+    The metadata block records HOW this analysis was produced so that
+    years later a maintainer (or a re-analysis job) knows:
+
+    - which model produced the analysis
+    - which Vision Standard governed the analysis
+    - which Output Schema contract the JSON satisfies
+    - exactly when it was produced
+
+    The analyzer itself stays clean: it returns ONLY the schema-defined
+    content payload. The orchestrator layers provenance on top.
+    """
+    return {
+        "metadata": {
+            "model": model,
+            "vision_standard": VISION_STANDARD_VERSION,
+            "output_schema": OUTPUT_SCHEMA_VERSION,
+            "analyzed_at": _now_iso(),
+        },
+        **payload,
+    }
+
+
 def _record_entry(
     manifest: list[dict[str, Any]],
     *,
@@ -187,7 +219,7 @@ def _record_entry(
         "status": status,
         "model": DEFAULT_MODEL_NAME,
         "prompt_version": prompt_version,
-        "analysis_version": ANALYSIS_VERSION,
+        "output_schema": OUTPUT_SCHEMA_VERSION,
         "time": _now_iso(),
         "duration": round(duration, 3),
     }
@@ -236,8 +268,9 @@ def run(target: str | None = None, *, indent: int = 2, force: bool = False) -> l
         start = time.monotonic()
         try:
             payload: dict[str, Any] = analyzer.analyze(str(image_path))
+            full = _wrap_metadata(payload, model=DEFAULT_MODEL_NAME)
             out_path.write_text(
-                json.dumps(payload, ensure_ascii=False, indent=indent) + "\n",
+                json.dumps(full, ensure_ascii=False, indent=indent) + "\n",
                 encoding="utf-8",
             )
             duration = time.monotonic() - start
