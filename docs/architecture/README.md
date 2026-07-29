@@ -42,3 +42,6 @@ What becomes easier? What becomes harder?
 
 What other options were on the table, and why did we reject them?
 ```
+## Active ADRs
+
+- **ADR-005** -- Decision Intelligence Architecture (Accepted 2026-07-29)
