@@ -1,0 +1,31 @@
+Strategy_ID: STRATEGY.PROVIDE_COMFORT
+Name: 提供舒适
+Name_EN: Provide Comfort
+Description: |
+  让用户在空间中感到舒适、安全、被养护。
+Mechanism: |
+  低刺激 + 自然元素 + 遮阳与隐私。
+Addresses_Goals:
+  - PERSONAL.RELAXATION
+  - COMMUNITY.BONDING
+  - COMMUNITY.INCLUSION
+Typical_Implementations:
+  - Seating Area
+  - Nature Element
+  - Shade Structure
+  - Sensory Garden
+Synergies:
+  - STRATEGY.CREATE_REST_POINTS
+  - STRATEGY.REDUCE_FRICTION
+Conflicts_With:
+  - STRATEGY.CREATE_LANDMARK
+  - STRATEGY.INTERACTIVE_EXPERIENCE
+Heuristics:
+  - 自然元素优先
+  - 低噪音
+  - 应有「什么都不做也很舒服」的位置
+Domain_Affinity:
+  - PUBLIC_PARK
+  - RESIDENTIAL
+  - TOURISM
+Priority: ★ x 4

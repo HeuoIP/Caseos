@@ -1,0 +1,28 @@
+Strategy_ID: STRATEGY.SUPPORT_SOCIAL_PLAY
+Name: 支持社交游戏
+Name_EN: Support Social Play
+Description: |
+  让多个用户之间产生互动与共享体验。
+Mechanism: |
+  多人参与尺度 + 共享空间 + 合作或竞争机制。
+Addresses_Goals:
+  - COMMUNITY.BONDING
+  - COMMUNITY.ACTIVITY
+  - CHILD.PLAY_VALUE
+Typical_Implementations:
+  - Amphitheater
+  - Performance Stage
+  - Reading Corner
+  - Sports Facility
+Synergies:
+  - STRATEGY.BUILD_NARRATIVE
+  - STRATEGY.ENABLE_PARENT_CHILD_INTERACTION
+Heuristics:
+  - 多人参与尺度合适
+  - 提供共享话题
+  - 合作机制优于竞争机制
+Domain_Affinity:
+  - PUBLIC_PARK
+  - RESIDENTIAL
+  - PLAYGROUND
+Priority: ★ x 4

@@ -1,0 +1,165 @@
+Schema_Version: 1
+Generated_At: "2026-07-29"
+Reason_Count: 12
+Reasons:
+  - Reason_ID: REASON.GOAL_OBJECT_FIT
+    Name: 目标对象匹配
+    Name_EN: Goal to Object Fit
+    Priority: 5
+    Required_Factors:
+      - goal
+      - object
+      - benefit
+    Uses_Goals:
+      - BUSINESS.TRAFFIC
+      - BUSINESS.BRAND
+      - PHOTO.SHARING
+    Uses_Strategies:
+      - STRATEGY.CREATE_LANDMARK
+      - STRATEGY.ENABLE_PHOTO_MOMENTS
+    File: REASON.GOAL_OBJECT_FIT.yaml
+  - Reason_ID: REASON.GOAL_STRATEGY_FIT
+    Name: 目标策略匹配
+    Name_EN: Goal to Strategy Fit
+    Priority: 5
+    Required_Factors:
+      - goal
+      - strategy
+    Uses_Goals:
+      - EDU.ENROLLMENT
+      - BUSINESS.REVENUE
+      - CHILD.PLAY_VALUE
+    Uses_Strategies:
+      - STRATEGY.INTERACTIVE_EXPERIENCE
+      - STRATEGY.ENABLE_PARENT_CHILD_INTERACTION
+    File: REASON.GOAL_STRATEGY_FIT.yaml
+  - Reason_ID: REASON.BUDGET_CONSTRAINT
+    Name: 预算约束
+    Name_EN: Budget Constraint
+    Priority: 5
+    Required_Factors:
+      - budget
+      - option
+    Uses_Goals:
+      - *
+    Uses_Strategies:
+      - *
+    File: REASON.BUDGET_CONSTRAINT.yaml
+  - Reason_ID: REASON.USER_AGE_MATCH
+    Name: 用户年龄匹配
+    Name_EN: User Age Match
+    Priority: 5
+    Required_Factors:
+      - age_group
+      - option
+    Uses_Goals:
+      - CHILD.DEVELOPMENT
+      - CHILD.PLAY_VALUE
+      - EDU.LEARNING
+    Uses_Strategies:
+      - STRATEGY.BUILD_NARRATIVE
+      - STRATEGY.INTERACTIVE_EXPERIENCE
+    File: REASON.USER_AGE_MATCH.yaml
+  - Reason_ID: REASON.SITE_RESOURCE_MATCH
+    Name: 场地资源匹配
+    Name_EN: Site Resource Match
+    Priority: 5
+    Required_Factors:
+      - site_feature
+      - option
+    Uses_Goals:
+      - *
+    Uses_Strategies:
+      - STRATEGY.ENCOURAGE_EXPLORATION
+      - STRATEGY.BUILD_NARRATIVE
+    File: REASON.SITE_RESOURCE_MATCH.yaml
+  - Reason_ID: REASON.CULTURAL_FIT
+    Name: 文化匹配
+    Name_EN: Cultural Fit
+    Priority: 4
+    Required_Factors:
+      - culture
+      - option
+    Uses_Goals:
+      - CULTURAL.HERITAGE
+      - BUSINESS.BRAND
+      - BUSINESS.DIFFERENTIATION
+    Uses_Strategies:
+      - STRATEGY.BUILD_NARRATIVE
+    File: REASON.CULTURAL_FIT.yaml
+  - Reason_ID: REASON.CONFLICT_RESOLUTION
+    Name: 冲突解决
+    Name_EN: Conflict Resolution
+    Priority: 4
+    Required_Factors:
+      - conflict
+      - resolution
+    Uses_Goals:
+      - *
+    Uses_Strategies:
+      - *
+    File: REASON.CONFLICT_RESOLUTION.yaml
+  - Reason_ID: REASON.PRIORITY_TRADEOFF
+    Name: 优先级权衡
+    Name_EN: Priority Tradeoff
+    Priority: 4
+    Required_Factors:
+      - priority_a
+      - priority_b
+    Uses_Goals:
+      - *
+    Uses_Strategies:
+      - *
+    File: REASON.PRIORITY_TRADEOFF.yaml
+  - Reason_ID: REASON.ROI_CALCULATION
+    Name: ROI 计算
+    Name_EN: ROI Calculation
+    Priority: 4
+    Required_Factors:
+      - option
+      - expected_return
+      - cost
+    Uses_Goals:
+      - BUSINESS.TRAFFIC
+      - BUSINESS.REVENUE
+      - PHOTO.SHARING
+    Uses_Strategies:
+      - STRATEGY.CREATE_LANDMARK
+      - STRATEGY.ENABLE_PHOTO_MOMENTS
+    File: REASON.ROI_CALCULATION.yaml
+  - Reason_ID: REASON.RISK_MITIGATION
+    Name: 风险缓解
+    Name_EN: Risk Mitigation
+    Priority: 4
+    Required_Factors:
+      - risk
+      - option
+    Uses_Goals:
+      - CHILD.DEVELOPMENT
+      - COMMUNITY.INCLUSION
+    Uses_Strategies:
+      - *
+    File: REASON.RISK_MITIGATION.yaml
+  - Reason_ID: REASON.SUCCESS_PATTERN
+    Name: 成功模式参考
+    Name_EN: Success Pattern
+    Priority: 4
+    Required_Factors:
+      - case_reference
+    Uses_Goals:
+      - *
+    Uses_Strategies:
+      - *
+    File: REASON.SUCCESS_PATTERN.yaml
+  - Reason_ID: REASON.NEGATIVE_REASON
+    Name: 排除原因
+    Name_EN: Exclusion Reason
+    Priority: 4
+    Required_Factors:
+      - option
+      - reason
+    Uses_Goals:
+      - *
+    Uses_Strategies:
+      - *
+    File: REASON.NEGATIVE_REASON.yaml

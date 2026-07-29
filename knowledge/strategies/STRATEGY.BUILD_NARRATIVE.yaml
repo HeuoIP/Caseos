@@ -1,0 +1,31 @@
+Strategy_ID: STRATEGY.BUILD_NARRATIVE
+Name: 构建叙事
+Name_EN: Build Narrative
+Description: |
+  让空间拥有一条可被记忆、可被复述的故事线。
+Mechanism: |
+  主题 + 角色 + 路径 + 高点四个要素组成。
+Addresses_Goals:
+  - BUSINESS.DIFFERENTIATION
+  - CULTURAL.HERITAGE
+  - EDU.LEARNING
+  - CHILD.PLAY_VALUE
+Typical_Implementations:
+  - Theme Sculpture
+  - Cultural Installation
+  - Performance Stage
+  - Theme Playground
+Synergies:
+  - STRATEGY.ENCOURAGE_EXPLORATION
+  - STRATEGY.INCREASE_STAY_TIME
+  - STRATEGY.ENABLE_PHOTO_MOMENTS
+Heuristics:
+  - 故事线清晰
+  - 角色可被记忆
+  - 高点明确
+Domain_Affinity:
+  - PLAYGROUND
+  - CULTURAL
+  - MUSEUM
+  - TOURISM
+Priority: ★ x 4

@@ -1,0 +1,39 @@
+Goal_ID: BUSINESS.TRAFFIC
+Name: 增加客流
+Name_EN: Increase Foot Traffic
+Description: |
+  通过空间内容吸引更多目标用户。核心是给出「来这里」的理由——空间必须提供商业项目之外的额外理由，让用户主动选择此地点而非其他地方。
+Success_Indicators:
+  - 客流增长
+  - 停留时间增加
+  - 二次消费增加
+  - 复访率提升
+Typical_Projects:
+  - 商业综合体
+  - 文旅
+  - 街区
+  - 购物中心
+Suitable_Objects:
+  - Landmark
+  - Interactive Installation
+  - Theme Playground
+  - Public Art
+  - Photography Spot
+Unsuitable_Objects:
+  - Small Decoration
+  - Wayfinding
+Heuristics:
+  - 必须有一个「远处可见」的吸引物
+  - 必须有一个「可拍照」的元素
+  - 必须有一个「可停留」的理由
+Conflicts_With:
+  - PERSONAL.RELAXATION
+Related_Goals:
+  - PHOTO.SHARING
+  - BUSINESS.BRAND
+Domain_Affinity:
+  - PLAYGROUND
+  - COMMERCIAL
+  - URBAN_PLAZA
+  - TOURISM
+Priority: ★ x 5

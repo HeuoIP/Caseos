@@ -1,0 +1,34 @@
+Strategy_ID: STRATEGY.CREATE_LANDMARK
+Name: 创建地标
+Name_EN: Create Landmark
+Description: |
+  在空间中创建一个视觉焦点，作为整个空间的识别核心与吸引核心。
+Mechanism: |
+  通过单一高识别度的视觉对象，让远处的人也能「看见这里」。
+Addresses_Goals:
+  - BUSINESS.TRAFFIC
+  - BUSINESS.BRAND
+  - BUSINESS.DIFFERENTIATION
+  - PHOTO.SHARING
+Typical_Implementations:
+  - Landmark
+  - Theme Sculpture
+  - IP Sculpture
+  - Public Art
+Synergies:
+  - STRATEGY.IMPROVE_VISIBILITY
+  - STRATEGY.ENABLE_PHOTO_MOMENTS
+  - STRATEGY.BUILD_NARRATIVE
+Conflicts_With:
+  - STRATEGY.PROVIDE_COMFORT
+  - STRATEGY.SUBTLE_INTEGRATION
+Heuristics:
+  - 至少有一个「远处可见」的对象
+  - 高度应高于周边环境
+  - 视觉语言应独特
+Domain_Affinity:
+  - PLAYGROUND
+  - COMMERCIAL
+  - TOURISM
+  - URBAN_PLAZA
+Priority: ★ x 4

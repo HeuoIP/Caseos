@@ -1,0 +1,39 @@
+Goal_ID: EDU.LEARNING
+Name: 学习
+Name_EN: Learning
+Description: |
+  通过空间内容支持儿童在认知、科学、艺术、自然等维度的学习。空间本身成为课程载体。
+Success_Indicators:
+  - 知识点可被复述
+  - 学习行为发生频次
+  - 课程结合度
+  - 教师使用率
+Typical_Projects:
+  - 幼儿园
+  - 博物馆
+  - 图书馆
+  - 营地教育
+  - 自然学校
+Suitable_Objects:
+  - Educational Installation
+  - Reading Corner
+  - Sensory Garden
+  - Nature Element
+  - Interactive Installation
+Unsuitable_Objects:
+  - Performance Stage
+  - Sports Facility
+  - F&B Space
+Heuristics:
+  - 学习应当发生于「玩耍」之中
+  - 至少有可被复述的具体知识点
+  - 空间应支持重复访问以积累学习
+Related_Goals:
+  - EDU.DISCOVERY
+  - CHILD.DEVELOPMENT
+  - CULTURAL.HERITAGE
+Domain_Affinity:
+  - EDUCATION
+  - MUSEUM
+  - PLAYGROUND
+Priority: ★ x 4

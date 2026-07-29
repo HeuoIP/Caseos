@@ -1,0 +1,24 @@
+Reason_ID: REASON.RISK_MITIGATION
+Name: 风险缓解
+Name_EN: Risk Mitigation
+Description: |
+  解释为什么某个选项能够减少项目风险。
+Trigger_When:
+  - 存在明显风险
+  - 客户表达了担忧
+Required_Factors:
+  - risk
+  - option
+Optional_Factors:
+  - mitigation
+  - alternative
+Template_Chinese: |
+  你担心「{risk}」，这是合理的。「{option}」能够通过「{mitigation}」减少这个风险，而不代价于其他重要目标。
+Example_Output: |
+  你担心「安全负担」，这是合理的。「软装场地 + 中等高度设施」能够通过「双重保护 + 逐级检查」减少这个风险，而不代价于其他重要目标。
+Uses_Goals:
+  - CHILD.DEVELOPMENT
+  - COMMUNITY.INCLUSION
+Uses_Strategies:
+  - "*"
+Priority: ★ x 4

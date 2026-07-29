@@ -1,0 +1,28 @@
+Strategy_ID: STRATEGY.ENABLE_PARENT_CHILD_INTERACTION
+Name: 促进亲子互动
+Name_EN: Enable Parent-Child Interaction
+Description: |
+  让家长与孩子可以一起玩、一起探索、一起记忆。
+Mechanism: |
+  共玩尺度 + 共同话题 + 双向反馈。
+Addresses_Goals:
+  - CHILD.DEVELOPMENT
+  - COMMUNITY.BONDING
+  - EDU.ENROLLMENT
+Typical_Implementations:
+  - Theme Playground
+  - Interactive Installation
+  - Sensory Garden
+  - Educational Installation
+Synergies:
+  - STRATEGY.BUILD_NARRATIVE
+  - STRATEGY.INTERACTIVE_EXPERIENCE
+Heuristics:
+  - 家长可参与的尺度
+  - 共同话题
+  - 双向反馈
+Domain_Affinity:
+  - PLAYGROUND
+  - EDUCATION
+  - FAMILY
+Priority: ★ x 5

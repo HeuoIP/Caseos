@@ -1,0 +1,29 @@
+Strategy_ID: STRATEGY.PROVIDE_LEARNING_OPS
+Name: 提供学习机会
+Name_EN: Provide Learning Opportunities
+Description: |
+  让空间本身成为课程载体，支持认知、科学、艺术、自然等多维度学习。
+Mechanism: |
+  知识点 + 体验结合 + 课程可运作。
+Addresses_Goals:
+  - EDU.LEARNING
+  - EDU.ENROLLMENT
+  - CHILD.DEVELOPMENT
+  - CULTURAL.HERITAGE
+Typical_Implementations:
+  - Educational Installation
+  - Reading Corner
+  - Sensory Garden
+  - Cultural Installation
+Synergies:
+  - STRATEGY.BUILD_NARRATIVE
+  - STRATEGY.ENCOURAGE_EXPLORATION
+Heuristics:
+  - 至少有可被复述的具体知识点
+  - 课程可结合
+  - 空间应支持重复访问以积累学习
+Domain_Affinity:
+  - EDUCATION
+  - MUSEUM
+  - PLAYGROUND
+Priority: ★ x 4

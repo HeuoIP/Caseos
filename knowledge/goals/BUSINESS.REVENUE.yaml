@@ -1,0 +1,38 @@
+Goal_ID: BUSINESS.REVENUE
+Name: 营收增长
+Name_EN: Revenue Growth
+Description: |
+  通过空间内容直接驱动营收增长。包括门票收入、二次消费、衍生品销售等可量化收入。
+Success_Indicators:
+  - 客单价提升
+  - 营收增长
+  - 衍生品销售增长
+  - 会员复购
+Typical_Projects:
+  - 主题乐园
+  - 商业综合体
+  - 文旅
+  - 亲子餐厅
+Suitable_Objects:
+  - Theme Playground
+  - Interactive Installation
+  - Retail Kiosk
+  - F&B Space
+  - Photography Spot
+Unsuitable_Objects:
+  - Wayfinding
+  - Small Decoration
+  - Softscape
+Heuristics:
+  - 空间应同时具备停留理由、付费触点、记忆点
+  - 商业转化路径应自然嵌入体验
+Conflicts_With:
+  - COMMUNITY.INCLUSION
+Related_Goals:
+  - BUSINESS.TRAFFIC
+  - CHILD.PLAY_VALUE
+Domain_Affinity:
+  - COMMERCIAL
+  - TOURISM
+  - PLAYGROUND
+Priority: ★ x 4

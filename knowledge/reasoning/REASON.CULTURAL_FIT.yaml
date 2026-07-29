@@ -1,0 +1,25 @@
+Reason_ID: REASON.CULTURAL_FIT
+Name: 文化匹配
+Name_EN: Cultural Fit
+Description: |
+  解释为什么某个选择与本地文化上下文匹配。
+Trigger_When:
+  - 项目地有明显的文化背景
+  - 需要表达或派生本地文化
+Required_Factors:
+  - culture
+  - option
+Optional_Factors:
+  - heritage
+  - community
+Template_Chinese: |
+  「{culture}」是这个项目的重要资源。「{option}」能够「{expression}」这个文化，同时避免「{pitfall}」。
+Example_Output: |
+  「山东民俐」是这个项目的重要资源。「市集场景」能够「现代译释」这个文化，同时避免「符号堆砌」。
+Uses_Goals:
+  - CULTURAL.HERITAGE
+  - BUSINESS.BRAND
+  - BUSINESS.DIFFERENTIATION
+Uses_Strategies:
+  - STRATEGY.BUILD_NARRATIVE
+Priority: ★ x 4

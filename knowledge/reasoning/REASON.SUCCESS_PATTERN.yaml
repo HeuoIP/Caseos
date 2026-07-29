@@ -1,0 +1,22 @@
+Reason_ID: REASON.SUCCESS_PATTERN
+Name: 成功模式参考
+Name_EN: Success Pattern
+Description: |
+  引用过去成功的案例模式作为推荐依据。
+Trigger_When:
+  - 存在可参考的成功案例
+  - 需要增强可信度
+Required_Factors:
+  - case_reference
+Optional_Factors:
+  - outcome_metric
+  - context_similarity
+Template_Chinese: |
+  我们的案例库中「{case_reference}」与你的场景高度相似，它采用了类似的方案并取得了「{outcome_metric}」。因此推荐。
+Example_Output: |
+  我们的案例库中「柏林勒柏林狮子园」与你的场景高度相似，它采用了类似的「动物主题 + 互动体验」方案并取得了「同类项目中访客增长 40%」。因此推荐。
+Uses_Goals:
+  - "*"
+Uses_Strategies:
+  - "*"
+Priority: ★ x 4

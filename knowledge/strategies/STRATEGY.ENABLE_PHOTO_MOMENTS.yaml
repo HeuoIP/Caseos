@@ -1,0 +1,30 @@
+Strategy_ID: STRATEGY.ENABLE_PHOTO_MOMENTS
+Name: 创造拍照时刻
+Name_EN: Enable Photo Moments
+Description: |
+  让空间「值得被拍」「值得被分享」，带来自发传播流量。
+Mechanism: |
+  视觉冲击 + 出片角度 + 夜间内容。
+Addresses_Goals:
+  - PHOTO.SHARING
+  - BUSINESS.BRAND
+  - BUSINESS.TRAFFIC
+Typical_Implementations:
+  - Photography Spot
+  - Lighting Installation
+  - Theme Sculpture
+  - Public Art
+Synergies:
+  - STRATEGY.CREATE_LANDMARK
+  - STRATEGY.BUILD_NARRATIVE
+Conflicts_With:
+  - STRATEGY.SUBTLE_INTEGRATION
+Heuristics:
+  - 至少一个「第一眼震撒」的元素
+  - 至少一个「出片」的角度
+  - 白天与夜间都有内容可拍
+Domain_Affinity:
+  - COMMERCIAL
+  - TOURISM
+  - URBAN_PLAZA
+Priority: ★ x 4

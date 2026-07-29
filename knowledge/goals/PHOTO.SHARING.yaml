@@ -1,0 +1,39 @@
+Goal_ID: PHOTO.SHARING
+Name: 拍照分享
+Name_EN: Photo & Social Sharing
+Description: |
+  通过空间内容创造「值得被拍照」「值得被分享」的视觉记忆点，从而带来自发的传播流量。
+Success_Indicators:
+  - 自发分享率
+  - UGC 内容数量
+  - 媒体提及率
+  - 网红打卡指数
+Typical_Projects:
+  - 文旅
+  - 商业综合体
+  - 街区
+  - 主题乐园
+Suitable_Objects:
+  - Photography Spot
+  - Landmark
+  - Theme Sculpture
+  - Lighting Installation
+  - Public Art
+Unsuitable_Objects:
+  - Wayfinding
+  - Seating Area
+  - Softscape
+Heuristics:
+  - 至少一个「第一眼震撼」的元素
+  - 至少一个「出片」的角度
+  - 白天与夜晚都有内容可拍
+Conflicts_With:
+  - COMMUNITY.INCLUSION
+Related_Goals:
+  - BUSINESS.BRAND
+  - BUSINESS.TRAFFIC
+Domain_Affinity:
+  - COMMERCIAL
+  - TOURISM
+  - URBAN_PLAZA
+Priority: ★ x 4

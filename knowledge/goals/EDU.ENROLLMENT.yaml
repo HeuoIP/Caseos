@@ -1,0 +1,37 @@
+Goal_ID: EDU.ENROLLMENT
+Name: 招生
+Name_EN: Enrollment
+Description: |
+  通过空间内容增强机构对家长与孩子的吸引力，直接支持招生转化。
+Success_Indicators:
+  - 咨询量增长
+  - 体验课转化率
+  - 续费率
+  - 转介绍率
+Typical_Projects:
+  - 幼儿园
+  - 早教
+  - 培训机构
+  - 营地教育
+Suitable_Objects:
+  - Theme Playground
+  - Educational Installation
+  - Sensory Garden
+  - Interactive Installation
+  - Reading Corner
+Unsuitable_Objects:
+  - Performance Stage
+  - Retail Kiosk
+  - F&B Space
+Heuristics:
+  - 空间应同时具备「课程展示」「安全感知」「专业形象」三大功能
+  - 家长视角与儿童视角都要照顾
+Conflicts_With:
+  - BUSINESS.REVENUE
+Related_Goals:
+  - CHILD.DEVELOPMENT
+  - EDU.LEARNING
+Domain_Affinity:
+  - EDUCATION
+  - PLAYGROUND
+Priority: ★ x 5

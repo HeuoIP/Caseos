@@ -1,0 +1,30 @@
+Strategy_ID: STRATEGY.INCREASE_STAY_TIME
+Name: 增加停留时间
+Name_EN: Increase Stay Time
+Description: |
+  让用户在空间中停留更久，提升价值与体验完整性。
+Mechanism: |
+  通过多阶段体验、难度梯度与累计奖励，拉长单次停留时长。
+Addresses_Goals:
+  - BUSINESS.TRAFFIC
+  - BUSINESS.REVENUE
+  - COMMUNITY.BONDING
+Typical_Implementations:
+  - Adventure Course
+  - Interactive Installation
+  - Theme Playground
+  - Performance Stage
+Synergies:
+  - STRATEGY.BUILD_NARRATIVE
+  - STRATEGY.ENCOURAGE_EXPLORATION
+Conflicts_With:
+  - STRATEGY.PROVIDE_COMFORT
+Heuristics:
+  - 至少 3 个体验阶段
+  - 难度应有梯度
+  - 应有「还想来下一次」的钜点
+Domain_Affinity:
+  - PLAYGROUND
+  - COMMERCIAL
+  - TOURISM
+Priority: ★ x 5

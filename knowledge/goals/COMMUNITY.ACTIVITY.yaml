@@ -1,0 +1,39 @@
+Goal_ID: COMMUNITY.ACTIVITY
+Name: 社区活跃
+Name_EN: Community Activation
+Description: |
+  通过空间内容提升社区公共生活的活跃度。空间应支持居民聚集、互动与日常使用。
+Success_Indicators:
+  - 日均使用人次
+  - 停留时长
+  - 活动自发组织次数
+  - 多代际使用率
+Typical_Projects:
+  - 社区公园
+  - 街区
+  - 公共广场
+  - 居住区配套
+Suitable_Objects:
+  - Seating Area
+  - Performance Stage
+  - Amphitheater
+  - Reading Corner
+  - Nature Element
+Unsuitable_Objects:
+  - Retail Kiosk
+  - F&B Space
+  - Photography Spot
+Heuristics:
+  - 空间必须容纳多种使用方式
+  - 早晨、午后、傍晚、夜间都有相应的内容
+  - 可被免费使用
+Conflicts_With:
+  - BUSINESS.REVENUE
+Related_Goals:
+  - COMMUNITY.BONDING
+  - PERSONAL.RELAXATION
+Domain_Affinity:
+  - PUBLIC_PARK
+  - URBAN_PLAZA
+  - RESIDENTIAL
+Priority: ★ x 4

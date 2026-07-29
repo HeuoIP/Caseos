@@ -1,0 +1,204 @@
+Schema_Version: 1
+Generated_At: "2026-07-29"
+Goal_Count: 15
+Goals:
+  - Goal_ID: BUSINESS.TRAFFIC
+    Name: 增加客流
+    Name_EN: Increase Foot Traffic
+    Priority: 5
+    Domain_Affinity:
+      - PLAYGROUND
+      - COMMERCIAL
+      - URBAN_PLAZA
+      - TOURISM
+    Conflicts_With:
+      - PERSONAL.RELAXATION
+    Related_Goals:
+      - PHOTO.SHARING
+      - BUSINESS.BRAND
+    File: BUSINESS.TRAFFIC.yaml
+  - Goal_ID: BUSINESS.BRAND
+    Name: 品牌建设
+    Name_EN: Brand Building
+    Priority: 4
+    Domain_Affinity:
+      - COMMERCIAL
+      - PLAYGROUND
+      - TOURISM
+    Related_Goals:
+      - BUSINESS.DIFFERENTIATION
+      - PHOTO.SHARING
+    File: BUSINESS.BRAND.yaml
+  - Goal_ID: BUSINESS.REVENUE
+    Name: 营收增长
+    Name_EN: Revenue Growth
+    Priority: 4
+    Domain_Affinity:
+      - COMMERCIAL
+      - TOURISM
+      - PLAYGROUND
+    Conflicts_With:
+      - COMMUNITY.INCLUSION
+    Related_Goals:
+      - BUSINESS.TRAFFIC
+      - CHILD.PLAY_VALUE
+    File: BUSINESS.REVENUE.yaml
+  - Goal_ID: BUSINESS.DIFFERENTIATION
+    Name: 差异化
+    Name_EN: Differentiation
+    Priority: 4
+    Domain_Affinity:
+      - COMMERCIAL
+      - TOURISM
+      - PLAYGROUND
+      - URBAN_PLAZA
+    Related_Goals:
+      - BUSINESS.BRAND
+      - CULTURAL.HERITAGE
+    File: BUSINESS.DIFFERENTIATION.yaml
+  - Goal_ID: EDU.ENROLLMENT
+    Name: 招生
+    Name_EN: Enrollment
+    Priority: 5
+    Domain_Affinity:
+      - EDUCATION
+      - PLAYGROUND
+    Conflicts_With:
+      - BUSINESS.REVENUE
+    Related_Goals:
+      - CHILD.DEVELOPMENT
+      - EDU.LEARNING
+    File: EDU.ENROLLMENT.yaml
+  - Goal_ID: EDU.LEARNING
+    Name: 学习
+    Name_EN: Learning
+    Priority: 4
+    Domain_Affinity:
+      - EDUCATION
+      - MUSEUM
+      - PLAYGROUND
+    Related_Goals:
+      - EDU.DISCOVERY
+      - CHILD.DEVELOPMENT
+      - CULTURAL.HERITAGE
+    File: EDU.LEARNING.yaml
+  - Goal_ID: EDU.DISCOVERY
+    Name: 探索
+    Name_EN: Discovery
+    Priority: 4
+    Domain_Affinity:
+      - EDUCATION
+      - PLAYGROUND
+      - MUSEUM
+    Related_Goals:
+      - EDU.LEARNING
+      - CHILD.PLAY_VALUE
+    File: EDU.DISCOVERY.yaml
+  - Goal_ID: COMMUNITY.ACTIVITY
+    Name: 社区活跃
+    Name_EN: Community Activation
+    Priority: 4
+    Domain_Affinity:
+      - PUBLIC_PARK
+      - URBAN_PLAZA
+      - RESIDENTIAL
+    Conflicts_With:
+      - BUSINESS.REVENUE
+    Related_Goals:
+      - COMMUNITY.BONDING
+      - PERSONAL.RELAXATION
+    File: COMMUNITY.ACTIVITY.yaml
+  - Goal_ID: COMMUNITY.BONDING
+    Name: 家庭与邻里
+    Name_EN: Family & Neighborhood Bonding
+    Priority: 4
+    Domain_Affinity:
+      - PUBLIC_PARK
+      - RESIDENTIAL
+      - URBAN_PLAZA
+    Related_Goals:
+      - COMMUNITY.ACTIVITY
+      - CHILD.PLAY_VALUE
+    File: COMMUNITY.BONDING.yaml
+  - Goal_ID: COMMUNITY.INCLUSION
+    Name: 包容
+    Name_EN: Inclusion
+    Priority: 4
+    Domain_Affinity:
+      - PUBLIC_PARK
+      - URBAN_PLAZA
+      - EDUCATION
+    Conflicts_With:
+      - BUSINESS.REVENUE
+    Related_Goals:
+      - COMMUNITY.BONDING
+      - CHILD.DEVELOPMENT
+    File: COMMUNITY.INCLUSION.yaml
+  - Goal_ID: CHILD.DEVELOPMENT
+    Name: 儿童发展
+    Name_EN: Child Development
+    Priority: 5
+    Domain_Affinity:
+      - PLAYGROUND
+      - EDUCATION
+    Related_Goals:
+      - EDU.LEARNING
+      - CHILD.PLAY_VALUE
+      - EDU.DISCOVERY
+    File: CHILD.DEVELOPMENT.yaml
+  - Goal_ID: CHILD.PLAY_VALUE
+    Name: 游戏价值
+    Name_EN: Play Value
+    Priority: 4
+    Domain_Affinity:
+      - PLAYGROUND
+    Conflicts_With:
+      - PERSONAL.RELAXATION
+    Related_Goals:
+      - CHILD.DEVELOPMENT
+      - EDU.DISCOVERY
+    File: CHILD.PLAY_VALUE.yaml
+  - Goal_ID: PHOTO.SHARING
+    Name: 拍照分享
+    Name_EN: Photo & Social Sharing
+    Priority: 4
+    Domain_Affinity:
+      - COMMERCIAL
+      - TOURISM
+      - URBAN_PLAZA
+    Conflicts_With:
+      - COMMUNITY.INCLUSION
+    Related_Goals:
+      - BUSINESS.BRAND
+      - BUSINESS.TRAFFIC
+    File: PHOTO.SHARING.yaml
+  - Goal_ID: PERSONAL.RELAXATION
+    Name: 放松
+    Name_EN: Relaxation
+    Priority: 3
+    Domain_Affinity:
+      - PUBLIC_PARK
+      - RESIDENTIAL
+      - TOURISM
+    Conflicts_With:
+      - CHILD.PLAY_VALUE
+      - BUSINESS.TRAFFIC
+    Related_Goals:
+      - COMMUNITY.BONDING
+      - COMMUNITY.INCLUSION
+    File: PERSONAL.RELAXATION.yaml
+  - Goal_ID: CULTURAL.HERITAGE
+    Name: 文化遗产
+    Name_EN: Cultural Heritage
+    Priority: 4
+    Domain_Affinity:
+      - CULTURAL
+      - TOURISM
+      - URBAN_PLAZA
+      - MUSEUM
+    Conflicts_With:
+      - BUSINESS.DIFFERENTIATION
+    Related_Goals:
+      - EDU.LEARNING
+      - BUSINESS.BRAND
+    File: CULTURAL.HERITAGE.yaml

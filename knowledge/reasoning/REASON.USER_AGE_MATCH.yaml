@@ -1,0 +1,26 @@
+Reason_ID: REASON.USER_AGE_MATCH
+Name: 用户年龄匹配
+Name_EN: User Age Match
+Description: |
+  解释为什么某个选择匹配主要用户年龄。
+Trigger_When:
+  - 主要用户年龄明确
+  - 设计选项受年龄影响较大
+Required_Factors:
+  - age_group
+  - option
+Optional_Factors:
+  - developmental_goal
+  - safety
+Template_Chinese: |
+  年龄「{age_group}」的孩子更喜欢「{preference}」，因为它们正在「{developmental_stage}」，需要「{need}」。「{option}」能够准确匹配这些需求。
+Example_Output: |
+  年龄「3-6 岁」的孩子更喜欢「角色扮演」，因为它们正在「社交与语言发展」，需要「共同想象」。「主题互动墙」能够准确匹配这些需求。
+Uses_Goals:
+  - CHILD.DEVELOPMENT
+  - CHILD.PLAY_VALUE
+  - EDU.LEARNING
+Uses_Strategies:
+  - STRATEGY.BUILD_NARRATIVE
+  - STRATEGY.INTERACTIVE_EXPERIENCE
+Priority: ★ x 5

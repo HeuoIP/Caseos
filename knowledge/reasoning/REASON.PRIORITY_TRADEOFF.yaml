@@ -1,0 +1,23 @@
+Reason_ID: REASON.PRIORITY_TRADEOFF
+Name: 优先级权衡
+Name_EN: Priority Tradeoff
+Description: |
+  解释为什么某个优先级不被选择、或者为什么某个选择被提前。
+Trigger_When:
+  - 多个优先级需要排序
+  - 需要说明优先级决策
+Required_Factors:
+  - priority_a
+  - priority_b
+Optional_Factors:
+  - context
+  - constraint
+Template_Chinese: |
+  在「{priority_a}」与「{priority_b}」之间，我选择了「{choice}」，因为「{reason}」。这不是在否定「{rejected}」，而是在考虑顺序。
+Example_Output: |
+  在「增加停留时间」与「提供舒适」之间，我选择了「增加停留时间」，因为「你的业务目标是营收增长，位于优先顺序顶部」。这不是在否定「舒适」，而是在考虑顺序。
+Uses_Goals:
+  - "*"
+Uses_Strategies:
+  - "*"
+Priority: ★ x 4

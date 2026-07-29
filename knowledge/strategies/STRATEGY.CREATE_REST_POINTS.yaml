@@ -1,0 +1,29 @@
+Strategy_ID: STRATEGY.CREATE_REST_POINTS
+Name: 设置休息点
+Name_EN: Create Rest Points
+Description: |
+  为成人与老年人提供可以休息、可以观察、可以社交的位置。
+Mechanism: |
+  座椅 + 遮阴 + 视野开阔 + 靠近体验区。
+Addresses_Goals:
+  - COMMUNITY.BONDING
+  - PERSONAL.RELAXATION
+  - COMMUNITY.INCLUSION
+Typical_Implementations:
+  - Seating Area
+  - Shade Structure
+  - Nature Element
+Synergies:
+  - STRATEGY.PROVIDE_COMFORT
+  - STRATEGY.SUPPORT_SOCIAL_PLAY
+Conflicts_With:
+  - STRATEGY.INTERACTIVE_EXPERIENCE
+Heuristics:
+  - 视野开阔
+  - 自然遮阴
+  - 多处分布
+Domain_Affinity:
+  - PLAYGROUND
+  - PUBLIC_PARK
+  - RESIDENTIAL
+Priority: ★ x 4

@@ -1,0 +1,37 @@
+Goal_ID: CHILD.PLAY_VALUE
+Name: 游戏价值
+Name_EN: Play Value
+Description: |
+  通过空间内容提供高游戏价值——支持多种游戏行为、可重复玩、可创造、可社交。
+Success_Indicators:
+  - 重复访问次数
+  - 游戏行为种类数
+  - 单次停留时长
+  - 自发游戏发生率
+Typical_Projects:
+  - 儿童乐园
+  - 幼儿园
+  - 主题乐园
+  - 街区
+Suitable_Objects:
+  - Theme Playground
+  - Adventure Course
+  - Interactive Installation
+  - Sports Facility
+  - Sensory Garden
+Unsuitable_Objects:
+  - Small Decoration
+  - Wayfinding
+  - Photography Spot
+Heuristics:
+  - 同一设施应支持至少 3 种游戏行为
+  - 空间应有「开放结局」让儿童决定玩法
+  - 难度应有梯度
+Conflicts_With:
+  - PERSONAL.RELAXATION
+Related_Goals:
+  - CHILD.DEVELOPMENT
+  - EDU.DISCOVERY
+Domain_Affinity:
+  - PLAYGROUND
+Priority: ★ x 4

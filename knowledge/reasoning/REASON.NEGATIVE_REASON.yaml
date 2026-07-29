@@ -1,0 +1,22 @@
+Reason_ID: REASON.NEGATIVE_REASON
+Name: 排除原因
+Name_EN: Exclusion Reason
+Description: |
+  解释为什么某个选项不被推荐。
+Trigger_When:
+  - 客户提问为什么不选某项
+  - 需要明确说明限制
+Required_Factors:
+  - option
+  - reason
+Optional_Factors:
+  - alternative
+Template_Chinese: |
+  「{option}」在你的场景中不被推荐，主要是「{reason}」。如果你以后不受这个限制，我们可以重新考虑。
+Example_Output: |
+  「高度鬼坊」在你的场景中不被推荐，主要是「预算不足以支撑该代价」。如果你以后不受这个限制，我们可以重新考虑。
+Uses_Goals:
+  - "*"
+Uses_Strategies:
+  - "*"
+Priority: ★ x 4

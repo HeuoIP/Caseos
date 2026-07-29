@@ -1,0 +1,29 @@
+Strategy_ID: STRATEGY.ENCOURAGE_REPEAT_VISIT
+Name: 鼓励回访
+Name_EN: Encourage Repeat Visit
+Description: |
+  让用户愿意一再来这里，提升复访与口碑。
+Mechanism: |
+  季节变化 + 隐藏内容 + 进阶体验 + 社区责任。
+Addresses_Goals:
+  - COMMUNITY.BONDING
+  - EDU.DISCOVERY
+  - BUSINESS.TRAFFIC
+Typical_Implementations:
+  - Nature Element
+  - Adventure Course
+  - Interactive Installation
+  - Cultural Installation
+Synergies:
+  - STRATEGY.ENCOURAGE_EXPLORATION
+  - STRATEGY.BUILD_NARRATIVE
+Heuristics:
+  - 季节主题
+  - 隐藏彩蛋
+  - 进阶体验系统
+Domain_Affinity:
+  - PLAYGROUND
+  - MUSEUM
+  - TOURISM
+  - PUBLIC_PARK
+Priority: ★ x 4

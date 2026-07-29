@@ -1,0 +1,223 @@
+Schema_Version: 1
+Generated_At: "2026-07-29"
+Strategy_Count: 16
+Strategies:
+  - Strategy_ID: STRATEGY.CREATE_LANDMARK
+    Name: 创建地标
+    Name_EN: Create Landmark
+    Priority: 4
+    Addresses_Goals:
+      - BUSINESS.TRAFFIC
+      - BUSINESS.BRAND
+      - BUSINESS.DIFFERENTIATION
+      - PHOTO.SHARING
+    Conflicts_With:
+      - STRATEGY.PROVIDE_COMFORT
+      - STRATEGY.SUBTLE_INTEGRATION
+    Synergies:
+      - STRATEGY.IMPROVE_VISIBILITY
+      - STRATEGY.ENABLE_PHOTO_MOMENTS
+      - STRATEGY.BUILD_NARRATIVE
+    File: STRATEGY.CREATE_LANDMARK.yaml
+  - Strategy_ID: STRATEGY.INCREASE_STAY_TIME
+    Name: 增加停留时间
+    Name_EN: Increase Stay Time
+    Priority: 5
+    Addresses_Goals:
+      - BUSINESS.TRAFFIC
+      - BUSINESS.REVENUE
+      - COMMUNITY.BONDING
+    Conflicts_With:
+      - STRATEGY.PROVIDE_COMFORT
+    Synergies:
+      - STRATEGY.BUILD_NARRATIVE
+      - STRATEGY.ENCOURAGE_EXPLORATION
+    File: STRATEGY.INCREASE_STAY_TIME.yaml
+  - Strategy_ID: STRATEGY.IMPROVE_VISIBILITY
+    Name: 提升可见性
+    Name_EN: Improve Visibility
+    Priority: 4
+    Addresses_Goals:
+      - BUSINESS.TRAFFIC
+      - BUSINESS.BRAND
+    Conflicts_With:
+      - STRATEGY.SUBTLE_INTEGRATION
+    Synergies:
+      - STRATEGY.CREATE_LANDMARK
+      - STRATEGY.ENABLE_PHOTO_MOMENTS
+    File: STRATEGY.IMPROVE_VISIBILITY.yaml
+  - Strategy_ID: STRATEGY.INTERACTIVE_EXPERIENCE
+    Name: 互动体验
+    Name_EN: Interactive Experience
+    Priority: 5
+    Addresses_Goals:
+      - CHILD.PLAY_VALUE
+      - BUSINESS.TRAFFIC
+      - BUSINESS.REVENUE
+      - EDU.DISCOVERY
+    Conflicts_With:
+      - STRATEGY.PROVIDE_COMFORT
+    Synergies:
+      - STRATEGY.ENCOURAGE_EXPLORATION
+      - STRATEGY.INCREASE_STAY_TIME
+    File: STRATEGY.INTERACTIVE_EXPERIENCE.yaml
+  - Strategy_ID: STRATEGY.ENCOURAGE_EXPLORATION
+    Name: 鼓励探索
+    Name_EN: Encourage Exploration
+    Priority: 4
+    Addresses_Goals:
+      - EDU.DISCOVERY
+      - CHILD.PLAY_VALUE
+      - COMMUNITY.BONDING
+    Conflicts_With:
+      - STRATEGY.PROVIDE_COMFORT
+    Synergies:
+      - STRATEGY.BUILD_NARRATIVE
+      - STRATEGY.ENCOURAGE_REPEAT_VISIT
+    File: STRATEGY.ENCOURAGE_EXPLORATION.yaml
+  - Strategy_ID: STRATEGY.SUPPORT_SOCIAL_PLAY
+    Name: 支持社交游戏
+    Name_EN: Support Social Play
+    Priority: 4
+    Addresses_Goals:
+      - COMMUNITY.BONDING
+      - COMMUNITY.ACTIVITY
+      - CHILD.PLAY_VALUE
+    Synergies:
+      - STRATEGY.BUILD_NARRATIVE
+      - STRATEGY.ENABLE_PARENT_CHILD_INTERACTION
+    File: STRATEGY.SUPPORT_SOCIAL_PLAY.yaml
+  - Strategy_ID: STRATEGY.PROVIDE_COMFORT
+    Name: 提供舒适
+    Name_EN: Provide Comfort
+    Priority: 4
+    Addresses_Goals:
+      - PERSONAL.RELAXATION
+      - COMMUNITY.BONDING
+      - COMMUNITY.INCLUSION
+    Conflicts_With:
+      - STRATEGY.CREATE_LANDMARK
+      - STRATEGY.INTERACTIVE_EXPERIENCE
+    Synergies:
+      - STRATEGY.CREATE_REST_POINTS
+      - STRATEGY.REDUCE_FRICTION
+    File: STRATEGY.PROVIDE_COMFORT.yaml
+  - Strategy_ID: STRATEGY.ENABLE_PHOTO_MOMENTS
+    Name: 创造拍照时刻
+    Name_EN: Enable Photo Moments
+    Priority: 4
+    Addresses_Goals:
+      - PHOTO.SHARING
+      - BUSINESS.BRAND
+      - BUSINESS.TRAFFIC
+    Conflicts_With:
+      - STRATEGY.SUBTLE_INTEGRATION
+    Synergies:
+      - STRATEGY.CREATE_LANDMARK
+      - STRATEGY.BUILD_NARRATIVE
+    File: STRATEGY.ENABLE_PHOTO_MOMENTS.yaml
+  - Strategy_ID: STRATEGY.BUILD_NARRATIVE
+    Name: 构建叙事
+    Name_EN: Build Narrative
+    Priority: 4
+    Addresses_Goals:
+      - BUSINESS.DIFFERENTIATION
+      - CULTURAL.HERITAGE
+      - EDU.LEARNING
+      - CHILD.PLAY_VALUE
+    Synergies:
+      - STRATEGY.ENCOURAGE_EXPLORATION
+      - STRATEGY.INCREASE_STAY_TIME
+      - STRATEGY.ENABLE_PHOTO_MOMENTS
+    File: STRATEGY.BUILD_NARRATIVE.yaml
+  - Strategy_ID: STRATEGY.REDUCE_FRICTION
+    Name: 减少摩擦
+    Name_EN: Reduce Friction
+    Priority: 4
+    Addresses_Goals:
+      - COMMUNITY.INCLUSION
+      - COMMUNITY.ACTIVITY
+      - BUSINESS.TRAFFIC
+    Synergies:
+      - STRATEGY.PROVIDE_COMFORT
+      - STRATEGY.SUPPORT_SOCIAL_PLAY
+    File: STRATEGY.REDUCE_FRICTION.yaml
+  - Strategy_ID: STRATEGY.PROVIDE_LEARNING_OPS
+    Name: 提供学习机会
+    Name_EN: Provide Learning Opportunities
+    Priority: 4
+    Addresses_Goals:
+      - EDU.LEARNING
+      - EDU.ENROLLMENT
+      - CHILD.DEVELOPMENT
+      - CULTURAL.HERITAGE
+    Synergies:
+      - STRATEGY.BUILD_NARRATIVE
+      - STRATEGY.ENCOURAGE_EXPLORATION
+    File: STRATEGY.PROVIDE_LEARNING_OPS.yaml
+  - Strategy_ID: STRATEGY.CREATE_REST_POINTS
+    Name: 设置休息点
+    Name_EN: Create Rest Points
+    Priority: 4
+    Addresses_Goals:
+      - COMMUNITY.BONDING
+      - PERSONAL.RELAXATION
+      - COMMUNITY.INCLUSION
+    Conflicts_With:
+      - STRATEGY.INTERACTIVE_EXPERIENCE
+    Synergies:
+      - STRATEGY.PROVIDE_COMFORT
+      - STRATEGY.SUPPORT_SOCIAL_PLAY
+    File: STRATEGY.CREATE_REST_POINTS.yaml
+  - Strategy_ID: STRATEGY.DIFFERENTIATE
+    Name: 形成差异化
+    Name_EN: Differentiate
+    Priority: 4
+    Addresses_Goals:
+      - BUSINESS.DIFFERENTIATION
+      - BUSINESS.BRAND
+    Synergies:
+      - STRATEGY.CREATE_LANDMARK
+      - STRATEGY.BUILD_NARRATIVE
+    File: STRATEGY.DIFFERENTIATE.yaml
+  - Strategy_ID: STRATEGY.ENCOURAGE_REPEAT_VISIT
+    Name: 鼓励回访
+    Name_EN: Encourage Repeat Visit
+    Priority: 4
+    Addresses_Goals:
+      - COMMUNITY.BONDING
+      - EDU.DISCOVERY
+      - BUSINESS.TRAFFIC
+    Synergies:
+      - STRATEGY.ENCOURAGE_EXPLORATION
+      - STRATEGY.BUILD_NARRATIVE
+    File: STRATEGY.ENCOURAGE_REPEAT_VISIT.yaml
+  - Strategy_ID: STRATEGY.ENABLE_PARENT_CHILD_INTERACTION
+    Name: 促进亲子互动
+    Name_EN: Enable Parent-Child Interaction
+    Priority: 5
+    Addresses_Goals:
+      - CHILD.DEVELOPMENT
+      - COMMUNITY.BONDING
+      - EDU.ENROLLMENT
+    Synergies:
+      - STRATEGY.BUILD_NARRATIVE
+      - STRATEGY.INTERACTIVE_EXPERIENCE
+    File: STRATEGY.ENABLE_PARENT_CHILD_INTERACTION.yaml
+  - Strategy_ID: STRATEGY.SUBTLE_INTEGRATION
+    Name: 隐性融入
+    Name_EN: Subtle Integration
+    Priority: 3
+    Addresses_Goals:
+      - CULTURAL.HERITAGE
+      - COMMUNITY.INCLUSION
+      - PERSONAL.RELAXATION
+    Conflicts_With:
+      - STRATEGY.CREATE_LANDMARK
+      - STRATEGY.IMPROVE_VISIBILITY
+      - STRATEGY.ENABLE_PHOTO_MOMENTS
+    Synergies:
+      - STRATEGY.BUILD_NARRATIVE
+      - STRATEGY.PROVIDE_COMFORT
+      - STRATEGY.PROVIDE_LEARNING_OPS
+    File: STRATEGY.SUBTLE_INTEGRATION.yaml

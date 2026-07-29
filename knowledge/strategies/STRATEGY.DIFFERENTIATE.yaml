@@ -1,0 +1,25 @@
+Strategy_ID: STRATEGY.DIFFERENTIATE
+Name: 形成差异化
+Name_EN: Differentiate
+Description: |
+  让空间在多个维度上与竞品明显区隔，形成唯一识别。
+Mechanism: |
+  唯一性 + 不可复制 + 跨维度一致。
+Addresses_Goals:
+  - BUSINESS.DIFFERENTIATION
+  - BUSINESS.BRAND
+Typical_Implementations:
+  - Landmark
+  - IP Sculpture
+  - Interactive Installation
+Synergies:
+  - STRATEGY.CREATE_LANDMARK
+  - STRATEGY.BUILD_NARRATIVE
+Heuristics:
+  - 至少一项「别人没做过」的元素
+  - 视觉、叙事、行为中至少一项显著区别于竞品
+Domain_Affinity:
+  - COMMERCIAL
+  - TOURISM
+  - PLAYGROUND
+Priority: ★ x 4

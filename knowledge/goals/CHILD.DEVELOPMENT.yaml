@@ -1,0 +1,37 @@
+Goal_ID: CHILD.DEVELOPMENT
+Name: 儿童发展
+Name_EN: Child Development
+Description: |
+  通过空间内容支持儿童在感统、运动、认知、社交、情感等维度的综合发展。
+Success_Indicators:
+  - 发展里程碑达成
+  - 多元行为发生率
+  - 安全事故率
+  - 重复使用频率
+Typical_Projects:
+  - 幼儿园
+  - 儿童乐园
+  - 亲子餐厅
+  - 居住区配套
+Suitable_Objects:
+  - Theme Playground
+  - Adventure Course
+  - Sensory Garden
+  - Educational Installation
+  - Interactive Installation
+Unsuitable_Objects:
+  - Small Decoration
+  - Wayfinding
+  - Photography Spot
+Heuristics:
+  - 不同年龄段应有对应的发展目标
+  - 安全永远是第一优先级
+  - 发展价值应可被家长与教育者识别
+Related_Goals:
+  - EDU.LEARNING
+  - CHILD.PLAY_VALUE
+  - EDU.DISCOVERY
+Domain_Affinity:
+  - PLAYGROUND
+  - EDUCATION
+Priority: ★ x 5

@@ -1,0 +1,30 @@
+Strategy_ID: STRATEGY.ENCOURAGE_EXPLORATION
+Name: 鼓励探索
+Name_EN: Encourage Exploration
+Description: |
+  激发女婺与主动探索，让空间「藏有惊喜」「可被反复发现」。
+Mechanism: |
+  隐藏路径 + 奖励机制 + 可变化环境。
+Addresses_Goals:
+  - EDU.DISCOVERY
+  - CHILD.PLAY_VALUE
+  - COMMUNITY.BONDING
+Typical_Implementations:
+  - Adventure Course
+  - Nature Element
+  - Wayfinding
+  - Interactive Installation
+Synergies:
+  - STRATEGY.BUILD_NARRATIVE
+  - STRATEGY.ENCOURAGE_REPEAT_VISIT
+Conflicts_With:
+  - STRATEGY.PROVIDE_COMFORT
+Heuristics:
+  - 空间不应一次性展示所有内容
+  - 应留有隐藏路径
+  - 奖励机制应基于探索而非消费
+Domain_Affinity:
+  - PLAYGROUND
+  - EDUCATION
+  - MUSEUM
+Priority: ★ x 4

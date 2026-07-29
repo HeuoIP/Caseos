@@ -1,0 +1,23 @@
+Reason_ID: REASON.CONFLICT_RESOLUTION
+Name: 冲突解决
+Name_EN: Conflict Resolution
+Description: |
+  解释为什么某个选项优于其他冲突选项。
+Trigger_When:
+  - 多个目标或策略互斥
+  - 需要明确让步
+Required_Factors:
+  - conflict
+  - resolution
+Optional_Factors:
+  - priority
+  - context
+Template_Chinese: |
+  你提到了「{conflict_a}」与「{conflict_b}」之间的冲突。在你的场景下，我优先「{resolution}」，因为「{reason}」。
+Example_Output: |
+  你提到了「提供舒适」与「互动体验」之间的冲突。在你的场景下，我优先「互动体验」，因为「你的主要目标是增加招生，互动性可以让家长看到孩子的变化」。
+Uses_Goals:
+  - "*"
+Uses_Strategies:
+  - "*"
+Priority: ★ x 4

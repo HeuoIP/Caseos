@@ -1,0 +1,37 @@
+Goal_ID: BUSINESS.BRAND
+Name: 品牌建设
+Name_EN: Brand Building
+Description: |
+  通过空间内容强化品牌识别与品牌联想。让用户在体验空间的同时，形成对品牌的认知、记忆与偏好。
+Success_Indicators:
+  - 品牌曝光增加
+  - 品牌联想度提升
+  - 用户主动提及品牌
+  - NPS提升
+Typical_Projects:
+  - 商业综合体
+  - 文旅
+  - 品牌总部
+  - 旗舰店
+Suitable_Objects:
+  - Landmark
+  - Theme Sculpture
+  - Public Art
+  - Photography Spot
+  - Lighting Installation
+Unsuitable_Objects:
+  - Small Decoration
+  - Wayfinding
+  - Softscape
+Heuristics:
+  - 空间必须传达品牌的核心叙事
+  - 视觉语言必须与品牌一致
+  - 可被识别、可被记忆、可被分享
+Related_Goals:
+  - BUSINESS.DIFFERENTIATION
+  - PHOTO.SHARING
+Domain_Affinity:
+  - COMMERCIAL
+  - PLAYGROUND
+  - TOURISM
+Priority: ★ x 4

@@ -1,0 +1,41 @@
+Goal_ID: PERSONAL.RELAXATION
+Name: 放松
+Name_EN: Relaxation
+Description: |
+  通过空间内容为个人提供远离压力、恢复精力、获得内心平静的体验。
+Success_Indicators:
+  - 停留时长
+  - 回访意愿
+  - 主观放松评分
+  - 心理恢复指标
+Typical_Projects:
+  - 居住区配套
+  - 商业综合体休憩区
+  - 文旅
+  - 度假村
+Suitable_Objects:
+  - Seating Area
+  - Nature Element
+  - Sensory Garden
+  - Water Feature
+  - Shade Structure
+Unsuitable_Objects:
+  - Performance Stage
+  - Sports Facility
+  - Interactive Installation
+Heuristics:
+  - 低刺激优先
+  - 自然元素优先
+  - 应有「什么都不做也很舒服」的位置
+  - 避免视觉噪音
+Conflicts_With:
+  - CHILD.PLAY_VALUE
+  - BUSINESS.TRAFFIC
+Related_Goals:
+  - COMMUNITY.BONDING
+  - COMMUNITY.INCLUSION
+Domain_Affinity:
+  - PUBLIC_PARK
+  - RESIDENTIAL
+  - TOURISM
+Priority: ★ x 3

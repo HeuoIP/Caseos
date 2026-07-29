@@ -1,0 +1,27 @@
+Strategy_ID: STRATEGY.REDUCE_FRICTION
+Name: 减少摩擦
+Name_EN: Reduce Friction
+Description: |
+  降低用户使用空间的门槛，让人能轻松进入、使用、与离开。
+Mechanism: |
+  清晰识别 + 简单操作 + 无障碍 + 多语言。
+Addresses_Goals:
+  - COMMUNITY.INCLUSION
+  - COMMUNITY.ACTIVITY
+  - BUSINESS.TRAFFIC
+Typical_Implementations:
+  - Wayfinding
+  - Seating Area
+  - Shade Structure
+Synergies:
+  - STRATEGY.PROVIDE_COMFORT
+  - STRATEGY.SUPPORT_SOCIAL_PLAY
+Heuristics:
+  - 标识清晰
+  - 无障碍标准
+  - 多语言以及多文化友好
+Domain_Affinity:
+  - PUBLIC_PARK
+  - RESIDENTIAL
+  - TOURISM
+Priority: ★ x 4

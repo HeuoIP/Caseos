@@ -1,0 +1,31 @@
+Strategy_ID: STRATEGY.INTERACTIVE_EXPERIENCE
+Name: 互动体验
+Name_EN: Interactive Experience
+Description: |
+  让用户从「看」变成「玩」，通过行为反馈提升参与度。
+Mechanism: |
+  多种可选行为 + 明确反馈 + 商业转化点。
+Addresses_Goals:
+  - CHILD.PLAY_VALUE
+  - BUSINESS.TRAFFIC
+  - BUSINESS.REVENUE
+  - EDU.DISCOVERY
+Typical_Implementations:
+  - Interactive Installation
+  - Sensory Garden
+  - Sports Facility
+  - Educational Installation
+Synergies:
+  - STRATEGY.ENCOURAGE_EXPLORATION
+  - STRATEGY.INCREASE_STAY_TIME
+Conflicts_With:
+  - STRATEGY.PROVIDE_COMFORT
+Heuristics:
+  - 至少 3 种不同行为
+  - 反馈应立即、可感知
+  - 不仅仅是「会动」，还要「会变化」
+Domain_Affinity:
+  - PLAYGROUND
+  - EDUCATION
+  - MUSEUM
+Priority: ★ x 5

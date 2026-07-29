@@ -1,0 +1,26 @@
+Reason_ID: REASON.GOAL_STRATEGY_FIT
+Name: 目标策略匹配
+Name_EN: Goal to Strategy Fit
+Description: |
+  解释为什么某个策略适合达成某个目标。
+Trigger_When:
+  - 需要为目标选择实现路径
+  - 多个策略都可能适用
+Required_Factors:
+  - goal
+  - strategy
+Optional_Factors:
+  - site_feature
+  - budget
+Template_Chinese: |
+  因为你的目标是「{goal}」，采用「{strategy}」策略可以最高效达成，因为它能够「{mechanism}」。
+Example_Output: |
+  因为你的目标是「招生」，采用「互动体验」策略可以最高效达成，因为它能够「让家长看到孩子的变化并产生信任」。
+Uses_Goals:
+  - EDU.ENROLLMENT
+  - BUSINESS.REVENUE
+  - CHILD.PLAY_VALUE
+Uses_Strategies:
+  - STRATEGY.INTERACTIVE_EXPERIENCE
+  - STRATEGY.ENABLE_PARENT_CHILD_INTERACTION
+Priority: ★ x 5

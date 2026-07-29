@@ -1,0 +1,27 @@
+Reason_ID: REASON.ROI_CALCULATION
+Name: ROI 计算
+Name_EN: ROI Calculation
+Description: |
+  解释为什么某个选项的 ROI 最高。
+Trigger_When:
+  - 需要说明资本回报
+  - 多个选项可量化对比
+Required_Factors:
+  - option
+  - expected_return
+  - cost
+Optional_Factors:
+  - time_horizon
+  - risk
+Template_Chinese: |
+  「{option}」是 ROI 最高的方案。预计「{metric}」为「{expected_return}」，而成本仅为「{cost}」，因此回本周期为「{payback}」。
+Example_Output: |
+  「主题雕塑」是 ROI 最高的方案。预计「日均拍照人次」为「800 人次」，而成本仅为「中等预算」，因此回本周期为「6-9 个月」。
+Uses_Goals:
+  - BUSINESS.TRAFFIC
+  - BUSINESS.REVENUE
+  - PHOTO.SHARING
+Uses_Strategies:
+  - STRATEGY.CREATE_LANDMARK
+  - STRATEGY.ENABLE_PHOTO_MOMENTS
+Priority: ★ x 4

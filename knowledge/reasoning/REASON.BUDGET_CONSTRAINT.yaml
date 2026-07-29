@@ -1,0 +1,24 @@
+Reason_ID: REASON.BUDGET_CONSTRAINT
+Name: 预算约束
+Name_EN: Budget Constraint
+Description: |
+  解释为什么某个选择受预算限制，以及如何在预算内优化。
+Trigger_When:
+  - 预算明确
+  - 需要评估成本
+  - 多个选项成本差异较大
+Required_Factors:
+  - budget
+  - option
+Optional_Factors:
+  - priority
+  - scale
+Template_Chinese: |
+  由于预算为「{budget}」，「{option}」在该预算内能够提供最高的性价比，因为它以「{cost_ratio}」的成本实现了「{benefit}」。
+Example_Output: |
+  由于预算为「中等」，「互动装置」在该预算内能够提供最高的性价比，因为它以「1/3 主题雕塑」的成本实现了「多人参与」。
+Uses_Goals:
+  - "*"
+Uses_Strategies:
+  - "*"
+Priority: ★ x 5

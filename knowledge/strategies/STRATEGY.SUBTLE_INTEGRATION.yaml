@@ -1,0 +1,33 @@
+Strategy_ID: STRATEGY.SUBTLE_INTEGRATION
+Name: 隐性融入
+Name_EN: Subtle Integration
+Description: |
+  将元素融入环境中，使之成为场地的一部分而不是叠加的装饰。
+Mechanism: |
+  透过低识别度、与环境同调的视觉语言，让元素成为背景而非主角。
+Addresses_Goals:
+  - CULTURAL.HERITAGE
+  - COMMUNITY.INCLUSION
+  - PERSONAL.RELAXATION
+Typical_Implementations:
+  - Cultural Installation
+  - Nature Element
+  - Sensory Garden
+  - Softscape
+Synergies:
+  - STRATEGY.BUILD_NARRATIVE
+  - STRATEGY.PROVIDE_COMFORT
+  - STRATEGY.PROVIDE_LEARNING_OPS
+Conflicts_With:
+  - STRATEGY.CREATE_LANDMARK
+  - STRATEGY.IMPROVE_VISIBILITY
+  - STRATEGY.ENABLE_PHOTO_MOMENTS
+Heuristics:
+  - 不应让元素「跳出」环境
+  - 优先使用自然材质与轻工艺
+  - 让发现成为享受而非冲击
+Domain_Affinity:
+  - CULTURAL
+  - PUBLIC_PARK
+  - RESIDENTIAL
+Priority: ★ x 3

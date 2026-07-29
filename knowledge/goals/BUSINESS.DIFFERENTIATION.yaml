@@ -1,0 +1,36 @@
+Goal_ID: BUSINESS.DIFFERENTIATION
+Name: 差异化
+Name_EN: Differentiation
+Description: |
+  通过空间内容形成独特的、与竞争对手明显区隔的体验记忆点。差异化是定价权与品牌忠诚度的基础。
+Success_Indicators:
+  - 用户主动对比竞品胜出
+  - 媒体自发报道
+  - 行业奖项
+Typical_Projects:
+  - 文旅
+  - 主题乐园
+  - 商业综合体
+  - 街区
+Suitable_Objects:
+  - Landmark
+  - Theme Sculpture
+  - Interactive Installation
+  - Adventure Course
+  - IP Sculpture
+Unsuitable_Objects:
+  - Sports Facility
+  - Small Decoration
+  - Wayfinding
+Heuristics:
+  - 至少有一个「别人没做过」的元素
+  - 视觉、叙事、行为中至少一项显著区别于竞品
+Related_Goals:
+  - BUSINESS.BRAND
+  - CULTURAL.HERITAGE
+Domain_Affinity:
+  - COMMERCIAL
+  - TOURISM
+  - PLAYGROUND
+  - URBAN_PLAZA
+Priority: ★ x 4

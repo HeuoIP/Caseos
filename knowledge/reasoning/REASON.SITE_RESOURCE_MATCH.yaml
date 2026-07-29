@@ -1,0 +1,25 @@
+Reason_ID: REASON.SITE_RESOURCE_MATCH
+Name: 场地资源匹配
+Name_EN: Site Resource Match
+Description: |
+  解释为什么某个选择与场地现有资源匹配。
+Trigger_When:
+  - 场地特征明显
+  - 选项需要特定场地条件
+Required_Factors:
+  - site_feature
+  - option
+Optional_Factors:
+  - climate
+  - size
+  - existing_elements
+Template_Chinese: |
+  你的场地拥有「{site_feature}」，这是一个重要优势。「{option}」能够让这个优势变成「{amplification}」，而不是被浪费。
+Example_Output: |
+  你的场地拥有「现有森林资源」，这是一个重要优势。「树屋」能够让这个优势变成「孩子的探索体验」，而不是被浪费。
+Uses_Goals:
+  - "*"
+Uses_Strategies:
+  - STRATEGY.ENCOURAGE_EXPLORATION
+  - STRATEGY.BUILD_NARRATIVE
+Priority: ★ x 5

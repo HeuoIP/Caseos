@@ -1,0 +1,39 @@
+Goal_ID: CULTURAL.HERITAGE
+Name: 文化遗产
+Name_EN: Cultural Heritage
+Description: |
+  通过空间内容传承、表达与活化文化遗产，让传统在当代语境中被感知、被理解、被延续。
+Success_Indicators:
+  - 文化元素可被识别
+  - 文化故事被复述
+  - 媒体文化报道
+  - 跨代际传播
+Typical_Projects:
+  - 文旅
+  - 博物馆
+  - 城市更新
+  - 街区
+Suitable_Objects:
+  - Public Art
+  - Cultural Installation
+  - Theme Sculpture
+  - Wayfinding
+  - Performance Stage
+Unsuitable_Objects:
+  - Sports Facility
+  - Interactive Installation
+Heuristics:
+  - 文化表达不应是符号堆砌
+  - 应有可被理解的故事线
+  - 现代演绎与历史尊重并重
+Conflicts_With:
+  - BUSINESS.DIFFERENTIATION
+Related_Goals:
+  - EDU.LEARNING
+  - BUSINESS.BRAND
+Domain_Affinity:
+  - CULTURAL
+  - TOURISM
+  - URBAN_PLAZA
+  - MUSEUM
+Priority: ★ x 4

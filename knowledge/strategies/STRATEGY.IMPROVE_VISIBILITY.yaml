@@ -1,0 +1,27 @@
+Strategy_ID: STRATEGY.IMPROVE_VISIBILITY
+Name: 提升可见性
+Name_EN: Improve Visibility
+Description: |
+  让空间从远处就能被看见、被记住、被找到。
+Mechanism: |
+  高度 + 色彩 + 灯光三个维度同时增加识别距离。
+Addresses_Goals:
+  - BUSINESS.TRAFFIC
+  - BUSINESS.BRAND
+Typical_Implementations:
+  - Landmark
+  - Lighting Installation
+  - Theme Sculpture
+Synergies:
+  - STRATEGY.CREATE_LANDMARK
+  - STRATEGY.ENABLE_PHOTO_MOMENTS
+Conflicts_With:
+  - STRATEGY.SUBTLE_INTEGRATION
+Heuristics:
+  - 白天与夜间都可被识别
+  - 从主入口、从周边道路都可见
+Domain_Affinity:
+  - COMMERCIAL
+  - TOURISM
+  - URBAN_PLAZA
+Priority: ★ x 4

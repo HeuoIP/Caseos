@@ -1,0 +1,37 @@
+Goal_ID: COMMUNITY.BONDING
+Name: 家庭与邻里
+Name_EN: Family & Neighborhood Bonding
+Description: |
+  通过空间内容促进家庭成员之间、邻里之间的关系建立与情感连接。
+Success_Indicators:
+  - 家庭共同停留时长
+  - 多家庭互动发生率
+  - 邻里熟悉度
+  - 复访频率
+Typical_Projects:
+  - 社区公园
+  - 街区
+  - 居住区配套
+  - 公共广场
+Suitable_Objects:
+  - Seating Area
+  - Interactive Installation
+  - Performance Stage
+  - Amphitheater
+  - Reading Corner
+Unsuitable_Objects:
+  - Retail Kiosk
+  - F&B Space
+  - Sports Facility
+Heuristics:
+  - 空间应同时支持「家庭内互动」与「家庭间互动」
+  - 尺度要兼顾成人与儿童
+  - 提供共同话题
+Related_Goals:
+  - COMMUNITY.ACTIVITY
+  - CHILD.PLAY_VALUE
+Domain_Affinity:
+  - PUBLIC_PARK
+  - RESIDENTIAL
+  - URBAN_PLAZA
+Priority: ★ x 4

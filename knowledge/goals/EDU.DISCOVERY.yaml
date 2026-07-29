@@ -1,0 +1,35 @@
+Goal_ID: EDU.DISCOVERY
+Name: 探索
+Name_EN: Discovery
+Description: |
+  通过空间内容激发儿童的好奇心与主动探索行为。空间应「藏有惊喜」「可被反复发现」。
+Success_Indicators:
+  - 重复访问路径数
+  - 主动询问频次
+  - 探索路径多样性
+Typical_Projects:
+  - 自然学校
+  - 博物馆
+  - 主题乐园
+  - 幼儿园
+Suitable_Objects:
+  - Nature Element
+  - Adventure Course
+  - Interactive Installation
+  - Sensory Garden
+  - Wayfinding
+Unsuitable_Objects:
+  - Performance Stage
+  - Sports Facility
+Heuristics:
+  - 空间不应一次性展示所有内容
+  - 应留有隐藏路径
+  - 奖励机制应基于探索而非消费
+Related_Goals:
+  - EDU.LEARNING
+  - CHILD.PLAY_VALUE
+Domain_Affinity:
+  - EDUCATION
+  - PLAYGROUND
+  - MUSEUM
+Priority: ★ x 4

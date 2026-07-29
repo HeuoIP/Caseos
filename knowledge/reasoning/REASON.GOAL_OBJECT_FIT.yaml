@@ -1,0 +1,29 @@
+Reason_ID: REASON.GOAL_OBJECT_FIT
+Name: 目标对象匹配
+Name_EN: Goal to Object Fit
+Description: |
+  解释为什么某个对象适合达成某个目标。
+Trigger_When:
+  - 用户提供了清晰的目标
+  - 候选对象已被识别
+  - 需要驱动推荐决策
+Required_Factors:
+  - goal
+  - object
+  - benefit
+Optional_Factors:
+  - site_feature
+  - user_age
+  - domain
+Template_Chinese: |
+  因为你的目标是「{goal}」，而「{object}」能够直接提供「{benefit}」，因此推荐。
+Example_Output: |
+  因为你的目标是「增加客流」，而「主题雕塑」能够直接提供「远距离识别」，同时与你的场地「商业综合体入口」相匹配，因此推荐。
+Uses_Goals:
+  - BUSINESS.TRAFFIC
+  - BUSINESS.BRAND
+  - PHOTO.SHARING
+Uses_Strategies:
+  - STRATEGY.CREATE_LANDMARK
+  - STRATEGY.ENABLE_PHOTO_MOMENTS
+Priority: ★ x 5
