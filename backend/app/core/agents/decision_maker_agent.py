@@ -111,13 +111,13 @@ class DecisionMakerAgent(Agent):
         )
 
         # Resolve goal refs from knowledge base, ranked by priority.
-        goals: list[GoalRef] = []
+        inferred: list[GoalRef] = []
         if self.knowledge is not None:
             for gid in default_goal_ids:
                 entry = self.knowledge.goal(gid)
                 if entry is None:
                     continue
-                goals.append(GoalRef(
+                inferred.append(GoalRef(
                     goal_id=entry.goal_id,
                     name=entry.name,
                     name_en=entry.name_en,
@@ -128,9 +128,18 @@ class DecisionMakerAgent(Agent):
                     conflicts_with=list(entry.conflicts_with),
                 ))
             # Sort highest priority first
-            goals.sort(key=lambda g: (-g.priority, g.goal_id))
+            inferred.sort(key=lambda g: (-g.priority, g.goal_id))
 
-        context.goals = goals
+        # Merge: keep any pre-existing goals (e.g. user-supplied primary
+        # goal injected by the product layer) and append inferred ones
+        # that are not already present.
+        existing_ids = {g.goal_id for g in context.goals}
+        merged: list[GoalRef] = list(context.goals)
+        for g in inferred:
+            if g.goal_id not in existing_ids:
+                merged.append(g)
+                existing_ids.add(g.goal_id)
+        context.goals = merged
         context.add_metadata("decision_maker_profile", profile_id)
 
 
