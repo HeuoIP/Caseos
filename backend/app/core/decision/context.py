@@ -47,6 +47,12 @@ class DecisionContext:
     # ---- Stage 3: Strategy ----
     strategies: list[StrategyRef] = field(default_factory=list)
 
+    # ---- Stage 3.5: Knowledge Retrieval (Sprint 9) ----
+    knowledge_context: "RelevantKnowledgeContext | None" = None
+
+    # ---- Stage 3.6: Strategy Analysis (Sprint 9) ----
+    strategy_analysis: "StrategyAnalysis | None" = None
+
     # ---- Stage 4: Object Selector ----
     object_candidates: list[ObjectCandidate] = field(default_factory=list)
     top_recommendations: list[Recommendation] = field(default_factory=list)

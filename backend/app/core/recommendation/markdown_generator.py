@@ -27,6 +27,8 @@ def render_markdown(context) -> str:
     sections.append(_header(context))
     sections.append(_space_section(context))
     sections.append(_decision_maker_section(context))
+    sections.append(_retrieved_knowledge_section(context))
+    sections.append(_strategy_analysis_section(context))
     sections.append(_strategy_section(context))
     sections.append(_recommendation_section(context))
     sections.append(_explanation_section(context))
@@ -181,3 +183,79 @@ def _footer(context) -> str:
 
 
 __all__ = ["render_markdown"]
+
+def _retrieved_knowledge_section(context) -> str:
+    """Sprint 9: render the KnowledgeRetriever output as a Markdown section."""
+    kc = getattr(context, "knowledge_context", None)
+    if kc is None or kc.is_empty():
+        return "## Retrieved Knowledge\n\n_No knowledge was retrieved for this run._"
+
+def _strategy_analysis_section(context) -> str:
+    """Sprint 9: render the StrategyAnalysis LLM-style fields."""
+    sa = getattr(context, "strategy_analysis", None)
+    if sa is None:
+        return "## Strategy Analysis\n\n_No strategy analysis was produced._"
+    lines = ["## Strategy Analysis"]
+    if sa.space_positioning:
+        lines.append("**Space positioning**")
+        lines.append("> " + sa.space_positioning)
+    if sa.core_problem:
+        lines.append("**Core problem**")
+        lines.append("> " + sa.core_problem)
+    if sa.design_direction:
+        lines.append("**Design direction**")
+        lines.append("> " + sa.design_direction)
+    if sa.investment_logic:
+        lines.append("**Investment logic**")
+        lines.append("> " + sa.investment_logic)
+    if sa.confidence:
+        lines.append("Confidence: " + str(sa.confidence))
+    return chr(10).join(lines)
+
+
+def _retrieved_knowledge_section(context) -> str:
+    """Sprint 9: render the KnowledgeRetriever output as a Markdown section."""
+    kc = getattr(context, "knowledge_context", None)
+    if kc is None or kc.is_empty():
+        return "## Retrieved Knowledge\n\n_No knowledge was retrieved for this run._"
+    lines = ["## Retrieved Knowledge"]
+    if kc.primary_theme:
+        lines.append("**Primary theme:** " + kc.primary_theme + "")
+    if kc.related_themes:
+        lines.append("**Themes:** " + ", ".join("" + s.title + "" for s in kc.related_themes))
+    if kc.related_objects:
+        lines.append("**Objects:** " + ", ".join("" + s.title + "" for s in kc.related_objects))
+    if kc.related_rules:
+        lines.append("**Rules:** " + ", ".join("" + s.title + "" for s in kc.related_rules))
+    if kc.related_handbook:
+        lines.append("**Handbook:** " + ", ".join("" + s.title + "" for s in kc.related_handbook))
+    if kc.related_reasoning:
+        lines.append("**Reasoning patterns:** " + ", ".join("" + s.title + "" for s in kc.related_reasoning))
+    if kc.related_cases:
+        lines.append("**Similar cases:** " + ", ".join("" + s.ref_id + "" for s in kc.related_cases))
+    if kc.stats:
+        lines.append("**Stats:** " + str(kc.stats))
+    return chr(10).join(lines)
+
+
+def _strategy_analysis_section(context) -> str:
+    """Sprint 9: render the StrategyAnalysis LLM-style fields."""
+    sa = getattr(context, "strategy_analysis", None)
+    if sa is None:
+        return "## Strategy Analysis\n\n_No strategy analysis was produced._"
+    lines = ["## Strategy Analysis"]
+    if sa.space_positioning:
+        lines.append("**Space positioning**")
+        lines.append("> " + sa.space_positioning)
+    if sa.core_problem:
+        lines.append("**Core problem**")
+        lines.append("> " + sa.core_problem)
+    if sa.design_direction:
+        lines.append("**Design direction**")
+        lines.append("> " + sa.design_direction)
+    if sa.investment_logic:
+        lines.append("**Investment logic**")
+        lines.append("> " + sa.investment_logic)
+    if sa.confidence:
+        lines.append("_Confidence: " + str(sa.confidence) + "_")
+    return chr(10).join(lines)

@@ -99,6 +99,27 @@ class StrategyRef:
 
 
 # ----------------------------------------------------------------------
+# Stage 3.5: Strategy Analysis (Sprint 9)
+# ----------------------------------------------------------------------
+
+@dataclass
+class StrategyAnalysis:
+    """LLM-style structured reasoning produced by StrategyAgent.
+
+    The fields map 1:1 to the ADR-005 output contract. The agent is
+    rule-based but emits text that an LLM reviewer would write.
+    """
+    space_positioning: str = ""
+    core_problem: str = ""
+    design_direction: str = ""
+    investment_logic: str = ""
+    confidence: float = 0.0
+    related_strategy_ids: list = field(default_factory=list)
+    related_goal_ids: list = field(default_factory=list)
+    knowledge_refs: list = field(default_factory=list)
+
+
+# ----------------------------------------------------------------------
 # Stage 4: Object Selector Agent -> ObjectCandidate + Recommendation
 # ----------------------------------------------------------------------
 

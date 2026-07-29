@@ -9,6 +9,7 @@ engine resolves names.
 from app.core.agents.base import Agent, AgentRegistry
 from app.core.agents.decision_maker_agent import DecisionMakerAgent
 from app.core.agents.explain_agent import ExplainAgent
+from app.core.agents.knowledge_retriever_agent import KnowledgeRetrieverAgent
 from app.core.agents.object_selector_agent import (
     ObjectSelectorAgent,
     TOP_N_DEFAULT,
@@ -21,6 +22,7 @@ __all__ = [
     "AgentRegistry",
     "DecisionMakerAgent",
     "ExplainAgent",
+    "KnowledgeRetrieverAgent",
     "ObjectSelectorAgent",
     "SpaceAgent",
     "StrategyAgent",

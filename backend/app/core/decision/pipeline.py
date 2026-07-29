@@ -23,6 +23,7 @@ if TYPE_CHECKING:
 DEFAULT_PIPELINE: list[str] = [
     "space",
     "decision_maker",
+    "knowledge_retriever",
     "strategy",
     "object_selector",
     "explain",
