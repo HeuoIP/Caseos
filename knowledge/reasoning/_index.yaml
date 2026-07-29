@@ -41,9 +41,9 @@ Reasons:
       - budget
       - option
     Uses_Goals:
-      - *
+      - "*"
     Uses_Strategies:
-      - *
+      - "*"
     File: REASON.BUDGET_CONSTRAINT.yaml
   - Reason_ID: REASON.USER_AGE_MATCH
     Name: 用户年龄匹配
@@ -68,7 +68,7 @@ Reasons:
       - site_feature
       - option
     Uses_Goals:
-      - *
+      - "*"
     Uses_Strategies:
       - STRATEGY.ENCOURAGE_EXPLORATION
       - STRATEGY.BUILD_NARRATIVE
@@ -95,9 +95,9 @@ Reasons:
       - conflict
       - resolution
     Uses_Goals:
-      - *
+      - "*"
     Uses_Strategies:
-      - *
+      - "*"
     File: REASON.CONFLICT_RESOLUTION.yaml
   - Reason_ID: REASON.PRIORITY_TRADEOFF
     Name: 优先级权衡
@@ -107,9 +107,9 @@ Reasons:
       - priority_a
       - priority_b
     Uses_Goals:
-      - *
+      - "*"
     Uses_Strategies:
-      - *
+      - "*"
     File: REASON.PRIORITY_TRADEOFF.yaml
   - Reason_ID: REASON.ROI_CALCULATION
     Name: ROI 计算
@@ -138,7 +138,7 @@ Reasons:
       - CHILD.DEVELOPMENT
       - COMMUNITY.INCLUSION
     Uses_Strategies:
-      - *
+      - "*"
     File: REASON.RISK_MITIGATION.yaml
   - Reason_ID: REASON.SUCCESS_PATTERN
     Name: 成功模式参考
@@ -147,9 +147,9 @@ Reasons:
     Required_Factors:
       - case_reference
     Uses_Goals:
-      - *
+      - "*"
     Uses_Strategies:
-      - *
+      - "*"
     File: REASON.SUCCESS_PATTERN.yaml
   - Reason_ID: REASON.NEGATIVE_REASON
     Name: 排除原因
@@ -159,7 +159,7 @@ Reasons:
       - option
       - reason
     Uses_Goals:
-      - *
+      - "*"
     Uses_Strategies:
-      - *
+      - "*"
     File: REASON.NEGATIVE_REASON.yaml
