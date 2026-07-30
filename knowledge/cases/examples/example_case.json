@@ -1,0 +1,100 @@
+﻿{
+  "case_identity": {
+    "case_id": "CKO-0001",
+    "title": "Forest courtyard kindergarten playspace",
+    "source": "CaseOS case archive (curated 2026-07-30)",
+    "image_reference": "data/images/cases/001.jpg",
+    "project_type": "kindergarten"
+  },
+
+  "project_context": {
+    "client_goal": "Let 3-6 year olds build body competence and cooperation through daily outdoor play in a real-feeling natural setting.",
+    "project_background": "An urban kindergarten converted a bare 60 m^2 concrete rear courtyard into a nature-based play space in 2025, preserving two mature beech trees that already stood on the site.",
+    "target_users": ["child_3_6", "educator", "parent"],
+    "site_condition": "60 m^2 rear courtyard, two mature beech trees on the south edge, original concrete paving, east-facing morning sun, west boundary solid fence.",
+    "budget_level": "mid"
+  },
+
+  "space_cognition": {
+    "spatial_role": "play",
+    "spatial_position": "edge",
+    "spatial_scale": "small",
+    "existing_elements": [
+      "two mature beech trees",
+      "concrete paving",
+      "timber perimeter fence"
+    ],
+    "environmental_relationship": "urban_infill"
+  },
+
+  "experience_analysis": {
+    "atmosphere": "magical; dappled afternoon light through mature beech canopy, soft ground underfoot, sound buffered by trees and fence.",
+    "emotional_response": [
+      "wonder",
+      "shelter",
+      "discovery"
+    ],
+    "child_behavior": [
+      "climbing",
+      "hiding",
+      "imagining",
+      "socialising",
+      "balancing"
+    ],
+    "interaction_type": "active",
+    "stay_value": "high"
+  },
+
+  "diagnosis": {
+    "problem_type": "positive_amplify_strengths",
+    "diagnosis": "The design takes the two existing beech trees as the spatial anchor and turns bare concrete into a coherent forest play experience for 3-6 year olds.",
+    "evidence": [
+      "Mature trees were preserved and remain the largest visible element on site.",
+      "Concrete paving was reduced by half and replaced with wood-bark mulch in the active zone.",
+      "Every added play element extends the trees (rope bridge between canopies, bark-step access to low platform, den corner under the smaller tree).",
+      "A single shaded educator bench supervises the whole courtyard.",
+      "Children chose the den-building corner within the first week of use."
+    ],
+    "key_observation": "The two beech trees are the spatial centre; the strategy protects them and makes everything else amplify them."
+  },
+
+  "strategy": {
+    "strategy_type": "anchor",
+    "design_principles": [
+      "Constitution Principle 004 -- Amplify the strengths of a space.",
+      "DP-002 -- Space First, Object Second.",
+      "Strategy Family 5 (Anchor) -- protect an existing element as the centre of gravity."
+    ],
+    "spatial_organization": "A small clearing at the courtyard centre; rope bridge between the two trees; bark-step access to a low platform in the larger canopy; a den-building kit at the north-east corner; a sandpit under the smaller tree. No new vertical structure exceeds the trees.",
+    "theme_logic": "Forest binds rope, bark, leaf, wood. No competing motif. The single story is the beech stand; objects extend the story rather than introduce new ones."
+  },
+
+  "recommendation_logic": {
+    "applicable_conditions": [
+      "Small urban courtyard with one or more mature trees.",
+      "Kindergarten or pre-school with mid-range budget.",
+      "Educator-to-child ratio of 1:8 or better."
+    ],
+    "recommended_for": [
+      "kindergarten director seeking nature-based play",
+      "small urban schoolyard retrofit",
+      "low-to-mid budget nature-themed project",
+      "educator-led outdoor learning program"
+    ],
+    "not_recommended_for": [
+      "vast site where the strategy would lose its anchor",
+      "site with no mature vegetation",
+      "project whose primary KPI is photo share",
+      "project requiring all-weather year-round use without maintenance budget"
+    ],
+    "risk_warning": "Wood demands periodic maintenance; rope net has a 3-5 year replacement cycle; sandpit needs daily rake and weekly refresh."
+  },
+
+  "professional_evaluation": {
+    "design_quality_score": 8,
+    "experience_score": 9,
+    "innovation_score": 6,
+    "commercial_value_score": 5,
+    "confidence": 0.82
+  }
+}
