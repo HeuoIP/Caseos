@@ -165,7 +165,13 @@ class KnowledgeRetriever:
     # ------------------------------------------------------------------
 
     def _retrieve_cases(self, vision_json) -> list:
-        """Find similar cases in data/analysis/cases/."""
+        """Find similar cases in data/analysis/cases/.
+
+        ADR-008: this method supports both V2 flat and V3 nested
+        cases. When a case file has no ai_analysis wrapper (V2
+        shape), _case_score falls back to top-level
+        design_keywords and vision_summary.
+        """
         # Cases are owned by the data folder, not the knowledge library.
         # We look on disk relative to the loader root (knowledge/..).
 
@@ -201,15 +207,26 @@ class KnowledgeRetriever:
         return out[:5]
 
     def _case_score(self, payload: dict, query_tokens: set) -> float:
+        """Score by Jaccard token overlap. ADR-008: V3 reads ai_analysis,
+        V2 reads top-level design_keywords and vision_summary.
+        """
         if not isinstance(payload, dict) or not query_tokens:
             return 0.0
-        ai = payload.get("ai_analysis") or {}
-        cand_tokens = set()
-        for k in (ai.get("keywords") or []):
-            cand_tokens |= _tokens(str(k))
-        summary = ai.get("vision_summary", "")
-        if isinstance(summary, str):
-            cand_tokens |= _tokens(summary)
+        ai = payload.get("ai_analysis")
+        if ai:
+            cand_tokens = set()
+            for k in (ai.get("keywords") or []):
+                cand_tokens |= _tokens(str(k))
+            summary = ai.get("vision_summary", "")
+            if isinstance(summary, str):
+                cand_tokens |= _tokens(summary)
+        else:
+            cand_tokens = set()
+            for k in (payload.get("design_keywords") or []):
+                cand_tokens |= _tokens(str(k))
+            summary = payload.get("vision_summary", "")
+            if isinstance(summary, str):
+                cand_tokens |= _tokens(summary)
         return _jaccard(query_tokens, cand_tokens)
 
     def _retrieve_themes(self, vision_json) -> list:

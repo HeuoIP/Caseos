@@ -1,57 +1,127 @@
 {
-  "project_name": "Meteor Playland",
-  "theme": [
-    {
-      "id": "SPACE.METEOR",
-      "role": "primary",
-      "confidence": 0.95
-    },
-    {
-      "id": "SPACE.ROCKET",
-      "role": "secondary",
-      "confidence": 0.7
-    }
-  ],
-  "style": [
-    "STYLE.SCIFI",
-    "STYLE.MODERN"
-  ],
-  "site_type": "SITE.PUBLIC_PARK",
-  "age_group": [
-    "AGE.3_6",
-    "AGE.6_9",
-    "AGE.9_12"
-  ],
-  "play_behaviors": [
-    "PLAY.SLIDE",
-    "PLAY.CLIMB",
-    "PLAY.EXPLORE",
-    "PLAY.SOCIALIZE"
-  ],
-  "functional_units": [
-    "UNIT.SLIDE",
-    "UNIT.CLIMBING",
-    "UNIT.ROPE_NET"
-  ],
-  "materials": [
-    "MATERIAL.STAINLESS_STEEL",
-    "MATERIAL.ROPE",
-    "MATERIAL.RUBBER"
-  ],
-  "colors": [
-    "COLOR.STONE_GRAY",
-    "COLOR.SKY_BLUE",
-    "COLOR.WHITE"
-  ],
-  "design_keywords": [
-    "meteor",
-    "space",
-    "stainless steel slide",
-    "rope net climbing",
-    "night lighting",
-    "sculptural landmark",
-    "public park"
-  ],
-  "vision_summary": "A public park playground featuring a large-scale stainless steel meteor-shaped structure with dual spiral slides, rope net climbing elements, a rocket tower, and rubber safety surfacing with painted orbital patterns. The structure is illuminated with embedded LED lights against a twilight sky, with city skyline visible in the background.",
-  "design_interpretation": "The composition uses a sculptural meteor landmark as the central organizing element, with two large-diameter stainless steel slides anchoring the circulation flow and creating a dramatic focal point. Rope net climbing elements and a rocket tower provide vertical exploration opportunities, sequencing play from ground-level sliding to elevated climbing for children aged 3 to 12. The integrated night lighting extends usable hours and reinforces the space theme as a destination feature within the public park."
+  "basic_info": {
+    "project_name": "Meteor Playland",
+    "case_id": "0002.png",
+    "site_type": "SITE.PUBLIC_PARK",
+    "country": "",
+    "city": ""
+  },
+  "design": {
+    "theme": [
+      {
+        "id": "SPACE.METEOR",
+        "role": "primary",
+        "confidence": 0.95
+      },
+      {
+        "id": "SPACE.ROCKET",
+        "role": "secondary",
+        "confidence": 0.7
+      }
+    ],
+    "style": [
+      "STYLE.SCIFI",
+      "STYLE.MODERN"
+    ],
+    "design_language": [
+      "meteor",
+      "space",
+      "stainless steel slide",
+      "rope net climbing",
+      "night lighting",
+      "sculptural landmark",
+      "public park"
+    ],
+    "design_story": "",
+    "design_highlights": []
+  },
+  "target_users": {
+    "age_group": [
+      "AGE.3_6",
+      "AGE.6_9",
+      "AGE.9_12"
+    ],
+    "user_type": [],
+    "estimated_capacity": ""
+  },
+  "play_experience": {
+    "play_behaviors": [
+      "PLAY.SLIDE",
+      "PLAY.CLIMB",
+      "PLAY.EXPLORE",
+      "PLAY.SOCIALIZE"
+    ],
+    "play_value": [],
+    "challenge_level": "",
+    "interaction_type": []
+  },
+  "space": {
+    "space_structure": "",
+    "functional_zones": [],
+    "circulation": "",
+    "viewpoints": []
+  },
+  "equipment": {
+    "functional_units": [
+      "UNIT.SLIDE",
+      "UNIT.CLIMBING",
+      "UNIT.ROPE_NET"
+    ],
+    "core_equipment": [],
+    "interactive_devices": []
+  },
+  "landscape": {
+    "planting": [],
+    "terrain": "",
+    "water_features": [],
+    "shade": ""
+  },
+  "materials": {
+    "main_materials": [
+      "MATERIAL.STAINLESS_STEEL",
+      "MATERIAL.ROPE",
+      "MATERIAL.RUBBER"
+    ],
+    "ground_materials": [],
+    "safety_surface": []
+  },
+  "color": {
+    "colors": [
+      "COLOR.STONE_GRAY",
+      "COLOR.SKY_BLUE",
+      "COLOR.WHITE"
+    ],
+    "main_color": "",
+    "color_strategy": ""
+  },
+  "safety": {
+    "estimated_age_range": "",
+    "risk_level": "",
+    "inclusive_design": false
+  },
+  "commercial": {
+    "applicable_scene": [],
+    "commercial_value": [],
+    "operation_features": []
+  },
+  "ai_analysis": {
+    "keywords": [
+      "meteor",
+      "space",
+      "stainless steel slide",
+      "rope net climbing",
+      "night lighting",
+      "sculptural landmark",
+      "public park"
+    ],
+    "vision_summary": "A public park playground featuring a large-scale stainless steel meteor-shaped structure with dual spiral slides, rope net climbing elements, a rocket tower, and rubber safety surfacing with painted orbital patterns. The structure is illuminated with embedded LED lights against a twilight sky, with city skyline visible in the background.",
+    "design_interpretation": "The composition uses a sculptural meteor landmark as the central organizing element, with two large-diameter stainless steel slides anchoring the circulation flow and creating a dramatic focal point. Rope net climbing elements and a rocket tower provide vertical exploration opportunities, sequencing play from ground-level sliding to elevated climbing for children aged 3 to 12. The integrated night lighting extends usable hours and reinforces the space theme as a destination feature within the public park.",
+    "confidence": 0.6
+  },
+  "metadata": {
+    "model": "qwen3.7-plus",
+    "vision_standard": "CaseOS_Vision_Standard_V1",
+    "output_schema": "CaseOS_Output_Schema_V3",
+    "analyzed_at": "2026-07-30T00:00:00Z"
+  }
 }

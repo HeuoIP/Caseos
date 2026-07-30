@@ -21,7 +21,7 @@ Single source of truth for one playground case. One row = one case.
 | 13 | `quality_score` | `FLOAT` (0—1) | Quality score (0 = low, 1 = high). Used to rank candidates. |
 | 14 | `embedding` | `VECTOR(N)` | Vector embedding for similarity search. N depends on the chosen embedding model. |
 | 15 | `image_path` | `TEXT` | Path to the original site image. Stored on object storage (Alibaba OSS) and tracked via Git LFS in this repo. |
-| 16 | `analysis_json` | `JSONB` | Raw Vision output for this case. Schema follows `schemas/case_analysis_v2.json`. |
+| 16 | `analysis_json` | `JSONB` | Raw Vision output for this case. Schema follows ADR-008 (canonical V3); the V2 shape is kept for one release as a deprecation ramp. `schemas/case_analysis_v2.json`. |
 | 17 | `created_at` | `TIMESTAMPTZ` | Insertion timestamp. Defaults to `NOW()`. |
 
 ## Required PostgreSQL Extensions

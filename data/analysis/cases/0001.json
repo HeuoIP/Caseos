@@ -1,67 +1,131 @@
 {
+  "basic_info": {
+    "project_name": "日晕乐园",
+    "case_id": "0001.png",
+    "site_type": "SITE.PUBLIC_PARK",
+    "country": "",
+    "city": ""
+  },
+  "design": {
+    "theme": [
+      {
+        "id": "NATURE.GARDEN",
+        "role": "primary",
+        "confidence": 0.7
+      },
+      {
+        "id": "FANTASY.FAIRY_TALE",
+        "role": "secondary",
+        "confidence": 0.5
+      }
+    ],
+    "style": [
+      "STYLE.NATURAL",
+      "STYLE.MODERN"
+    ],
+    "design_language": [
+      "rainbow canopy",
+      "spiral slide",
+      "multi-level climbing",
+      "rope net",
+      "wooden structure",
+      "circular ring",
+      "public park"
+    ],
+    "design_story": "",
+    "design_highlights": []
+  },
+  "target_users": {
+    "age_group": [
+      "AGE.3_6",
+      "AGE.6_9"
+    ],
+    "user_type": [],
+    "estimated_capacity": ""
+  },
+  "play_experience": {
+    "play_behaviors": [
+      "PLAY.CLIMB",
+      "PLAY.SLIDE",
+      "PLAY.BALANCE",
+      "PLAY.EXPLORE",
+      "PLAY.SOCIALIZE"
+    ],
+    "play_value": [],
+    "challenge_level": "",
+    "interaction_type": []
+  },
+  "space": {
+    "space_structure": "",
+    "functional_zones": [],
+    "circulation": "",
+    "viewpoints": []
+  },
+  "equipment": {
+    "functional_units": [
+      "UNIT.SLIDE",
+      "UNIT.CLIMBING",
+      "UNIT.ROPE_NET"
+    ],
+    "core_equipment": [],
+    "interactive_devices": []
+  },
+  "landscape": {
+    "planting": [],
+    "terrain": "",
+    "water_features": [],
+    "shade": ""
+  },
+  "materials": {
+    "main_materials": [
+      "MATERIAL.WOOD",
+      "MATERIAL.STAINLESS_STEEL",
+      "MATERIAL.ROPE",
+      "MATERIAL.RUBBER"
+    ],
+    "ground_materials": [],
+    "safety_surface": []
+  },
+  "color": {
+    "colors": [
+      "COLOR.OAK_BROWN",
+      "COLOR.SKY_BLUE",
+      "COLOR.IMPERIAL_RED",
+      "COLOR.GOLD_YELLOW",
+      "COLOR.JADE_GREEN",
+      "COLOR.STONE_GRAY"
+    ],
+    "main_color": "",
+    "color_strategy": ""
+  },
+  "safety": {
+    "estimated_age_range": "",
+    "risk_level": "",
+    "inclusive_design": false
+  },
+  "commercial": {
+    "applicable_scene": [],
+    "commercial_value": [],
+    "operation_features": []
+  },
+  "ai_analysis": {
+    "keywords": [
+      "rainbow canopy",
+      "spiral slide",
+      "multi-level climbing",
+      "rope net",
+      "wooden structure",
+      "circular ring",
+      "public park"
+    ],
+    "vision_summary": "A public park playground featuring a large-scale circular rainbow canopy overhead, a multi-level wooden climbing structure with rope nets and bridges, a long stainless steel spiral slide, and rubber safety surfacing in a green open park setting with city buildings in the background.",
+    "design_interpretation": "The composition uses a central landmark rainbow ring to anchor the play space and organize circulation, with the stainless steel spiral slide serving as the primary focal point. The multi-level wooden structure with rope nets and bridges sequences climbing and balancing challenges for children aged 3 to 9, while the open rubber surfacing supports social interaction and free movement.",
+    "confidence": 0.6
+  },
   "metadata": {
     "model": "qwen3.7-plus",
     "vision_standard": "CaseOS_Vision_Standard_V1",
     "output_schema": "CaseOS_Output_Schema_V2",
     "analyzed_at": "2026-07-28T10:51:38"
-  },
-  "project_name": "日晕乐园",
-  "theme": [
-    {
-      "id": "NATURE.GARDEN",
-      "role": "primary",
-      "confidence": 0.7
-    },
-    {
-      "id": "FANTASY.FAIRY_TALE",
-      "role": "secondary",
-      "confidence": 0.5
-    }
-  ],
-  "style": [
-    "STYLE.NATURAL",
-    "STYLE.MODERN"
-  ],
-  "site_type": "SITE.PUBLIC_PARK",
-  "age_group": [
-    "AGE.3_6",
-    "AGE.6_9"
-  ],
-  "play_behaviors": [
-    "PLAY.CLIMB",
-    "PLAY.SLIDE",
-    "PLAY.BALANCE",
-    "PLAY.EXPLORE",
-    "PLAY.SOCIALIZE"
-  ],
-  "functional_units": [
-    "UNIT.SLIDE",
-    "UNIT.CLIMBING",
-    "UNIT.ROPE_NET"
-  ],
-  "materials": [
-    "MATERIAL.WOOD",
-    "MATERIAL.STAINLESS_STEEL",
-    "MATERIAL.ROPE",
-    "MATERIAL.RUBBER"
-  ],
-  "colors": [
-    "COLOR.OAK_BROWN",
-    "COLOR.SKY_BLUE",
-    "COLOR.IMPERIAL_RED",
-    "COLOR.GOLD_YELLOW",
-    "COLOR.JADE_GREEN",
-    "COLOR.STONE_GRAY"
-  ],
-  "design_keywords": [
-    "rainbow canopy",
-    "spiral slide",
-    "multi-level climbing",
-    "rope net",
-    "wooden structure",
-    "circular ring",
-    "public park"
-  ],
-  "vision_summary": "A public park playground featuring a large-scale circular rainbow canopy overhead, a multi-level wooden climbing structure with rope nets and bridges, a long stainless steel spiral slide, and rubber safety surfacing in a green open park setting with city buildings in the background.",
-  "design_interpretation": "The composition uses a central landmark rainbow ring to anchor the play space and organize circulation, with the stainless steel spiral slide serving as the primary focal point. The multi-level wooden structure with rope nets and bridges sequences climbing and balancing challenges for children aged 3 to 9, while the open rubber surfacing supports social interaction and free movement."
+  }
 }

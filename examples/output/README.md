@@ -1,13 +1,19 @@
-# AI 输出口
+# Examples Output (DEPRECATED PATH)
 
-本目录用于存放 CaseOS 流水线产生的 JSON 输出。
+The canonical location for AI output JSON is:
 
-## 命名约定
+    data/analysis/cases/<image_id>.json
 
-建议使用 `主题_环境_序号.json`，例如：
+The schema is CaseOS_Output_Schema_V3
+(canonical per ADR-008). This folder used to hold one V1-shaped
+demo (snow_playground_case.json) which has been removed.
 
-- `wolf_playground.json`
-- `forest_case.json`
-- `ocean_case.json`
+If you want to inspect a real Vision output, look at any of:
 
-所有文件应符合 `schemas/case_analysis_v1.json`（若不再适用，会升级到更高版本的 schema 并在此注明）。
+    data/analysis/cases/0001.json
+    data/analysis/cases/0002.json
+    data/analysis/cases/sample_playground.json
+
+The folder is kept for the .gitkeep so future exports have a
+place to live. New exports should go to
+data/analysis/cases/, not here.
