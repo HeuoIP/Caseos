@@ -1,7 +1,11 @@
-fastapi
+﻿fastapi
 uvicorn
 sqlalchemy
 psycopg2-binary
 pgvector
 pydantic
 python-dotenv
+
+# Test runner (already in env, declared for clarity)
+pytest
+
