@@ -1,7 +1,7 @@
 ﻿# CaseOS Design Principles
 
 > Foundational design principles for the future CaseOS Decision Engine.
-> Each principle is short, testable, and operationalisable by exactly one
+> Each principle is short, sharp, and operationalisable by exactly one
 > future pipeline stage. The three principles here are the spine of the
 > engine "s object-selection reasoning.
 
@@ -31,14 +31,14 @@ Three reasons this layer exists:
 
 | ID | Title | One-line rule | Pipeline stage it operationalises |
 | --- | --- | --- | --- |
-| **DP-001** | [Primary Function First](DP-001_Primary_Function_First.md) | Every space exists to serve a primary function. Before recommending anything, identify and protect that function. | Goal Agent + Decision Maker Agent |
-| **DP-002** | [Space First, Object Second](DP-002_Space_First_Object_Second.md) | Examine the space -- dimensions, light, climate, surroundings, existing features, atmosphere -- BEFORE suggesting any object. | Space Agent |
-| **DP-003** | [Match Before Beauty](DP-003_Match_Before_Beauty.md) | Suitability precedes aesthetics. A beautiful but mismatched object is worse than a plain but matched one. | Object Selector Agent |
+| **DP-001** | [Primary Function First](DP-001_Primary_Function_First.md) | Every space should first fulfill its primary function. | Goal Agent + Decision Maker Agent |
+| **DP-002** | [Space First, Object Second](DP-002_Space_First_Object_Second.md) | Examine the space before proposing any object. | Space Agent |
+| **DP-003** | [Match Before Beauty](DP-003_Match_Before_Beauty.md) | Suitability precedes aesthetics. | Object Selector Agent |
 
 ## How the Three DPs Work Together
 
 The three DPs are applied **in order**. Skipping or re-ordering them
-produces one of the predictable failure modes below.
+produces a predictable failure mode (see each DP "s negative examples).
 
 ```text
 DP-001  Identify primary function            (decision side)
@@ -55,8 +55,65 @@ Handbook  Apply expert rules and methods     (depth side)
 ```
 
 A correct CaseOS recommendation passes through all three gates in
-order. A failed gate produces a predictable failure mode (see each
-DP "s Failure Modes section).
+order.
+
+## Unified Template
+
+Every DP follows this 3-section template. The shape is binding;
+the content varies. Future DPs must use this template unless the
+Maintenance section justifies an exception.
+
+### 1. Principle
+
+> A single one-line statement of the rule.
+> Must be expressible as a short imperative or assertion.
+> Must be readable in isolation.
+
+### 2. Explanation
+
+> A short prose explanation of *why* the principle exists and *what*
+> it requires. Two to four paragraphs is the right size.
+>
+> Contains two sub-sections:
+>
+> - **Examples** -- 2 to 4 positive examples that show the principle
+>   in action. Each example is one short line.
+> - **Negative Examples** -- 2 to 4 examples that show the principle
+>   being violated. Each example is one short line.
+
+### 3. Design Implication
+
+> A single one-line constraint -- the rule the engine must never
+> break, phrased as a "never ..." or "always ..." statement.
+
+After the 3-section template, each DP carries a metadata header
+(Status, Date, Layer, Pipeline Stage) and a small footer:
+
+- **Cross-references** -- the related Constitution clauses,
+  Decision Principles, Top-Level Principles, other DPs, Expert
+  Handbook chapters, and ADRs.
+- **Maintenance** -- how to amend this DP.
+
+The 3-section shape is binding. A future DP that omits any of the
+three sections must justify the omission in the Maintenance section.
+
+## Why a 3-Section Template
+
+The earlier draft of these DPs used a 9-section template borrowed
+from the Expert Handbook. The 3-section template was adopted
+because:
+
+1. **A DP is shorter and sharper than a handbook chapter.** The
+   "what" can be one line. The "why" can be a few paragraphs.
+   The "never" can be one line. That is enough for a rule of the
+   road.
+2. **Examples do more work than heuristics.** A short list of
+   positive and negative examples is more teachable than a
+   multi-paragraph discussion of edge cases.
+3. **Maintenance, cross-references, and metadata are appendices.**
+   They do not need to interrupt the reading flow.
+4. **One principle per file.** The DP "s metadata header is enough
+   to orient the reader; the body is the rule.
 
 ## Relationship to Other Layers
 
@@ -65,7 +122,7 @@ DP "s Failure Modes section).
 | **Constitution** | The permanent philosophy. What CaseOS is for, how it thinks, what it optimises for, what it must never do. | `docs/standards/CaseOS_Constitution_V1.md` |
 | **Decision Principles** | The four operational principles the pipeline obeys. The bridge between philosophy and code. | `docs/standards/CaseOS_Decision_Principles_V1.md` |
 | **Top-Level Principles** | The ten space-decision principles the future Decision Engine will obey. | `knowledge/decision_rules/Space_Decision_Principles.md` |
-| **Design Principles (this folder)** | The three must-not-skip rules for object selection. Sharp and testable. | `knowledge/principles/` |
+| **Design Principles (this folder)** | The three must-not-skip rules for object selection. Short and sharp. | `knowledge/principles/` |
 | **Expert Handbook** | The deep, expert-level method, rules, vocabulary, decision trees, and worked examples. | `knowledge/expert_handbook/` |
 | **Domain Packs** | The industry-specific knowledge (playground is the first). | `knowledge/taxonomy/`, `knowledge/objects/`, `docs/knowledge/Playground_Domain_Pack_V1.md` |
 
@@ -81,35 +138,11 @@ Each DP cites specific Constitution clauses, Decision Principles,
 Top-Level Principles, Expert Handbook chapters, and ADRs. The matrix
 below is the consolidated view.
 
-| From | Constitution | Decision Principles | Top-Level Principles | Expert Handbook | ADRs |
-| --- | --- | --- | --- | --- | --- |
-| **DP-001 Primary Function First** | P002, P004 | 003 (Content serves Purpose) | 3 (Best is conditional), 5 (Multiple options), 8 (User "s goals win) | 01 Method (step 2), 03 Value Taxonomy, 05 Negative Rules | ADR-005, ADR-006 |
-| **DP-002 Space First Object Second** | P003, P004 | 002 (Space before Object) | 1 (Evidence before invention), 2 (Hard constraints) | 01 Method (step 1), 06 Space Psychology | ADR-005 |
-| **DP-003 Match Before Beauty** | P001, P003 | 004 (Decision Maker "s Perspective) | 2 (Hard constraints), 6 (Trade-offs visible) | 03 Value Taxonomy, 05 Negative Rules, 08 Object Value Map | ADR-005, ADR-006 |
-
-## Unified Template (for future DPs)
-
-When a fourth principle is added, it follows this 9-section template.
-The three DPs above are the canonical reference.
-
-1. **Statement** -- one-line rule.
-2. **Why this principle exists** -- Constitution / Decision
-   Principles citation, plus the rationale.
-3. **What it means** -- detailed explanation, with three direct
-   consequences.
-4. **When to apply** -- concrete moments when this DP must be
-   checked.
-5. **When NOT to apply** -- the three well-defined yield situations.
-6. **Failure modes** -- the predictable failures if the DP is
-   ignored (typically four).
-7. **Worked example** -- one concrete case showing the DP in action.
-8. **Cross-references** -- the related Constitution clauses,
-   Decision Principles, Top-Level Principles, Expert Handbook
-   chapters, and ADRs.
-9. **Maintenance** -- how to amend this DP.
-
-The 9-section shape is binding. A future DP that omits any section
-must justify the omission in the Maintenance section.
+| From | Constitution | Decision Principles | Top-Level Principles | Other DPs | Expert Handbook | ADRs |
+| --- | --- | --- | --- | --- | --- | --- |
+| **DP-001 Primary Function First** | P002, P004 | 003 (Content serves Purpose) | 8 (User "s goals win) | -- | 01 Method (step 2), 03 Value Taxonomy, 05 Negative Rules | ADR-005, ADR-006 |
+| **DP-002 Space First Object Second** | P003, P004 | 002 (Space before Object) | 1 (Evidence before invention), 2 (Hard constraints) | DP-001 (the goal comes first) | 01 Method (step 1), 06 Space Psychology | ADR-005 |
+| **DP-003 Match Before Beauty** | P001, P003 | 004 (Decision Maker "s Perspective) | 2 (Hard constraints), 6 (Trade-offs visible) | DP-001, DP-002 (match needs both goal and space) | 03 Value Taxonomy, 05 Negative Rules, 08 Object Value Map | ADR-005, ADR-006 |
 
 ## Naming and Numbering
 
@@ -152,6 +185,9 @@ must justify the omission in the Maintenance section.
   future Decision Engine. It must be reviewed and versioned.
 - Adding a new DP is allowed without ADR; promoting a new DP to
   *Accepted* requires ADR.
+- A change to the 3-section template itself is a breaking change
+  to the whole principles folder and must be reflected in every
+  existing DP.
 - The three existing DPs were accepted together (2026-07-30) as
   the V1 spine of the Decision Engine "s object-selection
   reasoning. Future DPs will be added one at a time.
