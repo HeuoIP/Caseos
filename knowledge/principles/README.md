@@ -57,63 +57,94 @@ Handbook  Apply expert rules and methods     (depth side)
 A correct CaseOS recommendation passes through all three gates in
 order.
 
-## Unified Template
+## Two Template Variants
 
-Every DP follows this 3-section template. The shape is binding;
-the content varies. Future DPs must use this template unless the
-Maintenance section justifies an exception.
+A DP is short and sharp. The exact shape can be one of two variants,
+chosen by the author and recorded in the DP "s metadata header.
 
-### 1. Principle
+### Variant A -- Minimal (Principle only)
 
-> A single one-line statement of the rule.
-> Must be expressible as a short imperative or assertion.
-> Must be readable in isolation.
+Use when the principle is **self-evident** and the operational
+detail belongs in a layer below the DPs (the Space Agent spec, the
+Expert Handbook, the Object Library, ...).
 
-### 2. Explanation
+Shape:
 
-> A short prose explanation of *why* the principle exists and *what*
-> it requires. Two to four paragraphs is the right size.
->
-> Contains two sub-sections:
->
-> - **Examples** -- 2 to 4 positive examples that show the principle
->   in action. Each example is one short line.
-> - **Negative Examples** -- 2 to 4 examples that show the principle
->   being violated. Each example is one short line.
-
-### 3. Design Implication
-
-> A single one-line constraint -- the rule the engine must never
-> break, phrased as a "never ..." or "always ..." statement.
-
-After the 3-section template, each DP carries a metadata header
-(Status, Date, Layer, Pipeline Stage) and a small footer:
-
+- Metadata header (ID, Status, Date, Layer, Pipeline Stage, Format).
+- **Principle** -- the rule, in 2 to 6 short lines. No sub-sections.
 - **Cross-references** -- the related Constitution clauses,
   Decision Principles, Top-Level Principles, other DPs, Expert
   Handbook chapters, and ADRs.
-- **Maintenance** -- how to amend this DP.
+- **Maintenance** -- how to amend the DP and where the operational
+  detail lives.
 
-The 3-section shape is binding. A future DP that omits any of the
-three sections must justify the omission in the Maintenance section.
+Currently used by:
 
-## Why a 3-Section Template
+- **DP-002** (Space First, Object Second). The five space axes
+  live in the Space Agent spec, not in the DP.
+
+### Variant B -- 3-Section (Principle + Explanation + Design Implication)
+
+Use when the principle needs **operational grounding** -- examples,
+negative examples, or a sharp one-line constraint that the engine
+must never break.
+
+Shape:
+
+- Metadata header (ID, Status, Date, Layer, Pipeline Stage, Format).
+- **Principle** -- one-line statement of the rule.
+- **Explanation** -- 2 to 4 paragraphs of "why" and "what",
+  containing two sub-sections:
+  - **Examples** -- 2 to 4 positive examples.
+  - **Negative Examples** -- 2 to 4 violations.
+- **Design Implication** -- one-line "never ..." or "always ..."
+  constraint.
+- **Cross-references** -- as in Variant A.
+- **Maintenance** -- as in Variant A.
+
+Currently used by:
+
+- **DP-001** (Primary Function First).
+- **DP-003** (Match Before Beauty).
+
+## Why Two Variants
 
 The earlier draft of these DPs used a 9-section template borrowed
-from the Expert Handbook. The 3-section template was adopted
-because:
+from the Expert Handbook. That was reduced to a 3-section template
+in Sprint 14b. The 3-section template is the default; the minimal
+variant exists because some principles stand on their own without
+needing worked examples in the DP file itself.
 
-1. **A DP is shorter and sharper than a handbook chapter.** The
-   "what" can be one line. The "why" can be a few paragraphs.
-   The "never" can be one line. That is enough for a rule of the
-   road.
-2. **Examples do more work than heuristics.** A short list of
-   positive and negative examples is more teachable than a
-   multi-paragraph discussion of edge cases.
-3. **Maintenance, cross-references, and metadata are appendices.**
-   They do not need to interrupt the reading flow.
-4. **One principle per file.** The DP "s metadata header is enough
-   to orient the reader; the body is the rule.
+The split keeps each DP "s reading time short:
+
+- A self-evident principle can be read in 20 seconds.
+- A principle that needs grounding can be read in 2 minutes.
+
+The split also keeps the operational detail in the right layer:
+
+- Space axes in the Space Agent spec, not in DP-002.
+- Worked examples in the Expert Handbook, not in DP-002.
+- Match-test detail in the Object Selector spec, not in DP-003.
+
+When a future Sprint adds a DP that needs more grounding, Variant
+B is the default. When a future Sprint finds that a Variant B DP
+can be tightened, the author can move it to Variant A and migrate
+the examples to the right layer (Handbook, Object Selector spec,
+Goal Agent spec, ...).
+
+## Authoring Rules
+
+- A new DP starts as **Proposed** with one of the two variants.
+  The author declares the variant in the metadata header.
+- A DP that switches variants must keep its ID (`DP-NNN`) and must
+  update its Maintenance section to record the migration.
+- A Variant A DP can grow into Variant B if a future Sprint
+  finds that worked examples are needed at the DP layer.
+- A Variant B DP can shrink into Variant A if a future Sprint
+  finds that the worked examples belong in a layer below.
+- The 3-section shape inside Variant B is binding. A Variant B DP
+  that omits Examples, Negative Examples, or Design Implication
+  must justify the omission in Maintenance.
 
 ## Relationship to Other Layers
 
@@ -204,3 +235,4 @@ below is the consolidated view.
   Decision Intelligence pipeline that these DPs operationalise.
 - `docs/architecture/ADR-006-project-fit-intelligence.md` -- the
   Project Fit pre-filter that runs before DP-003.
+
