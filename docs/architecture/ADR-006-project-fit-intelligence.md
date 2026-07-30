@@ -1,9 +1,10 @@
 # ADR-006: Project Fit Intelligence Architecture
 
-- **Status:** Proposed
+- **Status:** Accepted (recorded by ADR-006a, 2026-07-30)
 - **Date:** 2026-07-30
 - **Supersedes:** --
 - **Superseded by:** --
+- **Accepted by:** ADR-006a (2026-07-30)
 
 ## 1. Background
 
