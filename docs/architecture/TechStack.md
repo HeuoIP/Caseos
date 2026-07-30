@@ -1,6 +1,9 @@
 # CaseOS Tech Stack
 
-## Frontend
+> Last reviewed 2026-07-30 (Sprint 12 Pivot Cleanup).
+> Reflects the current implementation, not future wishlist.
+
+## Frontend (future)
 
 - React
 - Next.js
@@ -8,36 +11,49 @@
 
 ## Backend
 
-- FastAPI
+- Python 3.12 (declared in Sprint 1)
+- FastAPI (declared; surface lands in Sprint 13)
+- Pydantic
+- python-dotenv
 
-## Database
+## Database (declared, not yet built)
 
 - PostgreSQL
-
-## Vector
-
-- pgvector
+- pgvector (for future vector retrieval; V1 uses local retriever)
+- SQLAlchemy (declared in requirements.txt; not yet wired)
 
 ## Storage
 
-- Alibaba OSS
+- Alibaba OSS (declared for image storage; V1 keeps images in
+  "data/images/cases/" locally, Git LFS intended).
 
 ## Vision
 
-- Qwen3-VL
+- Qwen3.7-Plus via DashScope OpenAI-compatible API
+  (wired in "backend/app/services/vision/providers/qwen.py").
+- Vision Prompt: "backend/prompts/vision_prompt_v2.md" (V3 output
+  shape, per ADR-008).
 
-## LLM
+## LLM (declared, V1 uses template renderers)
 
-- MiniMax M3
+- The text-rendering side of Strategy Agent and Explain Agent is
+  currently a deterministic template (see Sprint 9). The LLM
+  swap-in is Sprint 15. The intended provider for V1 is the same
+  Qwen3.7-Plus endpoint used for vision; the product Blueprint V1
+  does NOT name a specific LLM.
+- "MiniMax M3" was a V1 placeholder. It is removed.
 
-## Image
+## Image (declared, V1 has no image generation)
 
-- Krea + ComfyUI
+- The Blueprint V1 V1 has no image generation step. Krea and
+  ComfyUI are deferred.
 
-## Deploy
+## Deploy (declared, no Dockerfile yet)
 
-- Docker
+- Docker is declared in the Blueprint; the Dockerfile lands in
+  Sprint 13.
 
-## GPU
+## GPU (declared, not used in V1)
 
-- 端脑云
+- DuanNaoYun is a future-self-host option for when CaseOS runs
+  its own embeddings. V1 uses the cloud Vision API.

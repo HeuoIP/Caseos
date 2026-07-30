@@ -1,3 +1,6 @@
+> "DEPRECATED 2026-07-30" -- this file is the V1 product spec.
+> Superseded by "docs/product/CaseOS_Product_Blueprint_V1.md".
+> Kept only for git history reference. Do not edit.
 # CaseOS Product V1
 
 ## 1、项目愿景（Vision）
