@@ -1,3 +1,13 @@
+﻿# Theme Extension Log (Sprint 7.x, completed 2026-07-28)
+
+> **Note (2026-07-30, Sprint 12 Pivot Cleanup):** This is a
+> **sprint completion log**, not a knowledge rule. It was moved
+> from `docs/knowledge/` to `docs/sprints/` so the folder layout
+> matches the convention in `docs/sprints/README.md` ("Sprint
+> completion logs -- append-only records of what changed during
+> a sprint"). The content below is unchanged.
+
+---
 # Theme Extension Log (2026-07-28)
 
 Appended 3 sections to each theme MD. No existing content was removed.
