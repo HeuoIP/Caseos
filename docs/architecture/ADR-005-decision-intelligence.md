@@ -1,6 +1,6 @@
 # ADR-005: Decision Intelligence Architecture
 
-- **Status:** Accepted
+- **Status:** Accepted (amended by ADR-005a, 2026-07-30)
 - **Date:** 2026-07-29
 - **Supersedes:** --
 - **Superseded by:** --
@@ -172,3 +172,35 @@ This ADR does NOT include:
 - Sprint 8 deliverable: `backend/app/core/product/` -- Product Layer.
 - Knowledge layer: `knowledge/{goals,strategies,reasoning,objects,taxonomy,decision_rules}/`.
 - Architecture review: `docs/reviews/Architecture_Review_2026_07.md`.
+## Constitution cross-reference (added by ADR-005a, 2026-07-30)
+
+Every agent in the Decision Intelligence pipeline must satisfy the
+CaseOS Constitution V1 and the four Decision Principles V1. In
+particular:
+
+1. **Constitution Principle 003** -- understand before recommending.
+   The Space Agent, the Decision Maker Agent, and the Knowledge
+   Retriever Agent exist so that the Strategy Agent never has to
+   recommend without understanding.
+2. **Constitution Principle 002 / Decision Principle 001** -- design
+   serves decisions. The Strategy Agent must cite the served goals
+   in every Recommendation.
+3. **Decision Principle 002** -- space before object. The Object
+   Selector must read the Space Summary and refuse to recommend
+   objects that contradict the observed site type, materials, or
+   fall height.
+4. **Decision Principle 004** -- recommend from the decision maker 's
+   perspective. The Explain Agent must never use the marketing
+   vocabulary banned by the Constitution (striking, amazing,
+   iconic, world-class, revolutionary, cutting-edge).
+
+A new acceptance criterion is added: every agent in the pipeline
+must be auditable against the Constitution V1 by a future
+	est_constitution_compliance.py. This is enforced starting
+Sprint 14 (Constitution Compliance Tests).
+
+See:
+
+- CaseOS_Constitution_V1.md (highest-level philosophy)
+- CaseOS_Decision_Principles_V1.md (implementation guide)
+- ADR-005a (the amendment that adds this section)
