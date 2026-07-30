@@ -1,4 +1,9 @@
-﻿# Characteristics -- Space Cognition
+﻿
+> **DEPRECATED 2026-07-30 (Sprint 17 / ADR-009).** This folder is the
+> experimental Sprint 16 structure. The canonical Space Cognition
+> knowledge lives at knowledge/brain/space_cognition/README.md.
+> This file is preserved for history reference only; do not edit.
+# Characteristics -- Space Cognition
 
 - **Layer:** Brain -- Level 1
 - **Status:** Accepted
@@ -199,3 +204,4 @@ surroundings.
   and requires ADR.
 - Renaming or removing a **characteristic** is a breaking change
   and requires ADR.
+

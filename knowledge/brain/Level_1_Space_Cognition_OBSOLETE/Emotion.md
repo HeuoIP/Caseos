@@ -1,4 +1,9 @@
-﻿# Emotion -- Space Cognition
+﻿
+> **DEPRECATED 2026-07-30 (Sprint 17 / ADR-009).** This folder is the
+> experimental Sprint 16 structure. The canonical Space Cognition
+> knowledge lives at knowledge/brain/space_cognition/README.md.
+> This file is preserved for history reference only; do not edit.
+# Emotion -- Space Cognition
 
 - **Layer:** Brain -- Level 1
 - **Status:** Accepted
@@ -151,3 +156,4 @@ population qualifier becomes essential.
   requires ADR.
 - Adding the **population qualifier** (V2) is a breaking
   change to the Emotion record shape and requires ADR.
+

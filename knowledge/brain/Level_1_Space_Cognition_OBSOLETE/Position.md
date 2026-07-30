@@ -1,4 +1,9 @@
-﻿# Position -- Space Cognition
+﻿
+> **DEPRECATED 2026-07-30 (Sprint 17 / ADR-009).** This folder is the
+> experimental Sprint 16 structure. The canonical Space Cognition
+> knowledge lives at knowledge/brain/space_cognition/README.md.
+> This file is preserved for history reference only; do not edit.
+# Position -- Space Cognition
 
 - **Layer:** Brain -- Level 1
 - **Status:** Accepted
@@ -152,3 +157,4 @@ folder, as long as the cognitive output remains equivalent.
 - A change to the **output consumer** (Level 2 receiving a
   different record shape) requires ADR (the Diagnosis Layer "s
   input contract changes).
+

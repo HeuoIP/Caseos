@@ -1,4 +1,9 @@
-﻿# Role -- Space Cognition
+﻿
+> **DEPRECATED 2026-07-30 (Sprint 17 / ADR-009).** This folder is the
+> experimental Sprint 16 structure. The canonical Space Cognition
+> knowledge lives at knowledge/brain/space_cognition/README.md.
+> This file is preserved for history reference only; do not edit.
+# Role -- Space Cognition
 
 - **Layer:** Brain -- Level 1
 - **Status:** Accepted
@@ -118,3 +123,4 @@ The `SpaceCognition` record is the input to the Diagnosis Layer
   between `inferred` and `unknown`) requires ADR.
 - A change to the **prohibitions** (lifting any of the four
   NOTs above) is a Constitution amendment and requires ADR.
+
