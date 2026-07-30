@@ -33,7 +33,7 @@ Three reasons this layer exists:
 | --- | --- | --- | --- |
 | **DP-001** | [Primary Function First](DP-001_Primary_Function_First.md) | Every space should first fulfill its primary function. | Goal Agent + Decision Maker Agent |
 | **DP-002** | [Space First, Object Second](DP-002_Space_First_Object_Second.md) | Examine the space before proposing any object. | Space Agent |
-| **DP-003** | [Match Before Beauty](DP-003_Match_Before_Beauty.md) | Suitability precedes aesthetics. | Object Selector Agent |
+| **DP-003** | [Match Before Beauty](DP-003_Match_Before_Beauty.md) | Beauty comes after fit. | Object Selector Agent |
 
 ## How the Three DPs Work Together
 
@@ -82,6 +82,10 @@ Currently used by:
 
 - **DP-002** (Space First, Object Second). The five space axes
   live in the Space Agent spec, not in the DP.
+- **DP-003** (Match Before Beauty). The five match dimensions
+  (Space, User, Budget, Operation, Context) live in the Object
+  Selector spec, not in the DP. Failure-mode vocabulary lives
+  in the Expert Handbook.
 
 ### Variant B -- 3-Section (Principle + Explanation + Design Implication)
 
@@ -104,8 +108,10 @@ Shape:
 
 Currently used by:
 
-- **DP-001** (Primary Function First).
-- **DP-003** (Match Before Beauty).
+- **DP-001** (Primary Function First). The negative examples
+  (decoration-as-strategy, theme-over-function, catalogue
+  leakage, silent goal drift) live in the DP because the
+  principle is abstract enough that they earn their keep.
 
 ## Why Two Variants
 
@@ -173,7 +179,7 @@ below is the consolidated view.
 | --- | --- | --- | --- | --- | --- | --- |
 | **DP-001 Primary Function First** | P002, P004 | 003 (Content serves Purpose) | 8 (User "s goals win) | -- | 01 Method (step 2), 03 Value Taxonomy, 05 Negative Rules | ADR-005, ADR-006 |
 | **DP-002 Space First Object Second** | P003, P004 | 002 (Space before Object) | 1 (Evidence before invention), 2 (Hard constraints) | DP-001 (the goal comes first) | 01 Method (step 1), 06 Space Psychology | ADR-005 |
-| **DP-003 Match Before Beauty** | P001, P003 | 004 (Decision Maker "s Perspective) | 2 (Hard constraints), 6 (Trade-offs visible) | DP-001, DP-002 (match needs both goal and space) | 03 Value Taxonomy, 05 Negative Rules, 08 Object Value Map | ADR-005, ADR-006 |
+| **DP-003 Match Before Beauty** | P001, P003 | 004 (Decision Maker "s Perspective) | 2 (Hard constraints), 6 (Trade-offs visible) | DP-001 (Context input), DP-002 (Space input) | 03 Value Taxonomy, 05 Negative Rules, 08 Object Value Map | ADR-005, ADR-006 |
 
 ## Naming and Numbering
 
@@ -235,4 +241,8 @@ below is the consolidated view.
   Decision Intelligence pipeline that these DPs operationalise.
 - `docs/architecture/ADR-006-project-fit-intelligence.md` -- the
   Project Fit pre-filter that runs before DP-003.
+
+
+
+
 
