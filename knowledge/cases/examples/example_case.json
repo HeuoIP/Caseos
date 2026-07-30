@@ -105,5 +105,28 @@
     "theme_logic": 0.75,
     "user_logic": 0.80,
     "commercial_logic": 0.50
+  },
+
+  "case_evaluation": {
+    "space_logic_score": 22,
+    "experience_logic_score": 23,
+    "theme_meaning_logic_score": 16,
+    "user_value_score": 13,
+    "commercial_logic_score": 7,
+    "total_score": 81,
+    "transferability": {
+      "level": "high",
+      "applicable_project_types": [
+        "kindergarten",
+        "school",
+        "family_residential"
+      ],
+      "limitations": [
+        "requires mature trees at the site",
+        "wood and rope need annual maintenance budget",
+        "low share-of-voice: not a photo-led landmark",
+        "moderate climate: rope freezing policy needed in winter zones"
+      ]
+    }
   }
 }

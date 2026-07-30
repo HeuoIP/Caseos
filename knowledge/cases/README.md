@@ -1,4 +1,4 @@
-# Case Knowledge Object (CKO) V1.1
+# Case Knowledge Object (CKO) V1.2
 
 - **Status:** Accepted (CKO V1.1, 2026-07-30)
 - **Source of truth:** `knowledge/cases/schema/cko_schema_v1.md`
@@ -39,6 +39,47 @@ CKO V1.1 adds two new fields, both required:
 The extension is **non-breaking and additive**: every V1 field is preserved, every existing CKO example remains valid, and a CKO Validator (future) only needs to know one new enum (the `knowledge_source` taxonomy) and one new object (`learning_value`).
 
 Full rationale in `docs/architecture/ADR-011-cko-learning-source-value-model.md`.
+
+
+## V1.2 Additions (2026-07-30)
+
+CKO V1.2 adds a third evaluation layer, in addition to V1 "s Section 7 (project quality) and V1.1 "s Section 8 (learning value):
+
+3. **`case_evaluation`** -- a 100-point weighted score plus a `transferability` object. This is the **gate** that decides whether a CKO is a **Priority Golden Case** (>=90), a **Candidate Golden Case** (80..89), or a **Reference Case only** (<80). Section 9 is what the CKO Librarian reads to admit or reject a case.
+
+The V1.2 schema is non-breaking: every V1 and V1.1 field remains unchanged; the Section 9 fields are additive and required.
+
+### The Three Evaluation Layers (V1.2)
+
+| Layer | Section | Question | Scale |
+| --- | --- | --- | --- |
+| Project Quality | Section 7 | How good is this project? | 4 axes 0..10 int |
+| Learning Value | Section 8 | How much can this case teach us? | 5 axes 0..1 float |
+| Case Evaluation | Section 9 (NEW) | Is it worth keeping + is it transferable? | 5 weighted scores 0..100 + transferability object |
+
+The three layers are **orthogonal by design** and feed different consumers:
+
+- **Decision Engine** reads Section 7 (quality) and Section 9 (gate).
+- **Retrieval Engine** reads Section 8 (teachability) and Section 9 (transferability).
+- **CKO Librarian** reads Section 9 alone to decide admission.
+
+Full rationale in `docs/architecture/ADR-012-case-evaluation-score.md`.
+
+### Operational Threshold (NOT a schema field)
+
+The CKO Librarian applies these tiers on `case_evaluation.total_score`:
+
+- `total_score >= 90` -- **Priority Golden Case**.
+- `80 <= total_score < 90` -- **Candidate Golden Case**.
+- `total_score < 80` -- **Reference Case only**.
+
+The thresholds are operational tuning parameters and may be revised by ADR; they are NOT schema fields. See ADR-012 Section "Decision 3".
+
+### Transferability
+
+`case_evaluation.transferability` is a separate attribute, not part of `total_score`. It carries a `level` (`high` / `medium` / `low`), an `applicable_project_types` list (non-empty, vocabulary-bound), and a `limitations` list (non-empty, free-text). A world-class theme park may have a high Section 9 score but low transferability to kindergarten; the separation preserves the meaning of both signals.
+
+---
 
 ## CKO Quality Principle
 
@@ -138,15 +179,18 @@ Every CKO file in `examples/` must include all 9 sections. A CKO with a missing 
 
 CKOs do not depend on any database, any AI extraction, or any vector store in V1. The schema is **runtime-neutral**; it is knowledge.
 
-## Out of Scope (V1.1)
+## Out of Scope (V1.2)
 
 - Internal case ingestion (locked at source by ADR-011).
 - AI-synthesised cases (locked at source by ADR-011).
 - Crowdsourced cases (locked at source by ADR-011).
+- Per-segment user-score rollups in Section 9 (children / parents / operators sub-scores). Future work.
+- Auto-scoring of any Section by LLM (filled by CKO Librarian, not AI).
 - CKO database schema (separate `database/CaseOS_Database_Schema_V1.md`).
 - Vector search index over CKO embeddings.
 - AI extraction pipeline (Vision --> CKO auto-fill).
 - Case Retrieval Engine (separate sprint).
+
 
 ## Maintenance
 
@@ -157,3 +201,6 @@ CKOs do not depend on any database, any AI extraction, or any vector store in V1
 - Renaming a CKO field: breaking change, requires ADR.
 - Adding a new `knowledge_source` value: requires ADR (per ADR-011).
 - Changing the Section 8 average threshold (default 0.4): requires ADR (per ADR-011).
+- Adding a new field to `case_evaluation`: breaking change, requires ADR (per ADR-012).
+- Changing any weight in Section 9 (25/25/20/15/15): breaking, requires ADR (per ADR-012).
+- Changing the Golden thresholds (80, 90 default): operational tuning, requires ADR (per ADR-012).

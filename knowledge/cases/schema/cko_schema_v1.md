@@ -1,9 +1,9 @@
 # CKO Schema V1
 
-- **Version:** 1.1
+- **Version:** 1.2
 - **Status:** Accepted
 - **Date:** 2026-07-30
-- **Schema extension:** 2026-07-30 adds `knowledge_source` to Section 0 and adds Section 8 `learning_value` (5 axes, each 0..1 float). Non-breaking additive.
+- **Schema extensions:** 2026-07-30 V1.1 added `knowledge_source` to Section 0 and added Section 8 `learning_value`. 2026-07-30 V1.2 added Section 9 `case_evaluation` (5 weighted scores 0..25/0..25/0..20/0..15/0..15 summing to 100, plus `transferability` object). Both are non-breaking.
 - **Source ADR:** `docs/architecture/ADR-011-cko-learning-source-value-model.md`
 - **Mandatory:** every CKO file in `examples/` must match this schema (9 sections).
 
@@ -167,6 +167,49 @@ All `enum` fields above resolve through the controlled vocabulary in `knowledge/
 `knowledge_source` is an enum governed by Section 0a above; `learning_value` fields are floats, not enums.
 
 A CKO with an unknown enum value is rejected at index time by the future CKO Validator. V1 validation is by a manual review (Librarian); V2 is automated.
+
+## Section 9. Case Evaluation Score (V1.2)
+
+Five weighted dimensions summing to 100 points; `transferability` is a separate attribute and is NOT part of `total_score`.
+
+See `docs/architecture/ADR-012-case-evaluation-score.md` for full rationale, including the three-evaluation-layer architecture (Section 7 / Section 8 / Section 9).
+
+| Field | Type | Required | Range | Description |
+| --- | --- | --- | --- | --- |
+| `case_evaluation.space_logic_score` | float | yes | 0..25 | Why the space works spatially. |
+| `case_evaluation.experience_logic_score` | float | yes | 0..25 | Why users want to stay. |
+| `case_evaluation.theme_meaning_logic_score` | float | yes | 0..20 | Why the space is memorable. |
+| `case_evaluation.user_value_score` | float | yes | 0..15 | Why different users accept it. |
+| `case_evaluation.commercial_logic_score` | float | yes | 0..15 | Why the project creates value. |
+| `case_evaluation.total_score` | float | yes | 0..100 | Sum of the five weighted components; validator checks the sum. |
+| `case_evaluation.transferability.level` | enum | yes | `high` / `medium` / `low` | Whether the case applies elsewhere. |
+| `case_evaluation.transferability.applicable_project_types` | array of enum | yes | non-empty | Values from `taxonomy/project_types.md`. |
+| `case_evaluation.transferability.limitations` | array of strings | yes | non-empty | What to watch when transferring. |
+
+### Weights
+
+The five weights are 25 / 25 / 20 / 15 / 15 and sum to 100. Weights are part of the schema "s public contract; changing any weight is breaking and requires ADR.
+
+### Validation (CKO Validator at V2)
+
+- `total_score` equals `space_logic_score + experience_logic_score + theme_meaning_logic_score + user_value_score + commercial_logic_score` (within 0.01 tolerance).
+- Each score stays in its declared range.
+- `transferability.applicable_project_types` is non-empty and each value is in `taxonomy/project_types.md`.
+- `transferability.limitations` is non-empty.
+
+### Operational Threshold (NOT a field)
+
+The CKO Librarian applies these operational tiers on the `total_score`:
+
+- `total_score >= 90` -- Priority Golden Case.
+- `80 <= total_score < 90` -- Candidate Golden Case.
+- `total_score < 80` -- Reference Case only.
+
+Thresholds are operational tuning parameters and may be revised by ADR; they are NOT schema fields.
+
+---
+
+- Section 9 "s 100-point total and `transferability` are **distinct** from Section 7 (4 axes 0..10) and Section 8 (5 axes 0..1). See ADR-012 for the three-layer architecture.
 
 ## Compatibility Notes
 
