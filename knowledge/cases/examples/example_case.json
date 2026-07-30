@@ -1,10 +1,11 @@
-﻿{
+{
   "case_identity": {
     "case_id": "CKO-0001",
     "title": "Forest courtyard kindergarten playspace",
     "source": "CaseOS case archive (curated 2026-07-30)",
     "image_reference": "data/images/cases/001.jpg",
-    "project_type": "kindergarten"
+    "project_type": "kindergarten",
+    "knowledge_source": "external_excellent_case"
   },
 
   "project_context": {
@@ -96,5 +97,13 @@
     "innovation_score": 6,
     "commercial_value_score": 5,
     "confidence": 0.82
+  },
+
+  "learning_value": {
+    "space_logic": 0.85,
+    "experience_logic": 0.90,
+    "theme_logic": 0.75,
+    "user_logic": 0.80,
+    "commercial_logic": 0.50
   }
 }
