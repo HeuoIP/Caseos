@@ -43,7 +43,11 @@ def render_markdown(
         trust_conf = _safe(trust.get("confidence"), fallback="")
         if trust_conf:
             confidence = trust_conf  # trust always overrides
-        extra_caveats = list(trust.get("uncertainty") or [])
+        # ADR-016 / Sprint 19.3 contract: caveats live under
+        # uncertainty_handling. We also read the legacy uncertainty
+        # key as a defensive fallback so older serialized trust
+        # objects still render.
+        extra_caveats = list(trust.get("uncertainty_handling") or trust.get("uncertainty") or [])
         for c in extra_caveats:
             if c not in caveats:
                 caveats.append(c)

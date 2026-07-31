@@ -2,3 +2,7 @@
 .Python3*
 .env
 *.pyc
+__pycache__/
+_wr.py
+*.analysis.md
+.pytest_cache/

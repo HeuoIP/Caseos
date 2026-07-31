@@ -46,7 +46,10 @@ class RecommendationModule(Stage):
                 "evidence": trust.get("evidence") or {},
                 "confidence_and_caveats": {
                     "confidence": trust.get("confidence") or "Unknown",
-                    "caveats": trust.get("uncertainty") or [],
+                    # ADR-016 / Sprint 19.3: caveats come from
+                    # uncertainty_handling (legacy uncertainty is
+                    # tolerated for forward compat).
+                    "caveats": trust.get("uncertainty_handling") or trust.get("uncertainty") or [],
                 },
             },
         }

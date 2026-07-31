@@ -43,7 +43,10 @@ def test_cli_generates_markdown(tmp_path: Path) -> None:
             {
                 "project_id": "kg-test",
                 "project_type": "kindergarten_outdoor",
-                "site_description": "empty outdoor",
+                "site_description": (
+                    "outdoor area with some existing equipment but "
+                    "the area lacks a memorable theme or identity"
+                ),
                 "user_goal": "increase enrollment",
                 "constraints": "limited budget",
             }
@@ -67,6 +70,14 @@ def test_cli_generates_markdown(tmp_path: Path) -> None:
     ]:
         assert heading in text, f"Missing section: {heading}"
 
-    # Confidence must reflect the placeholder truth: Low, with caveats.
-    assert "Low" in text
-    assert "Caveats" in text or "caveats" in text
+    # Sprint 19.3: with the fixture above triggering Decision R-01
+    # (lack of identity + existing equipment) and a GoldenCase KO
+    # applicable to kindergarten_outdoor, the Trust Engine emits
+    # T-01 (full evidence) and confidence = Medium. The Markdown
+    # renderer must also surface the canonical Sprint 19.3 caveat.
+    assert "Medium" in text, "Sprint 19.3 expected Medium confidence"
+    assert "Low" not in text, "Low should no longer be the only level"
+    assert "Caveats" in text, "Caveats heading must be present"
+    assert (
+        "no site image analysis" in text.lower()
+    ), "Sprint 19.3 canonical caveat must appear"
