@@ -1,0 +1,1 @@
+"""Knowledge Object loader (local JSON, no DB)."""

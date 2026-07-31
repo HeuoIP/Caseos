@@ -1,0 +1,24 @@
+{
+  "identity": "FailurePattern.scatter_equipment_overload_v1",
+  "situation_context": {
+    "project_type": "any",
+    "constraint": "limited_budget"
+  },
+  "observation": "many small pieces of equipment scattered across the site",
+  "diagnosis": "lack of spatial anchor; visual and behavioural disorder",
+  "decision": {
+    "strategy": "remove before adding; consolidate value"
+  },
+  "principle": "Remove before add. Empty is better than cluttered.",
+  "applicability": {
+    "suitable": ["any_limited_budget"],
+    "not_suitable": ["generous_budget_with_clear_program"]
+  },
+  "boundary": [
+    "do not apply to a site whose primary need is accessibility", 
+    "do not apply when the existing equipment is the only safety anchor"
+  ],
+  "feedback": [
+    {"outcome": "operational_cost_reduced", "score": "positive"}
+  ]
+}

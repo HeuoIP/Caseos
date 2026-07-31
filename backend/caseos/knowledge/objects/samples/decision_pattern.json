@@ -1,0 +1,28 @@
+{
+  "identity": "DecisionPattern.first_move_anchor_v1",
+  "situation_context": {
+    "trigger": "space lacks identity"
+  },
+  "diagnosis": "absence of a memorable experience anchor",
+  "decision": {
+    "first_move": "themed exploration space",
+    "downstream": "secondary facilities added only after anchor succeeds"
+  },
+  "principle": "The first move creates the centre. Everything else supports it.",
+  "applicability": {
+    "suitable_when": [
+      "site is open or under-defined",
+      "client needs a story the team can repeat"
+    ],
+    "not_suitable_when": [
+      "site is already over-defined (tenant-driven)",
+      "budget is below the cost of a single quality anchor"
+    ]
+  },
+  "boundary": [
+    "do not stack this pattern twice in the same site"
+  ],
+  "feedback": [
+    {"outcome": "narrative_coherence_improved", "score": "positive"}
+  ]
+}

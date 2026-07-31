@@ -1,0 +1,7 @@
+﻿#!/usr/bin/env bash
+# CaseOS CLI wrapper -- Unix.
+# Sets PYTHONPATH so that `python -m caseos.cli.caseos` resolves,
+# then forwards all arguments to it.
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+export PYTHONPATH="$SCRIPT_DIR/backend${PYTHONPATH:+:$PYTHONPATH}"
+exec python -m caseos.cli.caseos "$@"
