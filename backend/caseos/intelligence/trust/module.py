@@ -311,11 +311,41 @@ class TrustEngine:
         decision: dict | None,
         knowledge_patterns: list[dict],
         project_type: str = "",
+        evidence_package: dict | None = None,
     ) -> dict[str, Any]:
         project_type = project_type or ""
 
         if not decision:
             return self._no_decision_object()
+
+        # Sprint 20 / ADR-019: when an Evidence Package is present,
+        # the Trust Engine consumes the EP's `relevant_objects` list
+        # (the ranked, applicability-filtered subset) instead of the
+        # full corpus. This is the integration point ADR-019 Section
+        # 7 prescribes. The empty-EP case (relevant_objects = [])
+        # is detected below; it forces a T-02 verdict with an
+        # explicit "retrieval yielded no evidence" caveat.
+        ep_explicitly_empty = False
+        if isinstance(evidence_package, dict):
+            retrieved = evidence_package.get("relevant_objects")
+            if isinstance(retrieved, list):
+                ep_explicitly_empty = len(retrieved) == 0
+                knowledge_patterns = retrieved
+
+        # Sprint 20 / ADR-019: empty Evidence Package -> force T-02.
+        # Per ADR-019 Section 7 + Sprint 20 spec section 9 Test 5:
+        # empty evidence MUST yield Low confidence, even if the
+        # Decision has a rule trace.
+        if ep_explicitly_empty:
+            t02 = next((r for r in self.rules if r.id == "T-02"), None)
+            if t02 is not None and t02.matches(decision, knowledge_patterns, project_type):
+                result = self._finalise(t02, decision, knowledge_patterns, project_type)
+                result.setdefault("uncertainty_handling", []).append(
+                    "Evidence Package from retrieval is empty; "
+                    "no Knowledge Object applicable to this project."
+                )
+                result["_trace"]["empty_evidence_package"] = True
+                return result
 
         # Stage-1: contradiction
         for rule in [r for r in self.rules if r.id == "T-03"]:
@@ -464,6 +494,7 @@ class TrustModule(Stage):
             decision=ctx.decision_object,
             knowledge_patterns=ctx.knowledge_patterns,
             project_type=ctx.project.project_type,
+            evidence_package=ctx.evidence_package,
         )
         return ctx
 

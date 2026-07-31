@@ -1,8 +1,10 @@
-﻿"""End-to-end pipeline test.
+"""End-to-end pipeline test.
 
 Sprint 19.1 Acceptance Criteria Test 1: "pipeline can execute end-to-end".
-Uses the default six-stage pipeline with placeholder modules; the test
-proves the structure works, not the intelligence quality.
+Sprint 20 update: the pipeline now has seven stages (the new `retrieval`
+stage is inserted between `knowledge` and `decision` per ADR-019 +
+Sprint 20 spec section 8). The test proves the structure works, not
+the intelligence quality.
 """
 
 from __future__ import annotations
@@ -28,9 +30,11 @@ def test_default_pipeline_runs_end_to_end() -> None:
     pipeline = default_pipeline()
     ctx = pipeline.run(project)
 
-    # All six stages filled their slot
+    # All seven stages filled their slot
     assert ctx.human_context is not None, "human stage did not run"
     assert len(ctx.knowledge_patterns) >= 0, "knowledge stage did not run"
+    # Sprint 20: retrieval stage writes evidence_package
+    assert ctx.evidence_package is not None, "retrieval stage did not run"
     assert ctx.decision_object is not None, "decision stage did not run"
     assert ctx.trust_object is not None, "trust stage did not run"
     assert ctx.recommendation is not None, "recommendation stage did not run"
@@ -39,15 +43,24 @@ def test_default_pipeline_runs_end_to_end() -> None:
     # Stage log lists every stage we wired.
     log = ctx.metadata.get("stage_log", [])
     names = [entry["stage"] for entry in log if entry["stage"] != "pipeline"]
-    assert names == ["human_understanding", "knowledge", "decision", "trust", "recommendation", "output"]
+    assert names == [
+        "human_understanding",
+        "knowledge",
+        "retrieval",
+        "decision",
+        "trust",
+        "recommendation",
+        "output",
+    ]
 
 
-def test_six_stages_wired() -> None:
+def test_seven_stages_wired() -> None:
     pipeline = default_pipeline()
-    assert len(pipeline.stages) == 6
+    assert len(pipeline.stages) == 7
     assert [s.name for s in pipeline.stages] == [
         "human_understanding",
         "knowledge",
+        "retrieval",
         "decision",
         "trust",
         "recommendation",

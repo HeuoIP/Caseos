@@ -14,6 +14,7 @@ class OutputModule(Stage):
             project=ctx.project,
             recommendation=recommendation,
             trust=ctx.trust_object or {},
+            evidence_package=ctx.evidence_package,
         )
         return ctx
 

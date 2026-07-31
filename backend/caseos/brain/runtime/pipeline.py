@@ -6,6 +6,7 @@ section "Pipeline Execution") requires six stages in this order:
     Input (ProjectContext)
         -> Human Understanding
         -> Knowledge
+        -> Retrieval      (Sprint 20 / ADR-019)
         -> Decision
         -> Trust
         -> Recommendation
@@ -56,6 +57,7 @@ def default_pipeline(stages: Iterable[Stage] | None = None) -> Pipeline:
     if stages is None:
         from caseos.intelligence.human.module import HumanModule
         from caseos.intelligence.knowledge.module import KnowledgeModule
+        from caseos.knowledge.retrieval.module import KnowledgeRetriever
         from caseos.intelligence.decision.module import DecisionModule
         from caseos.intelligence.trust.module import TrustModule
         from caseos.intelligence.recommendation.module import (
@@ -66,6 +68,7 @@ def default_pipeline(stages: Iterable[Stage] | None = None) -> Pipeline:
         stages = [
             HumanModule(),
             KnowledgeModule(),
+            KnowledgeRetriever(),
             DecisionModule(),
             TrustModule(),
             RecommendationModule(),

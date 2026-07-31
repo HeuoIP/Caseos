@@ -62,6 +62,7 @@ def render_markdown(
     project: ProjectContext,
     recommendation: dict,
     trust: dict | None,
+    evidence_package: dict | None = None,
 ) -> str:
     sections = recommendation.get("sections") or {}
     confidence, caveats = _format_confidence_and_caveats(
@@ -95,6 +96,38 @@ def render_markdown(
         lines.append(_safe(body, fallback="n/a"))
         lines.append("")
 
+    # 8. Evidence Package (Sprint 20 / ADR-019) -- the 5-component
+    #    retrieval output. Rendered with bullet items so the customer
+    #    sees (a) which Knowledge Objects were retrieved, (b) why
+    #    they apply, (c) the principle they contribute, (d) the
+    #    boundary warning, and (e) how this evidence moves trust.
+    lines.append("# Evidence Package")
+    lines.append("")
+    if evidence_package:
+        reasons = _safe(evidence_package.get("applicability_reason"),
+                       fallback="No applicability reason recorded.")
+        lines.append(f"- Applicability Reason: {reasons}")
+        principle = _safe(evidence_package.get("supporting_principle"),
+                          fallback="No supporting principle available.")
+        lines.append(f"- Supporting Principle: {principle}")
+        bw = _safe(evidence_package.get("boundary_warning"),
+                   fallback="No boundary warning recorded.")
+        lines.append(f"- Boundary Warning: {bw}")
+        tc = _safe(evidence_package.get("trust_contribution"),
+                   fallback="No trust contribution recorded.")
+        lines.append(f"- Trust Contribution: {tc}")
+        relevant = evidence_package.get("relevant_objects") or []
+        if relevant:
+            ids = [str(ko.get("identity", "<unknown>")) for ko in relevant
+                   if isinstance(ko, dict)]
+            lines.append(f"- Relevant Knowledge ({len(ids)}): "
+                         + ", ".join(ids))
+        else:
+            lines.append("- Relevant Knowledge: (none)")
+    else:
+        lines.append("_No Evidence Package was produced by the retrieval stage._")
+    lines.append("")
+
     # 9. Confidence & Caveats -- rendered with caveats as a bullet list
     lines.append("# Confidence & Caveats")
     lines.append("")
@@ -121,9 +154,9 @@ def render_markdown(
     lines.append("---")
     lines.append("")
     lines.append(
-        "_Sprint 19.4 ADR-017 recommendation output. Decision + Trust + "
-        "Recommendation are wired end-to-end; real reasoning lands in "
-        "Sprint 20+._"
+        "_Sprint 20 (ADR-019) full intelligence loop: Human -> Knowledge -> "
+        "Retrieval -> Decision -> Trust -> Recommendation. All stages "
+        "wired end-to-end._"
     )
     lines.append("")
     return "\n".join(lines)

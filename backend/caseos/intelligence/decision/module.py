@@ -348,7 +348,18 @@ class DecisionEngine:
         project,
         human_context,
         knowledge_patterns,
+        evidence_package=None,
     ) -> dict[str, Any]:
+        # Sprint 20 / ADR-019: when an Evidence Package is available,
+        # the Decision Engine reads from its `relevant_objects` list
+        # rather than the full corpus. This is a soft integration --
+        # the rules, rule order, and refusal path are unchanged. The
+        # decision's *logic* is the authority; the EP only narrows
+        # the input.
+        if isinstance(evidence_package, dict):
+            retrieved = evidence_package.get("relevant_objects")
+            if isinstance(retrieved, list) and retrieved:
+                knowledge_patterns = retrieved
         signals = _extract_signals(project, human_context, knowledge_patterns)
         fired = [r for r in self.rules if r.matches(signals)]
         if not fired:
@@ -435,6 +446,7 @@ class DecisionModule(Stage):
             project=ctx.project,
             human_context=ctx.human_context,
             knowledge_patterns=ctx.knowledge_patterns,
+            evidence_package=ctx.evidence_package,
         )
         return ctx
 

@@ -51,6 +51,7 @@ class PipelineContext:
     Each stage adds / reads its own slot:
         - human stage      -> human_context
         - knowledge stage  -> knowledge_patterns
+        - retrieval stage  -> evidence_package
         - decision stage   -> decision_object
         - trust stage      -> trust_object
         - recommendation   -> recommendation
@@ -60,6 +61,10 @@ class PipelineContext:
     project: ProjectContext
     human_context: dict[str, Any] | None = None
     knowledge_patterns: list[dict[str, Any]] = field(default_factory=list)
+    # evidence_package is written by the retrieval stage (Sprint 20,
+    # ADR-019) and read by the decision, trust, and recommendation
+    # stages. It is None until the retrieval stage has run.
+    evidence_package: dict[str, Any] | None = None
     decision_object: dict[str, Any] | None = None
     trust_object: dict[str, Any] | None = None
     recommendation: dict[str, Any] | None = None
