@@ -52,7 +52,7 @@ log + the `git log` of branch `main`.
 
 ---
 
-## 3. Sprint 19 -- Brain Runtime V1 (NEXT)
+## 3. Sprint 19 -- Brain Runtime V1 (STARTED)
 
 ### 3.1 Purpose
 
@@ -118,8 +118,8 @@ Sprint 19 may start when **all** of the following are true:
 - [x] ADR Traceability Matrix V1 exists (this patch's Task 1).
 - [x] Constitution Alignment Note V1 exists (this patch's Task 3).
 - [x] AR-001 Resolution Status V1 exists (this patch's Task 4).
-- [ ] Reviewer (the user) signs off on this Sprint 19 spec.
-- [ ] Sprint 19 is added to `docs/sprints/Sprint_NN_*.md` as its own
+- [x] Reviewer (the user) signs off on this Sprint 19 spec.
+- [x] Sprint 19 is added to `docs/sprints/Sprint_NN_*.md` as its own
       spec doc (to be produced when Sprint 19 starts).
 
 The first 5 are satisfied by **this** patch's commits 1..4. The last

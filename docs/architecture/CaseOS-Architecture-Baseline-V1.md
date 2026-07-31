@@ -256,8 +256,8 @@ Sprint 19 may begin when the following conditions are met:
 - [x] AR-001 Resolution Status V1 exists (Task 4 of this patch).
 - [x] Sprint Roadmap V1 exists (Task 5 of this patch).
 - [x] Architecture Baseline V1 exists (Task 6 of this patch, i.e. this file).
-- [ ] Reviewer (the user) signs off on the Sprint 19 spec.
-- [ ] Sprint 19 is added as its own spec doc at
+- [x] Reviewer (the user) signs off on the Sprint 19 spec.
+- [x] Sprint 19 is added as its own spec doc at
       `docs/sprints/Sprint_19_Brain_Runtime_V1.md` (when Sprint
       19 actually starts).
 
