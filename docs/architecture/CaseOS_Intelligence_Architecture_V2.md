@@ -317,20 +317,55 @@ Items 1, 3, 4, 5, 6 form the **Phase 2 entry backlog** (must ship first).
 
 ## 8. Future ADR Mapping
 
-ADR numbering convention: `ADR-NNN-short-name.md`. After ADR-013 (just filed),
-the next numbers are:
+ADR numbering convention: `ADR-NNN-short-name.md`. ADR-013 has been
+filed. As of ADR-018 (2026-07-31), the following slots are **allocated**:
 
-| Slot | Topic | Relationship to existing ADRs |
+| Slot | ADR | Title |
 | --- | --- | --- |
-| **ADR-014** | Decision Intelligence Model V2 | Net-new. ADR-005 is the **pipeline**; ADR-014 is the **deep model**: how the synthesis output of "what should we do" is structured (problem / priority / strategy / experience logic) and how it composes with Project Fit. |
-| **ADR-015** | Preference Signal Schema V1 | Net-new. ADR-013 declared the **scope**; ADR-015 fixes the field types, allowed values, and event names. |
-| **ADR-016** | Recommendation Engine V1 | Net-new. The Markdown generator exists; the **engine** that turns a Decision into a Solution with explanation does not yet. |
-| **ADR-017** | Feedback Learning Loop Contract V1 | Net-new. ADR-013 declared the **flywheel**; ADR-017 fixes the contract: what is recorded, where, and how it is replayed into engines 2.1, 2.2, 2.3. |
+| Accepted | ADR-005  | Decision Intelligence Architecture (pipeline) |
+| Accepted | ADR-005a | Decision Intelligence x Constitution Cross-Reference |
+| Accepted | ADR-006  | Project Fit Intelligence Architecture |
+| Accepted | ADR-006a | Project Fit Architecture Acceptance |
+| Accepted | ADR-007  | CaseOS Constitution V1 (philosophy layer) |
+| Accepted | ADR-008  | Vision Output Schema -- Canonical V3 |
+| Accepted | ADR-009  | Brain Knowledge Architecture |
+| Accepted | ADR-010  | Decision Rules Framework |
+| Accepted | ADR-011  | CKO Learning Source & Value Model |
+| Accepted | ADR-012  | Case Evaluation Score V1 |
+| **Proposed** | **ADR-013**  | **Human Understanding Engine Foundation V1** |
+| **Proposed** | **ADR-014**  | **Decision Intelligence Model V1** |
+| **Proposed** | **ADR-015**  | **Knowledge Object Model V1** |
+| **Proposed** | **ADR-016**  | **Intelligence Trust Model V1** |
+| **Proposed** | **ADR-017**  | **Recommendation Engine V1** |
+| **Proposed** | **ADR-018**  | **Feedback Learning Loop Contract V1** |
 
-ADR numbers **014-017 are placeholders**, not commitments. If a different
-architectural decision is required first (e.g. an API Surface ADR), the next
-free number absorbs it. The four topics above are what the placeholders
-*currently* point at; the placeholders can be renumbered.
+The original Section 8 placeholder in this V2 Blueprint (written
+before ADR-014..ADR-018 were filed) tentatively allocated:
+
+- ADR-014 = Decision Intelligence Model V2
+- ADR-015 = Preference Signal Schema V1
+- ADR-016 = Recommendation Engine V1
+- ADR-017 = Feedback Learning Loop Contract V1
+
+The actual allocation has shifted (Knowledge Object Model replaced
+Preference Signal Schema; Trust Model took ADR-016; Recommendation
+and Feedback Loop each moved one slot forward to ADR-017 / ADR-018).
+See ADR-016 Front-Matter Numbering Note and ADR-018 Section 12 for
+the slot-shift rationale. The text below is retained as a historical
+record; the table above is the source of truth.
+
+---Historical placeholder (retained for traceability)---
+
+The four topics the placeholder originally pointed at were:
+
+| Original Placeholder | Realised As |
+| --- | --- |
+| (placeholder ADR-015) Preference Signal Schema V1 | Replaced by **ADR-015 Knowledge Object Model V1** (Knowledge turned out to be a sharper abstraction to fix before typed fields). The Preference Signal Schema now lives at a future slot, tentatively **ADR-019** (see ADR-018 Section 12). |
+| (placeholder ADR-016) Recommendation Engine V1 | Realised at **ADR-017** (slot-shifted by Trust Model at ADR-016). |
+| (placeholder ADR-017) Feedback Learning Loop Contract V1 | Realised at **ADR-018** (slot-shifted). |
+| (placeholder ADR-014) Decision Intelligence Model V2 | Realised at **ADR-014** as **Decision Intelligence Model V1** (V-number adjusted once "Model" was scoped smaller than first imagined). |
+
+If a different architectural decision is required next, the next free number absorbs it.
 
 ---
 
