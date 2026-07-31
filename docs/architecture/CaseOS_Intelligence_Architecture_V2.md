@@ -437,6 +437,7 @@ filed. As of ADR-018 (2026-07-31), the following slots are **allocated**:
 | **Proposed** | **ADR-016**  | **Intelligence Trust Model V1** |
 | **Proposed** | **ADR-017**  | **Recommendation Engine V1** |
 | **Proposed** | **ADR-018**  | **Feedback Learning Loop Contract V1** |
+| **Proposed** | **ADR-019**  | **Evidence Retrieval Intelligence Principle V1** |
 
 The original Section 8 placeholder in this V2 Blueprint (written
 before ADR-014..ADR-018 were filed) tentatively allocated:
@@ -459,9 +460,10 @@ The four topics the placeholder originally pointed at were:
 
 | Original Placeholder | Realised As |
 | --- | --- |
-| (placeholder ADR-015) Preference Signal Schema V1 | Replaced by **ADR-015 Knowledge Object Model V1** (Knowledge turned out to be a sharper abstraction to fix before typed fields). The Preference Signal Schema now lives at a future slot, tentatively **ADR-019** (see ADR-018 Section 12). |
+| (placeholder ADR-015) Preference Signal Schema V1 | Replaced by **ADR-015 Knowledge Object Model V1** (Knowledge turned out to be a sharper abstraction to fix before typed fields). The Preference Signal Schema now lives at a future slot, tentatively **ADR-020** (ADR-019 was reassigned to Evidence Retrieval per AR-002 Section 7 Sprint 20 Readiness). |
 | (placeholder ADR-016) Recommendation Engine V1 | Realised at **ADR-017** (slot-shifted by Trust Model at ADR-016). |
 | (placeholder ADR-017) Feedback Learning Loop Contract V1 | Realised at **ADR-018** (slot-shifted). |
+| (placeholder ADR-019) Preference Signal Schema V1 | **Superseded** -- ADR-019 was reassigned to **Evidence Retrieval Intelligence Principle V1** (per AR-002 Section 7 Sprint 20 Readiness, before any Sprint 20 implementation begins). The Preference Signal Schema moves to a future slot (tentatively ADR-020). |
 | (placeholder ADR-014) Decision Intelligence Model V2 | Realised at **ADR-014** as **Decision Intelligence Model V1** (V-number adjusted once "Model" was scoped smaller than first imagined). |
 
 If a different architectural decision is required next, the next free number absorbs it.

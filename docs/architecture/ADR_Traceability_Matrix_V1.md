@@ -3,7 +3,8 @@
 - **Date:** 2026-07-31
 - **Owner:** Architecture Consistency Patch V1
 - **Source of truth:** `docs/architecture/ADR_Traceability_Matrix_V1.md`
-- **Scope:** All Accepted + Proposed ADRs from ADR-005 to ADR-018.
+- **Scope:** All Accepted + Proposed ADRs from ADR-005 to ADR-019.
+- **Recent additions:** ADR-019 (Evidence Retrieval Intelligence Principle V1) -- the Sprint 20 principle, defined post-Phase-3 per AR-002 Section 7 Sprint 20 Readiness.
 - **Companion documents:**
   - `CaseOS_Intelligence_Architecture_V2.md` (the Blueprint now)
   - `CaseOS-Architecture-Baseline-V1.md` (the executing summary)
@@ -13,9 +14,11 @@
 
 ## 1. Purpose
 
-CaseOS now has a non-trivial ADR corpus (16 documents, 17 including
+CaseOS now has a non-trivial ADR corpus (17 documents, 18 including
 ADR-007 which is encoded as the Constitution file rather than an
-`ADR-007-*.md` filename). New readers cannot easily answer:
+`ADR-007-*.md` filename). The latest entry is ADR-019 (Evidence
+Retrieval Intelligence Principle V1) -- a principle ADR that locks
+Sprint 20's contract before the implementation lands. New readers cannot easily answer:
 
 - What does each ADR decide?
 - Who consumes the decision?
@@ -26,7 +29,7 @@ This matrix is the single page that answers those four questions for
 all current ADRs. It exists so that:
 
 - **a new engineer** can read this matrix, then jump straight to the
-  ADRs they need (no need to read all 17),
+  ADRs they need (no need to read all 18),
 - **a future Review** can diff this matrix against the current ADR
   corpus and instantly find orphans, dupes, and missing links.
 
@@ -71,6 +74,7 @@ Columns:
 | **ADR-016** | Intelligence Trust Model V1 | **Proposed** | Trust Object (5 fields) attached to every Decision; 3 confidence labels. | ADR-014 (Decision with Trust). ADR-017 (renders Trust). ADR-018 (Trust evolution). | ADR-014, ADR-015 | Doc-only (this patch) |
 | **ADR-017** | Recommendation Engine V1 | **Proposed** | 7-section output template; 5 content types; 4 anti-patterns; audience variants. | Product Layer (renders). ADR-018 (consumes for feedback). | ADR-013, ADR-014, ADR-015, ADR-016 | Doc-only (this patch) |
 | **ADR-018** | Feedback Learning Loop Contract V1 | **Proposed** | 4 feedback voices + 5 feedback types; Confidence / Boundary as independent levers; HITL thresholds. | ADR-015 (writes Feedback field). ADR-016 (writes Trust labels). ADR-014 (writes Decision Pattern). | ADR-014, ADR-015, ADR-016, ADR-017 | Doc-only (this patch) |
+| **ADR-019** | Evidence Retrieval Intelligence Principle V1 | **Proposed** | Locks retrieval philosophy: "applicability > visual similarity"; defines the 5-field Evidence Package; ranking order P1..P5 with visual similarity as P5; 4 anti-patterns explicitly rejected. | Sprint 20 (KnowledgeRetriever stage). Trust Engine (consumes Evidence Package). Future Vision Model integration. | ADR-014, ADR-015, ADR-016, ADR-017, ADR-018 | Doc-only (pre-Sprint 20) |
 
 ---
 
@@ -128,6 +132,7 @@ extended by it:
 | Constitution sprint | ADR-007 (encoded at `docs/standards/`) |
 | Doc-only (this patch series) | ADR-013, ADR-014, ADR-015, ADR-016, ADR-017, ADR-018 |
 | (proposed) Sprint 19 (Brain Runtime V1) | will consumer-wire ADR-009, ADR-010, ADR-013, ADR-014, ADR-015, ADR-016, ADR-017, ADR-018 |
+| (proposed) Sprint 20 (Evidence Retrieval V1) | ADR-019 (principle) + ADR-015 (Knowledge Object contract); inserts KnowledgeRetriever stage between Knowledge and Decision |
 
 ---
 
