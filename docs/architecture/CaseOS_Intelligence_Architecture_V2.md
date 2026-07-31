@@ -10,18 +10,33 @@
 
 ## 1. Core Architecture Principle
 
-CaseOS V2 redefines the system around **two complementary intelligences** combined by **two coordination engines**:
+CaseOS V2 redefines the system around **six intelligence components**:
 
 ```
-        Human Understanding Engine
-                  +
-        Spatial Intelligence Engine
-                  =
-        Decision Intelligence Engine
-                  +
-        Feedback Learning Engine
-                  =
-        CaseOS Intelligence
+   Human Understanding Engine
+              +
+   Spatial Intelligence Engine
+              |
+              v
+   Decision Intelligence Engine
+              |
+              v
+   Trust Model
+              |
+              v
+   Recommendation Engine
+              |
+              v
+   (delivered)
+              |
+              v
+   Feedback Learning Loop
+              |
+              +---- updates ----+
+              |        |        |
+              v        v        v
+          Human    Knowledge   Decision
+          Context  Library     Rules
 ```
 
 **Code is replaceable. Brain is cumulative.** Every layer below must expose
@@ -29,21 +44,33 @@ CaseOS V2 redefines the system around **two complementary intelligences** combin
 consumer is a documentation ghost; the AR-001 review already identified five
 of those and they will not be allowed to reoccur.
 
-### The four questions
+### The six components
 
-| Engine | Question it answers |
+| Component | Question it answers |
 | --- | --- |
 | Human Understanding Engine | "What does this person really want?" |
 | Spatial Intelligence Engine | "What does this space need?" |
 | Decision Intelligence Engine | "What should we do?" |
+| Trust Model | "Why should we trust this decision?" |
 | Recommendation Engine | "How should we express the solution?" |
+| Feedback Learning Loop | (closes the loop; updates every component above) |
 
-The Feedback Learning Engine does not answer a question; it **closes the loop**
+The first five are linear in the user journey; the sixth is an arrow back
+to them. Feedback Learning Loop does not answer a question; it **closes the loop**
 that lets every other engine improve.
-
 ---
 
-## 2. The Four-Engine Model
+## 2. The Six-Component Intelligence Model
+
+Each component below is a **layer** with Input / Processing / Output / Consumer.
+Cross-cutting ADRs that introduce these layers:
+
+- Human Understanding Engine        ADR-013 (foundation)
+- Spatial Intelligence Engine       in scope of V2 Blueprint; informed by ADR-008 / ADR-009 / ADR-010 / ADR-011 / ADR-012
+- Decision Intelligence Engine      ADR-014 (judgment model)
+- Trust Model                       ADR-016 (qualification)
+- Recommendation Engine            ADR-017 (how to communicate)
+- Feedback Learning Loop            ADR-018 (closes the loop)
 
 ### 2.1 Human Understanding Engine
 
@@ -62,7 +89,7 @@ that lets every other engine improve.
 
 **Output:** Human Understanding Model.
 
-**Consumer:** Decision Intelligence Engine, Recommendation Engine, Feedback Learning Engine.
+**Consumer:** Decision Intelligence Engine, Recommendation Engine, Feedback Learning Loop.
 
 **Authority:** ADR-013 (Proposed).
 
@@ -92,13 +119,14 @@ that lets every other engine improve.
 
 **Consumer:** Decision Intelligence Engine, Recommendation Engine.
 
-**Authority:** ADR-005 (Agent pipeline), ADR-008 (Vision Output Schema V3), ADR-009 (Brain Knowledge Architecture).
+**Authority:** ADR-009 (Brain layout), ADR-008 (Vision Output Schema V3),
+V2 Blueprint structural definition.
 
 ---
 
 ### 2.3 Decision Intelligence Engine
 
-**Purpose:** Combine human understanding and spatial understanding.
+**Purpose:** Combine human understanding and spatial understanding into a Decision Object.
 
 **Question it answers:**
 > "What is the best decision for **this specific person** and **this specific space**?"
@@ -106,42 +134,87 @@ that lets every other engine improve.
 **Input:**
 - Human Understanding Model (from 2.1)
 - Spatial Understanding Model (from 2.2)
+- Knowledge Context (Golden Cases, Decision Rules, Expert Principles)
+- Business Context (per ADR-014 Section 1.D)
 
-**Processing:** cross-mapping -> problem diagnosis -> priority assignment -> strategy synthesis.
+**Processing:** composition -> seven-step Expert Judgment Model
+(Observation -> Diagnosis -> Root Cause -> Priority -> Strategy ->
+Experience Logic -> Recommendation Direction) -> Decision Object.
 
-**Output:**
-- problem diagnosis
-- priority list
-- strategy direction
-- recommended experience logic
+**Output:** Decision Object (7 fields, per ADR-014).
 
-**Consumer:** Recommendation Engine.
+**Consumer:** Trust Model (next layer).
 
-**Authority:** ADR-005 (Decision Intelligence pipeline), ADR-006 (Project Fit Intelligence). The V2 Decision Intelligence Engine treats project fit as one of several decision-time dimensions, not a separate engine.
-
----
-
-### 2.4 Feedback Learning Engine
-
-**Purpose:** Allow CaseOS to continuously improve.
-
-**Input:**
-- user selections
-- modifications requested
-- satisfaction signals
-- downstream project results (when available)
-
-**Output updates:**
-- Human Understanding Model (per user)
-- Decision Rules (global)
-- Golden Cases (intake/demotion)
-
-**Consumer:** the three engines above. The Feedback Engine is the **only** engine whose output is allowed to overwrite prior engine outputs. It is a peer of the others, not a sub-module.
-
-**Authority:** ADR-013 Section "Data Flywheel" (declared). No dedicated ADR file exists yet.
+**Authority:** ADR-005 (pipeline), ADR-014 (judgment model), ADR-006 (Project Fit).
 
 ---
 
+### 2.4 Trust Model
+
+**Purpose:** Attach a Trust Object to every Decision that leaves the Decision Intelligence Engine.
+
+**Question it answers:**
+> "Why should we trust this decision?"
+
+**Input:** the Decision Object from 2.3; evidence known to the engine; previous source reliability.
+
+**Processing:** Evidence Collection -> Knowledge Matching -> Applicability Check
+-> Boundary Check -> Confidence Assessment.
+
+**Output:** Trust Object (5 fields: Evidence, Source Reliability, Applicability Match,
+Confidence Level, Uncertainty Handling -- per ADR-016).
+
+**Consumer:** Recommendation Engine. The Trust Object travels with the
+Decision throughout the rest of the pipeline.
+
+**Authority:** ADR-016 (Proposed).
+
+---
+
+### 2.5 Recommendation Engine
+
+**Purpose:** Express a Decision + Trust as a customer-facing recommendation.
+
+**Question it answers:**
+> "How should we express the solution?"
+
+**Input:** Decision Object (2.3), Trust Object (2.4), Human Context (2.1), Knowledge
+Objects (2.2).
+
+**Processing:** 7-section composition (Situation Understanding, Problem Diagnosis,
+Strategic Direction, Experience Concept, Implementation Direction, Evidence,
+Confidence and Caveats) with audience-variant selection (kindergarten owner,
+designer, manufacturer).
+
+**Output:** Customer-facing recommendation in one of 5 content types (Diagnostic,
+Strategic, Design Direction, Implementation, Commercial -- per ADR-017).
+
+**Consumer:** Product Layer output rendering. The Recommendation Engine is the
+**terminal** engine in the decision pipeline (V1).
+
+**Authority:** ADR-017 (Proposed).
+
+---
+
+### 2.6 Feedback Learning Loop
+
+**Purpose:** Close the intelligence loop.
+
+**Input:** human responses, project outcomes, expert evaluations, preference signals,
+contradiction signals (5 feedback types).
+
+**Processing:** Feedback Capture -> Feedback Interpretation -> Knowledge Object Update
+-> Trust Adjustment -> Decision Pattern evolution, governed by Human-in-the-Loop
+thresholds (per ADR-018).
+
+**Output:** updates to Human Understanding Model, Knowledge Object applicability/
+boundary/principle, Trust labels, Decision Pattern; log of every feedback event
+(append-only, monotonic-with-reason).
+
+**Consumer:** the other five components. Feedback Learning Loop is the **only**
+component permitted to overwrite another component's output.
+
+**Authority:** ADR-018 (Proposed).
 ## 3. Architecture Diagram
 
 ```mermaid
@@ -212,45 +285,43 @@ flowchart TB
 
 ---
 
-## 4. End-to-End Pipeline (text form)
+## 4. End-to-End Data Flow (six steps + closing loop)
+
+The CaseOS data flow is a linear forward path with a single closing-loop arrow.
 
 ```
-User
-  |
-  v
-Product Layer               (entry: image + project type + goal + style hint)
-  |
-  +--> Human Understanding Engine       ---+
-  |                                          |
-  +--> Spatial Intelligence Engine      ---+--> Decision Intelligence Engine
-                                                |
-                                                v
-                                       Recommendation Engine
-                                                |
-                                                v
-                                            Solution
-                                                |
-                                                v
-                                          (delivered)
-                                                |
-                                                v
-                                       Feedback Learning Engine
-                                                |
-                              +-----------------+-----------------+
-                              |                 |                 |
-                              v                 v                 v
-                  Human Understanding   Knowledge Base    Decision Rules
-                              \                 |                 /
-                               +----------------+----------------+
-                                                |
-                                                v
-                                    (closes the data flywheel)
+User Signal       ---v---       Spatial Observation
+   |                                  |
+   v                                  v
+Human Understanding          Spatial Intelligence
+   |                                  |
+   +----------------+-----------------+
+                    |
+                    v
+              Decision Intelligence
+                    |
+                    v
+                Trust Evaluation
+                    |
+                    v
+              Recommendation
+                    |
+                    v
+                  Feedback
+                    |
+                    +---- updates ----+
+                    |        |        |
+                    v        v        v
+                Human   Knowledge   Decision
+                Context Library     Rules
 ```
 
-The two vertical lines on the left (Human + Spatial Engines) **both** feed the
-Decision Intelligence Engine. They are peers. Neither one is a sub-routine of the
-other.
+The four design rules this flow obeys:
 
+1. **User Signal** enters Human Understanding; **Spatial Observation** enters Spatial Intelligence; the two are independent until Decision Intelligence composes them.
+2. **Trust** sits between Decision and Recommendation: a Decision without a Trust Object cannot reach the Recommendation Engine.
+3. **Recommendation** is the terminal component: nothing downstream in V1 except Feedback capture.
+4. **Feedback** has only one output channel: the append-only Feedback Log, which the next pass of any engine (2.1 .. 2.5) consults before acting. Feedback never edits engine outputs in place.
 ---
 
 ## 5. What Every Intelligence Layer Must Declare
@@ -287,34 +358,62 @@ A layer with `Consumer = none` is forbidden by Constitution Principle 001
 
 ---
 
-## 7. Missing Capabilities (must be added before Phase 2 is "done")
+## 7. Phase Definition
 
-1. **API / CLI surface** -- the system has no entry point. Every engine above
-   is exercised through scripts, not through a stable interface. (AR-001 Rank 1)
-2. **Retrieval Engine** -- the Spatial Intelligence Engine needs an actual
-   case-retrieval implementation against the CKO library; today it has only the
-   spec. (AR-001 Rank 2)
-3. **Preference Signal Schema** -- ADR-013 declares a model; ADR-015 must fix
-   the JSON schema and event names. (ADR-013 future ADR)
-4. **Feedback Event Sink** -- no file, no DB, no queue exists for feedback yet.
-   (future ADR)
-5. **Recommendation Engine as a peer of Decision** -- today Recommendation is a
-   Markdown printer co-located with the agents; it must be promoted to a peer
-   per the V2 model.
-6. **Constitution Enforcement Layer** -- Principle 001 (Understand before
-   recommending) has no executable check. (AR-001 Rank 8)
-7. **Long-Term User Modeling** -- ADR-013 declares that preferences are
-   dynamic; no engine yet rolls signals into stable preference vectors.
-8. **Theme Engine** -- ADR-009 lists `theme_strategy` as a brain module; no
-   thematic reasoning exists at runtime.
-9. **Experience Engine** -- ADR-009 lists `experience_perception`; no runtime
-   consumer.
+CaseOS is delivered in three phases. Each phase produces a closed architectural
+loop and an executable, even if minimal, system.
 
-Items 2, 7, 8, 9 collectively form the **Phase 2 acceleration backlog**.
-Items 1, 3, 4, 5, 6 form the **Phase 2 entry backlog** (must ship first).
+### Phase 1 -- Knowledge Foundation
+
+Goal: build the knowledge spine without runtime wiring.
+
+Includes:
+- ADR-011 CKO Learning Source & Value Model
+- ADR-012 Case Evaluation Score V1
+- ADR-015 Knowledge Object Model V1 (the unification layer)
+
+**Status:** ~90% complete. Phase 1 is the documentation layer; the
+remaining 10% is the schema / instantiation step (future ADR-015b).
 
 ---
 
+### Phase 2 -- Intelligence Core
+
+Goal: define every Intelligence Component as a contract, before any runtime exists.
+
+Includes:
+- ADR-013 Human Understanding Engine Foundation V1
+- ADR-014 Decision Intelligence Model V1
+- ADR-016 Intelligence Trust Model V1
+- ADR-017 Recommendation Engine V1
+- ADR-018 Feedback Learning Loop Contract V1
+
+**Status:** All five ADRs filed (Proposed). Phase 2 documentation is
+**complete** as of 2026-07-31. What Phase 2 does NOT yet deliver is
+the runtime that executes these contracts.
+
+---
+
+### Phase 3 -- Runtime Implementation
+
+Goal: wire the contracts into one executable pipeline.
+
+Includes:
+- Sprint 19 -- Brain Runtime V1 (next sprint)
+- Subsequent Sprints: API surface (AR-001 Rank 1), Retrieval Engine
+(Rank 2), Theme Engine / Experience Engine (Rank 7), Theme Engine wire-up.
+
+**Status:** Sprint 19 not yet started. Phase 3 is gated on the resolution
+of AR-001 Ranks 1, 3 and 5.
+
+---
+
+### Closed-Loop Note
+
+AR-001 review found five engines that "had no consumer". After this patch,
+each of the six components declares a Consumer (Section 2) and the data
+flow (Section 4) shows the consumer arrow. **No component is a peer with
+Consumer = none any more.**
 ## 8. Future ADR Mapping
 
 ADR numbering convention: `ADR-NNN-short-name.md`. ADR-013 has been
