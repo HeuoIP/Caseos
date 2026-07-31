@@ -1,9 +1,10 @@
-"""Render the CaseOS recommendation into a Markdown report.
+﻿"""Render the CaseOS recommendation into a Markdown report.
 
 The format follows ADR-017 Section 2.2 (seven sections per
 recommendation) and the Sprint 19.4 spec section 8 worked example.
 
     # Project Understanding
+    # Human Understanding        (Sprint 21 / ADR-013)
     # Situation Understanding
     # Problem Diagnosis
     # Strategic Direction
@@ -22,7 +23,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from caseos.brain.runtime.context import ProjectContext
+from caseos.brain.runtime.context import PipelineContext, ProjectContext
 
 
 def _safe(value: Any, fallback: str = "n/a") -> str:
@@ -30,14 +31,79 @@ def _safe(value: Any, fallback: str = "n/a") -> str:
         return fallback
     if isinstance(value, str) and not value.strip():
         return fallback
+    # Sentinel UNKNOWN stringified.
+    if isinstance(value, str) and value.strip() == "__UNKNOWN__":
+        return fallback
     return str(value)
 
 
-def _format_confidence_and_caveats(block: dict | None, trust: dict | None) -> tuple[str, list[str]]:
-    """Resolve confidence + caveats from the recommendation block
-    and/or the trust object. Trust always wins (parity with the
-    Sprint 19.3 logic)."""
+def _human_understanding_block(
+    human_context: dict | None,
+    validation: dict | None = None,
+) -> list[str]:
+    """Render the Sprint 21 Human Understanding section.
 
+    `validation` is the optional dict produced by HumanModule and
+    recorded under `ctx.metadata["human_validation"]`. When None,
+    the renderer still produces a Human Understanding section but
+    omits the validation verdict line.
+    """
+    lines: list[str] = []
+    lines.append("# Human Understanding")
+    lines.append("")
+    if not human_context:
+        lines.append("_No HumanContext was produced by the human understanding stage._")
+        lines.append("")
+        return lines
+
+    def _v(key: str) -> str:
+        val = human_context.get(key)
+        if val is None:
+            return "n/a"
+        if isinstance(val, str) and (not val.strip() or val.strip() == "__UNKNOWN__"):
+            return "n/a"
+        if isinstance(val, list):
+            return "; ".join(str(x) for x in val if x) if val else "n/a"
+        return str(val)
+
+    lines.append(f"- User Goal: {_v('user_goal')}")
+    lines.append(f"- Business Context: {_v('business_context')}")
+    lines.append(f"- Emotional Preference: {_v('emotional_preference')}")
+    lines.append(f"- Budget Context: {_v('budget_context')}")
+    constraints = human_context.get("constraints") or []
+    if isinstance(constraints, list) and constraints:
+        lines.append("- Constraints:")
+        for c in constraints:
+            lines.append(f"  - {c}")
+    else:
+        lines.append("- Constraints: (none provided)")
+    lines.append(f"- Success Definition: {_v('success_definition')}")
+    lines.append(f"- Risk Tolerance: {_v('risk_tolerance')}")
+    lines.append(f"- Decision Priority: {_v('decision_priority')}")
+
+    unknowns = human_context.get("unknowns") or []
+    if unknowns:
+        lines.append(f"- Unknowns: {', '.join(str(u) for u in unknowns)}")
+    else:
+        lines.append("- Unknowns: (none -- all fields supplied)")
+
+    if validation:
+        verdict = "VALID" if validation.get("valid") else "INVALID"
+        warnings = validation.get("warnings") or []
+        errors = validation.get("errors") or []
+        lines.append(
+            f"- Validation: {verdict} "
+            f"(warnings={len(warnings)}, errors={len(errors)})"
+        )
+        for w in warnings:
+            lines.append(f"  - WARN: {w}")
+        for e in errors:
+            lines.append(f"  - ERROR: {e}")
+    lines.append("")
+    return lines
+
+
+def _format_confidence_and_caveats(block: dict | None, trust: dict | None) -> tuple[str, list[str]]:
     block = block or {}
     confidence = _safe(block.get("confidence"), fallback="Unknown")
     caveats: list[str] = list(block.get("caveats") or [])
@@ -45,8 +111,6 @@ def _format_confidence_and_caveats(block: dict | None, trust: dict | None) -> tu
         trust_conf = _safe(trust.get("confidence"), fallback="")
         if trust_conf:
             confidence = trust_conf
-        # ADR-016 contract: caveats live under uncertainty_handling;
-        # legacy `uncertainty` is tolerated for forward compat.
         extra_caveats = list(
             trust.get("uncertainty_handling")
             or trust.get("uncertainty")
@@ -63,7 +127,15 @@ def render_markdown(
     recommendation: dict,
     trust: dict | None,
     evidence_package: dict | None = None,
+    human_context: dict | None = None,
+    human_validation: dict | None = None,
 ) -> str:
+    """Render the Markdown report.
+
+    Sprint 21 update: `human_context` carries the Sprint 21 Human
+    Understanding output; `human_validation` carries the validation
+    result recorded under `ctx.metadata["human_validation"]`.
+    """
     sections = recommendation.get("sections") or {}
     confidence, caveats = _format_confidence_and_caveats(
         sections.get("confidence_and_caveats"), trust
@@ -71,7 +143,7 @@ def render_markdown(
 
     lines: list[str] = []
 
-    # 1. Project Understanding -- always present, summarises the input
+    # 1. Project Understanding
     lines.append("# Project Understanding")
     lines.append("")
     lines.append(f"- Project ID: `{project.project_id or 'n/a'}`")
@@ -81,7 +153,10 @@ def render_markdown(
     lines.append(f"- Constraints: {_safe(project.constraints)}")
     lines.append("")
 
-    # 2-8. The seven ADR-017 sections
+    # 2. Human Understanding (Sprint 21 / ADR-013)
+    lines.extend(_human_understanding_block(human_context, human_validation))
+
+    # 3-9. The seven ADR-017 sections
     section_blocks = [
         ("Situation Understanding", sections.get("situation_understanding")),
         ("Problem Diagnosis",       sections.get("problem_diagnosis")),
@@ -96,11 +171,7 @@ def render_markdown(
         lines.append(_safe(body, fallback="n/a"))
         lines.append("")
 
-    # 8. Evidence Package (Sprint 20 / ADR-019) -- the 5-component
-    #    retrieval output. Rendered with bullet items so the customer
-    #    sees (a) which Knowledge Objects were retrieved, (b) why
-    #    they apply, (c) the principle they contribute, (d) the
-    #    boundary warning, and (e) how this evidence moves trust.
+    # 10. Evidence Package (Sprint 20 / ADR-019)
     lines.append("# Evidence Package")
     lines.append("")
     if evidence_package:
@@ -111,10 +182,10 @@ def render_markdown(
                           fallback="No supporting principle available.")
         lines.append(f"- Supporting Principle: {principle}")
         bw = _safe(evidence_package.get("boundary_warning"),
-                   fallback="No boundary warning recorded.")
+                  fallback="No boundary warning recorded.")
         lines.append(f"- Boundary Warning: {bw}")
         tc = _safe(evidence_package.get("trust_contribution"),
-                   fallback="No trust contribution recorded.")
+                  fallback="No trust contribution recorded.")
         lines.append(f"- Trust Contribution: {tc}")
         relevant = evidence_package.get("relevant_objects") or []
         if relevant:
@@ -128,7 +199,7 @@ def render_markdown(
         lines.append("_No Evidence Package was produced by the retrieval stage._")
     lines.append("")
 
-    # 9. Confidence & Caveats -- rendered with caveats as a bullet list
+    # 11. Confidence & Caveats
     lines.append("# Confidence & Caveats")
     lines.append("")
     lines.append(f"- Confidence Level: **{confidence}**")
@@ -138,11 +209,7 @@ def render_markdown(
             lines.append(f"  - {c}")
     lines.append("")
 
-    # 10. Recommendation -- a one-line summary section that points
-    # the reader back to the strategic direction. (Per ADR-017
-    # Section 2.2.3 the strategic direction already carries the
-    # actual recommendation; this section provides the closing
-    # signpost.)
+    # 12. Recommendation
     lines.append("# Recommendation")
     lines.append("")
     summary = _safe(
@@ -154,7 +221,7 @@ def render_markdown(
     lines.append("---")
     lines.append("")
     lines.append(
-        "_Sprint 20 (ADR-019) full intelligence loop: Human -> Knowledge -> "
+        "_Sprint 21 (ADR-013) full intelligence loop: Human -> Knowledge -> "
         "Retrieval -> Decision -> Trust -> Recommendation. All stages "
         "wired end-to-end._"
     )

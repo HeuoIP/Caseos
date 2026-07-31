@@ -1,4 +1,4 @@
-"""Knowledge Retrieval Module -- Sprint 20 runtime implementation (ADR-019).
+﻿"""Knowledge Retrieval Module -- Sprint 20 runtime implementation (ADR-019).
 
 Status:
     First executable Evidence Retrieval layer. Replaces the previous
@@ -9,6 +9,19 @@ Status:
 Pipeline position (Sprint 20 spec section 8):
 
     Human -> Knowledge -> Retrieval -> Decision -> Trust -> Recommendation
+
+Sprint 21 update:
+    Optional `human_context` parameter on `RetrievalEngine.retrieve()`.
+    Human keywords (user_goal / business_context / success_definition)
+    contribute a *bounded* boost to the P1 applicability score when
+    they overlap with a KO's applicability tags. The retrieval priority
+    order P1 -> P2 -> P3 -> P4 is unchanged; the rule list remains
+    RULE_APPLICABILITY = [P1, P2, P3, P4]. Per Sprint 21 spec section 6:
+
+        "Do not change ADR-019 priority order. Retrieval priority
+         remains: P1 Applicability, P2 Diagnosis, P3 Situation,
+         P4 Boundary, P5 Visual similarity. Human context is
+         additional applicability evidence."
 
 Architectural principle (ADR-019 Section 2):
 
@@ -34,6 +47,10 @@ Retrieval priority model (ADR-019 Section 5, Sprint 20 spec section 6):
     P4 Boundary compatibility      (decision.boundary not violated by KO)
     P5 Visual similarity           (NOT IMPLEMENTED IN V1, per ADR-019)
 
+Sprint 21 (ADR-013) adds a *bounded* P1 boost sourced from
+HumanContext. The priority order is NOT changed; the boost is part
+of P1's contribution. The rule list therefore stays P1..P4.
+
 Constraints (Sprint 20 spec section 11, ADR-019 Section 10):
 
     * No vector database.
@@ -50,7 +67,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from typing import Any, Iterable
+from typing import Any, Iterable, Mapping
 
 from caseos.brain.runtime import Stage
 from caseos.brain.runtime.context import PipelineContext
@@ -67,6 +84,12 @@ SCORE_P2_DIAGNOSIS = 30
 SCORE_P3_SITUATION = 20
 SCORE_P4_BOUNDARY = 10
 SCORE_THRESHOLD = 10  # KOs with score < threshold are not retrieved
+
+# Sprint 21 (ADR-013): bounded HumanContext applicability boost.
+# Human keywords that overlap with a KO's applicability tags add
+# up to this many points to P1's contribution. The boost is part
+# of P1 (NOT a new priority) so the rule list P1..P4 stays intact.
+SCORE_HUMAN_BOOST_MAX = 15
 
 
 # Stopwords used for keyword extraction. Small and explicit; the goal
@@ -88,7 +111,7 @@ def _keywords(text: str | None) -> set[str]:
     """Extract lowercase keywords (>3 chars, not stopwords)."""
     if not text:
         return set()
-    tokens = re.findall(r"[a-zA-Z][a-zA-Z\\-]+", str(text).lower())
+    tokens = re.findall(r"[a-zA-Z][a-zA-Z\-]+", str(text).lower())
     return {t for t in tokens if len(t) > 3 and t not in _STOPWORDS}
 
 
@@ -132,79 +155,146 @@ def _applicability_match(ko: dict, project_type: str,
         site_kw = _keywords(site_description)
         for tag in suitable:
             tag_kw = _keywords(tag)
-            if site_kw and tag_kw and (site_kw & tag_kw):
+            if site_kw & tag_kw:
                 return True
     return False
 
 
+def _human_overlap_score(ko: dict, human_context: Mapping[str, Any] | None) -> int:
+    """Sprint 21 / ADR-013: bounded applicability boost from HumanContext.
+
+    The boost is sourced from these HumanContext fields:
+        user_goal
+        business_context
+        success_definition
+
+    For each KO we look at the *text* of its applicability tags
+    (both `suitable` and `suitable_when`); if any of the human
+    keywords overlap with that text, we add a small contribution
+    (capped at SCORE_HUMAN_BOOST_MAX). The boost is reported as
+    part of P1's contribution -- the rule list P1..P4 is unchanged.
+    """
+    if not human_context:
+        return 0
+    human_blob_parts: list[str] = []
+    for field_name in ("user_goal", "business_context", "success_definition"):
+        v = human_context.get(field_name)
+        if isinstance(v, str) and v.strip() and v.strip() != "__UNKNOWN__":
+            human_blob_parts.append(v)
+    if not human_blob_parts:
+        return 0
+    human_kw = _keywords(" ".join(human_blob_parts))
+    if not human_kw:
+        return 0
+
+    # KO side: suitability text + principle/decision keywords.
+    suitable = _suitable_set(ko)
+    tag_blob = " ".join(suitable)
+    ko_blob = tag_blob + " " + str(ko.get("principle", "") or "") + " " + \
+        " ".join(str(x) for x in (ko.get("decision") or []) if isinstance(x, str))
+    ko_kw = _keywords(ko_blob)
+    overlap = human_kw & ko_kw
+    if not overlap:
+        return 0
+    # Layered: 1 overlap -> +5, 2 -> +10, 3+ -> +15 (cap).
+    if len(overlap) >= 3:
+        return SCORE_HUMAN_BOOST_MAX
+    if len(overlap) == 2:
+        return min(SCORE_HUMAN_BOOST_MAX, 10)
+    return min(SCORE_HUMAN_BOOST_MAX, 5)
+
+
 def _ko_text_blob(ko: dict) -> str:
-    """Concatenate the text fields we use for keyword matching."""
-    return " ".join(
-        str(ko.get(k, "")) for k in (
-            "principle",
-            "diagnosis",
-            "decision",
-            "observation",
-            "situation_context",
-        )
-    )
-
-
-def _decision_text_blob(decision: dict | None) -> str:
-    if not isinstance(decision, dict):
-        return ""
-    return " ".join(
-        str(decision.get(k, "")) for k in ("diagnosis", "decision", "reasoning", "boundary")
-    )
+    """All free-text fields of a KO concatenated for keyword overlap."""
+    parts: list[str] = []
+    for key in (
+        "principle",
+        "diagnosis",
+        "decision",
+        "situation",
+        "situation_context",
+        "observation",
+        "feedback",
+    ):
+        v = ko.get(key)
+        if isinstance(v, str):
+            parts.append(v)
+        elif isinstance(v, list):
+            parts.extend(str(x) for x in v)
+    return " ".join(parts)
 
 
 def _boundary_warnings(ko: dict) -> list[str]:
-    """Return the KO\'s boundary list, normalised to list[str]."""
-    boundary = ko.get("boundary")
-    if isinstance(boundary, list):
-        return [str(b) for b in boundary if b]
-    if isinstance(boundary, str):
-        return [boundary] if boundary.strip() else []
+    """Return the boundary list as strings (handles str or list)."""
+    b = ko.get("boundary")
+    if isinstance(b, list):
+        return [str(x) for x in b if x]
+    if isinstance(b, str) and b.strip():
+        return [b.strip()]
     return []
 
 
 def _contradicts_decision(ko: dict, decision: dict) -> bool:
-    """Return True if the KO is a FailurePattern that contradicts the
-    decision. Mirrors the trust engine\'s V1 heuristic so retrieval
-    and trust reach consistent verdicts on the same input.
+    r"""V1 contradiction heuristic.
+
+    Returns True if the given FailurePattern KO contradicts the
+    Decision's `decision` field. The heuristic is intentionally
+    conservative -- it only fires when the KO contains an explicit
+    "do not <verb> <noun>" prohibition and the decision's `decision`
+    text targets the same noun with a build/add verb.
+
+    See ADR-019 / Sprint 20 spec for the full heuristic.
     """
+    if not isinstance(decision, dict):
+        return False
     identity = (ko.get("identity") or "").lower()
     if "failurepattern" not in identity:
         return False
+
     decision_text = (decision.get("decision") or "").lower()
-    boundary = _boundary_warnings(ko)
-    ko_text = (
-        str(ko.get("principle", "")).lower()
-        + "  "
-        + " ".join(boundary).lower()
-    ).strip()
-    # Narrow: "do not <verb> <noun>" in KO + decision targets same noun.
-    m = re.search(r"\\bdo not (\\w+) (\\w+)", ko_text)
+
+    boundary_field = ko.get("boundary")
+    if isinstance(boundary_field, list):
+        boundary_text = " ".join(str(b) for b in boundary_field)
+    elif isinstance(boundary_field, str):
+        boundary_text = boundary_field
+    else:
+        boundary_text = ""
+    principle_text = _principle_text(ko).lower()
+    ko_text = f"{principle_text}  {boundary_text}".strip()
+
+    def _has_do_not(verb: str, noun: str) -> bool:
+        return bool(re.search(
+            rf"\bdo\s*not\s+{verb}\b[^\.]*\b{re.escape(noun)}\b",
+            ko_text,
+        ))
+
+    def _has_remove_before(verb: str, noun: str) -> bool:
+        return bool(re.search(
+            rf"\bremove\s+before\s+{verb}\b[^\.]*\b{re.escape(noun)}\b",
+            ko_text,
+        ))
+
+    m = re.search(r"\bdo\s*not\s+([a-z]+)\b[^\.]*\b([a-z][a-z\-]+)\b", ko_text)
     if m:
-        noun = m.group(2)
-        if re.search(
-            rf"\\b(add|use|build|create|stack|scatter|place|drop)\\b.*\\b{re.escape(noun)}",
-            decision_text,
-        ):
+        verb, noun = m.group(1), m.group(2)
+        if re.search(rf"\b(add|build|create|stack|scatter|place|drop)\b.*\b{re.escape(noun)}\b",
+                    decision_text):
             return True
-    # Narrow: "remove before <add|build|create> <noun>" + decision same noun.
-    m2 = re.search(
-        r"\\bremove (?:before|rather than) (?:add|build|create) (\\w+)\\b",
-        ko_text,
-    )
+
+    m2 = re.search(r"\bremove\s+before\s+([a-z]+)\b[^\.]*\b([a-z][a-z\-]+)\b", ko_text)
     if m2:
-        noun = m2.group(1)
+        verb, noun = m2.group(1), m2.group(2)
         if re.search(
-            rf"\\b(add|build|create|stack|scatter|place|drop)\\b.*\\b{re.escape(noun)}",
+            rf"\b(add|build|create|stack|scatter|place|drop)\b.*\b{re.escape(noun)}\b",
             decision_text,
         ):
             return True
     return False
+
+
+def _principle_text(ko: dict) -> str:
+    return (ko.get("principle") or "").strip()
 
 
 # ---------------------------------------------------------------------------
@@ -385,6 +475,11 @@ class RetrievalEngine:
     or that contradict the decision\'s boundary are excluded. KOs
     that fall below SCORE_THRESHOLD are also excluded. The top-scoring
     KO is the source of the package\'s narrative fields.
+
+    Sprint 21 (ADR-013) update: `human_context` is an optional
+    argument. When provided, it boosts the P1 contribution by up
+    to `SCORE_HUMAN_BOOST_MAX` points. The priority order P1..P4
+    is unchanged; the rule list is unchanged.
     """
 
     def __init__(self, rules: list[RetrievalRule] | None = None) -> None:
@@ -395,6 +490,7 @@ class RetrievalEngine:
         project,
         decision: dict | None,
         knowledge_patterns: list[dict] | None,
+        human_context: Mapping[str, Any] | None = None,
     ) -> EvidencePackage:
         knowledge_patterns = knowledge_patterns or []
         decision = decision or {}
@@ -411,6 +507,15 @@ class RetrievalEngine:
                 continue
             contributions = {"P1": p1}
             total = p1
+            # Sprint 21 / ADR-013: bounded human-context boost.
+            # Contributes to P1\'s reported contribution so the rule
+            # list P1..P4 stays intact and the priority order is
+            # preserved.
+            if human_context is not None:
+                hb = _human_overlap_score(ko, human_context)
+                if hb:
+                    contributions["P1"] = contributions["P1"] + hb
+                    total += hb
             for rule in self.rules[1:]:
                 c = rule.score(ko, project, decision)
                 if c:
@@ -510,6 +615,11 @@ class KnowledgeRetriever(Stage):
     Position (Sprint 20 spec section 8): immediately after the
     `knowledge` stage, immediately before the `decision` stage.
     Writes `ctx.evidence_package`.
+
+    Sprint 21 (ADR-013) update: forwards `ctx.human_context` to the
+    retrieval engine so that the bounded human-context applicability
+    boost can be applied. Backward-compatible: the engine treats
+    `None` as "no human context available".
     """
 
     name = "retrieval"
@@ -522,11 +632,15 @@ class KnowledgeRetriever(Stage):
             project=ctx.project,
             decision=ctx.decision_object,
             knowledge_patterns=ctx.knowledge_patterns,
+            human_context=ctx.human_context,
         )
         ctx.evidence_package = ep.to_dict()
         ctx.metadata["evidence_package_relevant_count"] = len(ep.relevant_objects)
         ctx.metadata["retrieval_rule_id"] = (
             "P1" if ep.relevant_objects else "NONE"
+        )
+        ctx.metadata["retrieval_human_context_used"] = (
+            ctx.human_context is not None
         )
         return ctx
 
@@ -541,4 +655,5 @@ __all__ = [
     "RuleP3_Situation",
     "RuleP4_Boundary",
     "RULE_APPLICABILITY",
+    "SCORE_HUMAN_BOOST_MAX",
 ]
