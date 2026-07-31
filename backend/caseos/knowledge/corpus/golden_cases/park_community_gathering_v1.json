@@ -1,0 +1,29 @@
+{
+  "identity": "GoldenCase.park_community_gathering_v1",
+  "situation_context": {
+    "project_type": "public_park_open_area",
+    "user_goal": "support both children and elderly users in shared green space",
+    "space_character": "open community green with walking paths and partial shade"
+  },
+  "observation": [
+    "children and elderly rarely share the same area at the same time",
+    "benches face inward but no shared anchor"
+  ],
+  "diagnosis": "the park supports individual activities but no shared gathering moment",
+  "decision": {
+    "problem": "no shared social anchor for multi-generation users",
+    "strategy": "create one central gathering node with adjacent child and elder zones"
+  },
+  "principle": "shared anchor first, then age-specific secondary zones",
+  "applicability": {
+    "suitable": ["public_park_open_area", "community_green"],
+    "not_suitable": ["private_residential", "indoor_rooftop"]
+  },
+  "boundary": [
+    "do not apply when the site already has a strong existing anchor",
+    "do not apply when child and elder populations cannot be co-located for safety reasons"
+  ],
+  "feedback": [
+    {"outcome": "inter_generation_interaction_increased", "score": "positive"}
+  ]
+}

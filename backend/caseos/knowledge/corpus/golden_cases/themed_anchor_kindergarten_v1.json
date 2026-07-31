@@ -1,0 +1,29 @@
+{
+  "identity": "GoldenCase.themed_anchor_kindergarten_v1",
+  "situation_context": {
+    "project_type": "kindergarten_outdoor",
+    "user_goal": "improve enrolment attraction",
+    "space_character": "large empty outdoor area between building and playground"
+  },
+  "observation": [
+    "children pass through the area but do not linger",
+    "no shade, no enclosure, no narrative"
+  ],
+  "diagnosis": "no emotional anchor connecting building, children, and outdoor activity",
+  "decision": {
+    "problem": "the space lacks a visual and emotional anchor",
+    "strategy": "build a single thematically anchored experience node"
+  },
+  "principle": "create one memorable experience node before adding secondary facilities",
+  "applicability": {
+    "suitable": ["kindergarten_outdoor", "public_park_open_area"],
+    "not_suitable": ["indoor_rooftop", "narrow_corridor"]
+  },
+  "boundary": [
+    "do not apply when budget cannot support a meaningful experience node",
+    "do not apply when existing space already lacks basic safety functions"
+  ],
+  "feedback": [
+    {"outcome": "stay_time_increased", "score": "positive"}
+  ]
+}

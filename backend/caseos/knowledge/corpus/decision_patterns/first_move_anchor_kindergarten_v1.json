@@ -1,0 +1,28 @@
+{
+  "identity": "DecisionPattern.first_move_anchor_kindergarten_v1",
+  "situation_context": {
+    "project_type": "kindergarten_outdoor",
+    "trigger": "site lacks identity and has some existing equipment"
+  },
+  "observation": [
+    "site lacks a memorable theme or identity",
+    "some existing equipment remains on site"
+  ],
+  "diagnosis": "the problem is not insufficient equipment but a lack of spatial narrative",
+  "decision": {
+    "first_move": "themed exploration space",
+    "downstream": "secondary facilities added only after anchor succeeds"
+  },
+  "principle": "The first move creates the centre. Everything else supports it.",
+  "applicability": {
+    "suitable": ["kindergarten_outdoor"],
+    "not_suitable": ["indoor_rooftop", "narrow_corridor"]
+  },
+  "boundary": [
+    "do not apply when existing space already lacks basic safety functions",
+    "do not stack this pattern twice in the same site"
+  ],
+  "feedback": [
+    {"outcome": "narrative_coherence_improved", "score": "positive"}
+  ]
+}

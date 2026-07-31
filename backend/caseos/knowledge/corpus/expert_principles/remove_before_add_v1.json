@@ -1,0 +1,23 @@
+{
+  "identity": "ExpertPrinciple.remove_before_add_v1",
+  "situation_context": {
+    "trigger": "site already carries equipment or decoration"
+  },
+  "observation": [
+    "new requests arrive before the existing site is audited"
+  ],
+  "diagnosis": "adding to a cluttered site compounds disorder",
+  "decision": "remove low-value existing elements before introducing new ones",
+  "principle": "remove before add. the value of subtraction precedes the value of addition.",
+  "applicability": {
+    "suitable": ["any_existing_conditions", "any_limited_budget"],
+    "not_suitable": ["greenfield_construction", "heritage_protected_sites"]
+  },
+  "boundary": [
+    "do not apply when existing elements have regulatory protection",
+    "do not apply when removal would compromise basic safety"
+  ],
+  "feedback": [
+    {"outcome": "value_per_square_meter_improved", "score": "positive"}
+  ]
+}

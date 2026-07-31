@@ -1,0 +1,24 @@
+{
+  "identity": "UserPreference.natural_exploration_v1",
+  "situation_context": {
+    "user_type": "kindergarten owner",
+    "preference": "natural materials, exploration-led play"
+  },
+  "observation": [
+    "owners express preference for natural over manufactured environments"
+  ],
+  "diagnosis": "the audience values authenticity and tactile nature",
+  "decision": "anchor recommendations in natural elements where possible",
+  "principle": "natural materials and exploration read as higher trust than catalogue equipment",
+  "applicability": {
+    "suitable": ["kindergarten_outdoor", "nature_school", "public_park_open_area"],
+    "not_suitable": ["indoor_rooftop", "narrow_corridor"]
+  },
+  "boundary": [
+    "do not force natural theme where site conditions make it unsafe",
+    "do not over-promise natural experience in fully paved urban sites"
+  ],
+  "feedback": [
+    {"outcome": "owner_alignment_improved", "score": "positive"}
+  ]
+}

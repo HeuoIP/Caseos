@@ -1,0 +1,29 @@
+{
+  "identity": "GoldenCase.cultural_journey_narrative_path_v1",
+  "situation_context": {
+    "project_type": "cultural_tourism",
+    "user_goal": "create a memorable visitor journey tied to local cultural meaning",
+    "space_character": "linear historical district with multiple heritage sites"
+  },
+  "observation": [
+    "visitors walk through without stopping",
+    "no unifying story across the heritage sites"
+  ],
+  "diagnosis": "heritage value exists in individual sites but not in the journey between them",
+  "decision": {
+    "problem": "the visitor journey lacks a cultural narrative spine",
+    "strategy": "build a narrative path that connects heritage sites through staged experience nodes"
+  },
+  "principle": "the journey itself is the product, not the destinations",
+  "applicability": {
+    "suitable": ["cultural_tourism", "heritage_district", "themed_experience"],
+    "not_suitable": ["single_building_renovation", "small_retail"]
+  },
+  "boundary": [
+    "do not apply when the heritage sites have no shared cultural thread",
+    "do not apply when visitor flow is fixed by external logistics"
+  ],
+  "feedback": [
+    {"outcome": "stay_duration_extended", "score": "positive"}
+  ]
+}
