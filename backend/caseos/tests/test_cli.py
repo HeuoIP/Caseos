@@ -1,7 +1,9 @@
-﻿"""CLI tests (Sprint 19.1 acceptance Test 3: "markdown report generated").
+"""CLI tests (Sprint 19.1 acceptance Test 3: "markdown report generated").
 
-We invoke the CLI via `python -m caseos.cli.caseos` to validate the
-real entry point rather than re-implementing its parsing.
+Sprint 19.4 update: the Markdown now follows ADR-017\'s seven-section
+output schema. We invoke the CLI via `python -m caseos.cli.caseos`
+to validate the real entry point rather than re-implementing its
+parsing.
 """
 
 from __future__ import annotations
@@ -59,13 +61,19 @@ def test_cli_generates_markdown(tmp_path: Path) -> None:
     assert cp.returncode == 0, cp.stderr
     assert out_md.exists(), "Markdown report was not written"
     text = out_md.read_text(encoding="utf-8")
-    # Six required headings from Sprint 19.1 example output:
+    # Sprint 19.4 / ADR-017: the Markdown report now contains the
+    # seven recommendation sections plus the input summary. The
+    # Sprint 19.1 "Spatial Diagnosis" / "Decision" / "Confidence"
+    # headings are gone; we expect the new ADR-017 names instead.
     for heading in [
         "# Project Understanding",
-        "# Spatial Diagnosis",
-        "# Decision",
+        "# Situation Understanding",
+        "# Problem Diagnosis",
+        "# Strategic Direction",
+        "# Experience Concept",
+        "# Implementation Direction",
         "# Evidence",
-        "# Confidence",
+        "# Confidence & Caveats",
         "# Recommendation",
     ]:
         assert heading in text, f"Missing section: {heading}"
@@ -81,3 +89,15 @@ def test_cli_generates_markdown(tmp_path: Path) -> None:
     assert (
         "no site image analysis" in text.lower()
     ), "Sprint 19.3 canonical caveat must appear"
+
+    # Sprint 19.4 / RCM-01: the Decision diagnosis and strategy must
+    # be preserved in the rendered Markdown.
+    assert "not insufficient equipment" in text, (
+        "RCM-01: Decision diagnosis must reach the Markdown"
+    )
+    assert "anchored experience" in text, (
+        "RCM-01: Decision strategy (anchored experience) must reach the Markdown"
+    )
+    assert "scattered" in text, (
+        "RCM-01: Decision boundary (no scattered equipment) must reach the Markdown"
+    )
