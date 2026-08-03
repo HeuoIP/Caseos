@@ -215,22 +215,40 @@ def _check_boundary(boundary_items: list[str], content: str) -> Optional[str]:
     return None
 
 
+def _last_noun(phrase: str) -> str:
+    """Return the last alphabetic token of ``phrase``.
+
+    Used as a proxy for the noun in a "X before Y" directive where
+    ``a`` may be a verb phrase like "create hierarchy" -- the
+    reversal test wants to detect "without hierarchy" in the
+    feedback even though the original verb ("create") is dropped.
+    """
+    tokens = re.findall(r"[a-z][a-z'-]+", phrase.lower())
+    return tokens[-1] if tokens else phrase.strip().lower()
+
+
 def _check_principle(principle: str, content: str) -> bool:
     """Return True when feedback reverses a 'X before Y' ordering."""
     text = (principle or "").strip()
     if not text:
         return False
+    content_lc = content.lower()
     m = _ORDER_BEFORE.match(text)
     if m:
         a = m.group("a").strip().lower()
         b = m.group("b").strip().lower()
-        # Reversal: feedback says B without A.
-        if _phrase_present(b, content) and not _phrase_present(a, content):
-            return True
-        # Explicit reversal phrasing.
-        if re.search(r"\bwithout\b\s+" + re.escape(a), content.lower()):
-            return True
-        if re.search(r"\binstead of\b\s+" + re.escape(a), content.lower()):
+        a_noun = _last_noun(a)
+        # Reversal: feedback mentions b (or b's noun) AND uses
+        # "without a_noun" / "instead of a_noun".
+        b_present = _phrase_present(b, content) or _phrase_present(
+            _last_noun(b), content
+        )
+        reversal = re.search(
+            r"\bwithout\b\s+" + re.escape(a_noun), content_lc
+        ) or re.search(
+            r"\binstead of\b\s+" + re.escape(a_noun), content_lc
+        )
+        if b_present and reversal:
             return True
         return False
     m = _ORDER_AFTER.match(text)
