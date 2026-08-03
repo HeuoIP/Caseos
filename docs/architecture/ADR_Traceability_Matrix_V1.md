@@ -1,10 +1,10 @@
 # ADR Traceability Matrix V1
 
-- **Date:** 2026-07-31
+- **Date:** 2026-07-31 (updated 2026-08-03 by Sprint 22.3.3)
 - **Owner:** Architecture Consistency Patch V1
 - **Source of truth:** `docs/architecture/ADR_Traceability_Matrix_V1.md`
-- **Scope:** All Accepted + Proposed ADRs from ADR-005 to ADR-019.
-- **Recent additions:** ADR-019 (Evidence Retrieval Intelligence Principle V1) -- the Sprint 20 principle, defined post-Phase-3 per AR-002 Section 7 Sprint 20 Readiness.
+- **Scope:** All Accepted + Proposed ADRs from ADR-005 to ADR-020.
+- **Recent additions:** ADR-019 (Evidence Retrieval Intelligence Principle V1 -- the Sprint 20 principle, defined post-Phase-3 per AR-002 Section 7 Sprint 20 Readiness) and ADR-020 (Knowledge Evolution Safety Principle V1 -- the safety principle for the future Sprint 22.4 Knowledge Evolution, defined by Sprint 22.3.3).
 - **Companion documents:**
   - `CaseOS_Intelligence_Architecture_V2.md` (the Blueprint now)
   - `CaseOS-Architecture-Baseline-V1.md` (the executing summary)
@@ -73,8 +73,9 @@ Columns:
 | **ADR-015** | Knowledge Object Model V1 | **Proposed** | 9-field unified Knowledge Object with 5 Identity types; the spine of all knowledge. | ADR-014 (retrieval). ADR-018 (Feedback Loop writes here). | -- | Doc-only (this patch) |
 | **ADR-016** | Intelligence Trust Model V1 | **Proposed** | Trust Object (5 fields) attached to every Decision; 3 confidence labels. | ADR-014 (Decision with Trust). ADR-017 (renders Trust). ADR-018 (Trust evolution). | ADR-014, ADR-015 | Doc-only (this patch) |
 | **ADR-017** | Recommendation Engine V1 | **Proposed** | 7-section output template; 5 content types; 4 anti-patterns; audience variants. | Product Layer (renders). ADR-018 (consumes for feedback). | ADR-013, ADR-014, ADR-015, ADR-016 | Doc-only (this patch) |
-| **ADR-018** | Feedback Learning Loop Contract V1 | **Proposed** | 4 feedback voices + 5 feedback types; Confidence / Boundary as independent levers; HITL thresholds. | ADR-015 (writes Feedback field). ADR-016 (writes Trust labels). ADR-014 (writes Decision Pattern). | ADR-014, ADR-015, ADR-016, ADR-017 | Doc-only (this patch) |
+| **ADR-018** | Feedback Learning Loop Contract V1 | **Implemented (Runtime) / Waiting for Knowledge Evolution** | 4 feedback voices + 5 feedback types; Confidence / Boundary as independent levers; HITL thresholds. Sections 14-17 (Sprint 22.3.3) freeze the runtime through `ChangeIntent` and add 4 hard rules. | ADR-015 (writes Feedback field). ADR-016 (writes Trust labels). ADR-014 (writes Decision Pattern). ADR-020 (gates the future Evolution). | ADR-014, ADR-015, ADR-016, ADR-017, ADR-020 | Doc-only + Sprints 22.1, 22.2-A, 22.2-B, 22.3, 22.3.1, 22.3.2, 22.3.3 |
 | **ADR-019** | Evidence Retrieval Intelligence Principle V1 | **Proposed** | Locks retrieval philosophy: "applicability > visual similarity"; defines the 5-field Evidence Package; ranking order P1..P5 with visual similarity as P5; 4 anti-patterns explicitly rejected. | Sprint 20 (KnowledgeRetriever stage). Trust Engine (consumes Evidence Package). Future Vision Model integration. | ADR-014, ADR-015, ADR-016, ADR-017, ADR-018 | Doc-only (pre-Sprint 20) |
+| **ADR-020** | Knowledge Evolution Safety Principle V1 | **Proposed** | 5 Mandatory Rules for the future Knowledge Evolution: No Direct Mutation, Version Required, Audit Required, Rollback Required, No Intelligence Rewrite. Defines the single sentence "Approved learning proposal may suggest knowledge evolution, but never directly mutate knowledge." | Future Sprint 22.4 (Knowledge Evolution V1 runtime). Future KO version store. Future append-only audit log. | ADR-014, ADR-015, ADR-016, ADR-017, ADR-018 | Doc-only (pre-Sprint 22.4) |
 
 ---
 
@@ -133,6 +134,8 @@ extended by it:
 | Doc-only (this patch series) | ADR-013, ADR-014, ADR-015, ADR-016, ADR-017, ADR-018 |
 | (proposed) Sprint 19 (Brain Runtime V1) | will consumer-wire ADR-009, ADR-010, ADR-013, ADR-014, ADR-015, ADR-016, ADR-017, ADR-018 |
 | (proposed) Sprint 20 (Evidence Retrieval V1) | ADR-019 (principle) + ADR-015 (Knowledge Object contract); inserts KnowledgeRetriever stage between Knowledge and Decision |
+| Sprints 22.1 -- 22.3.2 (Feedback Learning Loop runtime) | runtime layers of ADR-018 (Feedback Runtime, Evaluation, Contradiction, Learning Proposal, Review Queue, Interpretation Policy, ChangeIntent) | 
+| Sprint 22.3.3 (ADR-018 Architecture Stabilization) | ADR-018 freeze (sections 14-17) + ADR-020 (Knowledge Evolution Safety Principle V1) |
 
 ---
 

@@ -1,13 +1,14 @@
 # ADR-018: CaseOS Feedback Learning Loop Contract V1
 
-- **Status:** Proposed
-- **Date:** 2026-07-31
+- **Status:** Implemented (Runtime) / Waiting for Knowledge Evolution
+- **Date:** 2026-07-31 (updated 2026-08-03 by Sprint 22.3.3)
 - **Layer:** Learning (the closing of the CaseOS intelligence loop)
 - **Affects:** Knowledge Object lifecycle, Trust labels, Decision Pattern quality, future agent role
-- **Related ADRs:** ADR-013 (Human), ADR-014 (Decision), ADR-015 (Knowledge Object), ADR-016 (Trust), ADR-017 (Recommendation)
+- **Related ADRs:** ADR-013 (Human), ADR-014 (Decision), ADR-015 (Knowledge Object), ADR-016 (Trust), ADR-017 (Recommendation), ADR-020 (Knowledge Evolution Safety Principle V1, Proposed)
 - **Implements:** the **Feedback Learning Engine** declared in the V2 Blueprint Section 2.4 (was an "ADR slot pending" reference; now concretely numbered).
 - **Supersedes:** none
 - **Source of truth:** `docs/architecture/ADR-018-feedback-learning-loop.md`
+- **Implementation frozen by:** Sprint 22.3.3 (ADR-018 Architecture Stabilization V1)
 - **Triggers doc-only follow-up commit:** V2 Blueprint Section 8 placeholder table update + ADR-016/017 front-matter corrections to point at this slot allocation.
 
 > **Reading note (model, not implementation).** Inherited from ADR-014 through ADR-017: this ADR defines **the shape of a feedback story and the rules of how feedback updates knowledge**. It does not define machine learning algorithms, analytics systems, queues, or UI tracking. Where an "event" appears below, it is a **kind of thing that happened** -- not a JSON event schema. Where "append-only" appears, it is a **trust-monotonicity rule** (mirroring ADR-016 rule 6), not a database write characteristic.
@@ -494,3 +495,259 @@ revision. If they can do that, ADR-018 has done its job.
 ---
 
 *End of ADR-018. After this lands, the next commit is the doc-only Architecture Consistency Patch (V2 Blueprint Section 8 + ADR-016/017 front-matter references). Then Sprint 19 (Brain Runtime V1).*
+﻿
+---
+
+## 14. Feedback Learning Loop Architecture V1 (Sprint 22.3.3 update)
+
+This section freezes the architecture that the Sprint 22.1 → 22.3.2
+runtime delivered. It is the **post-implementation mirror** of
+Section 9's abstract loop, and is the source of truth for the
+Sprint 22.3.3 Architecture Freeze.
+
+The runtime sequence is:
+
+```
+Feedback
+   |
+   v
+Feedback Runtime              (Sprint 22.1)
+   |
+   v
+Evaluation Layer              (Sprint 22.2-A)
+   |
+   v
+Contradiction Detection       (Sprint 22.2-B)
+   |
+   v
+Learning Proposal             (Sprint 22.3)
+   |
+   v
+Human Review Gate             (Sprint 22.3.1)
+   |
+   v
+Interpretation Policy         (Sprint 22.3.2)
+   |
+   v
+ChangeIntent
+   |
+   v
+(Future Sprint 22.4) Knowledge Evolution
+```
+
+### 14.1 Module Map
+
+| Stage | Module path | Sprint |
+| --- | --- | --- |
+| Feedback Runtime | `backend/caseos/knowledge/feedback/` | 22.1 |
+| Evaluation Layer | `backend/caseos/knowledge/feedback/evaluation/` | 22.2-A |
+| Contradiction Detection | `backend/caseos/knowledge/feedback/evaluation/analyzer.py` | 22.2-B |
+| Learning Proposal | `backend/caseos/knowledge/feedback/proposal.py` | 22.3 |
+| Human Review Gate | `backend/caseos/knowledge/feedback/review/` | 22.3.1 |
+| Interpretation Policy | `backend/caseos/knowledge/feedback/interpretation/` | 22.3.2 |
+| `ChangeIntent` (object) | `backend/caseos/knowledge/feedback/interpretation/object.py` | 22.3.2 |
+| Knowledge Evolution | (not yet implemented) | (Sprint 22.4) |
+
+### 14.2 Implementation Status
+
+The runtime is **Implemented** from `Feedback` through `ChangeIntent`.
+Knowledge Evolution is the **next** Sprint and is **NOT** in this
+ADR's scope. The runtime is **frozen** pending Sprint 22.4.
+
+The freeze means:
+
+- The runtime layer accepts no new features between Sprint 22.3.3
+  and Sprint 22.4 (Knowledge Evolution).
+- Bug fixes are allowed; architecture changes require a new ADR.
+- The boundary is held by AST tests in every interpretation
+  module (see Sprint 22.3.2 `TestArchitectureBoundary`).
+
+### 14.3 Pipeline Position
+
+The Feedback Learning Loop is a **side-channel**. It is not
+inserted into the main pipeline:
+
+```
+Human -> Knowledge -> Retrieval -> Decision -> Trust
+       -> Recommendation -> Output
+```
+
+The loop is invoked by an operator (or a future feedback tool)
+and writes only to its own append-only stores. The main
+pipeline is unaware of the loop's existence.
+
+---
+
+## 15. Architecture Hard Rules (Sprint 22.3.3 freeze)
+
+These four rules are the **architectural floor** of the Feedback
+Learning Loop. They are non-negotiable and apply to every
+implementation Sprint that touches the loop. Each rule is
+enforced by either an AST test, a frozen dataclass contract,
+or a code-review discipline. A future ADR is required to relax
+any of them.
+
+### Rule 1 — Feedback is Side Channel
+
+Feedback is **NOT** part of the Intelligence Runtime. The
+runtime pipeline is:
+
+```
+Human -> Knowledge -> Retrieval -> Decision -> Trust
+       -> Recommendation -> Output
+```
+
+The forbidden connections are:
+
+```
+Feedback -> Decision        (FORBIDDEN)
+Feedback -> Recommendation  (FORBIDDEN)
+```
+
+The only path from Feedback to the runtime is:
+
+```
+Feedback -> Learning Loop -> ChangeIntent -> (Future) Knowledge Evolution
+```
+
+`ChangeIntent` is a *proposal* to a future Knowledge Evolution
+sprint. It is **not** an authority in the runtime. It carries
+no write capability to Decision, Trust, or Recommendation.
+
+### Rule 2 — Human Approval Boundary
+
+There is no path:
+
+```
+AI feedback -> Automatic learning
+```
+
+Any Knowledge Object change must pass through:
+
+```
+Feedback -> Proposal -> Human Review -> ChangeIntent -> Evolution
+```
+
+`requires_human_review=True` is enforced in V1 at three
+independent layers:
+
+- the proposal layer (`LearningProposal.requires_human_review`),
+- the review layer (`ReviewManager.approve` requires a
+  `reviewer` argument),
+- the interpretation layer
+  (`InterpretationPolicy.interpret` returns `None` when the
+  proposal has `requires_human_review=False`).
+
+It cannot be turned off in V1. A future ADR may relax this rule
+only after the V1 architecture has produced a measurable
+track record of human-approved evolutions.
+
+### Rule 3 — ChangeIntent is Last Safe Layer
+
+`ChangeIntent` is the **only** input that a future Knowledge
+Evolution sprint is allowed to consume.
+
+`ChangeIntent` itself is **read-only** with respect to:
+
+- Knowledge Object fields,
+- Corpus,
+- Retrieval ranking,
+- Decision Engine state,
+- Trust Engine state,
+- Recommendation Engine state.
+
+A `ChangeIntent` may be:
+
+- validated (`validate_change_intent`),
+- queued for future consumption,
+- rendered as a Markdown report,
+- persisted in an append-only audit store (future sprint),
+- (in a future sprint) consumed by an Evolution transaction.
+
+A `ChangeIntent` may **not** be applied directly to the runtime
+in V1. The frozen `ChangeIntent` dataclass is the audit anchor.
+
+### Rule 4 — Intelligence Authority Protection
+
+The Feedback Learning Loop **never** writes to:
+
+- `caseos.intelligence.decision`,
+- `caseos.intelligence.trust`,
+- `caseos.intelligence.recommendation`,
+- `caseos.knowledge.retrieval`.
+
+The only thing Knowledge Evolution may write to (in a future
+Sprint 22.4) is the **Knowledge Object field** that the
+`ChangeIntent` named. The future Retrieval Engine may then
+read the updated Knowledge Object on its next pass. No
+intelligence engine state is mutated.
+
+This is the **single allowed write target** of the entire
+Feedback Learning Loop. Any future ADR that proposes a second
+write target is a hardening violation and must be re-numbered
+as a separate ADR for architecture-review-level visibility.
+
+---
+
+## 16. Sprint 22.x Implementation Status (Sprint 22.3.3 freeze)
+
+| Stage | Status | Sprint | Commit (post-Sprint 22.3.2) |
+| --- | --- | --- | --- |
+| Feedback Runtime | **Shipped** | 22.1 | (pre-tracked) |
+| Evaluation Layer | **Shipped** | 22.2-A | (pre-tracked) |
+| Contradiction Detection | **Shipped** | 22.2-B | (pre-tracked) |
+| Learning Proposal | **Shipped** | 22.3 | dbfe6dd |
+| Human Review Gate | **Shipped** | 22.3.1 | 7f23ffb |
+| Interpretation Policy | **Shipped** | 22.3.2 | 6824b1f |
+| `ChangeIntent` (object) | **Shipped** | 22.3.2 | 6824b1f |
+| Architecture Freeze | **Shipped** | 22.3.3 | (this commit) |
+| Knowledge Evolution | **Not Started** | (Sprint 22.4) | -- |
+
+The complete loop is **runtime-complete** but **evolution-incomplete**.
+The `ChangeIntent` is the last shipped artifact; everything past it
+is governed by ADR-020 (Proposed) and is **NOT** in scope of any
+shipped Sprint as of 22.3.3.
+
+---
+
+## 17. ChangeIntent Contract Reference (frozen by Sprint 22.3.2)
+
+The `ChangeIntent` is defined in
+`backend/caseos/knowledge/feedback/interpretation/object.py` as a
+**frozen** dataclass with 11 fields:
+
+- `intent_id`
+- `proposal_id`
+- `target_identity`
+- `change_type`
+- `target_field`
+- `current_value`
+- `proposed_value` (always `None` in V1)
+- `reason`
+- `risk_level`
+- `requires_human_review` (always `True` in V1)
+- `created_at`
+
+The V1 mapping in
+`backend/caseos/knowledge/feedback/interpretation/policy.py` only
+supports two `change_type` values:
+
+- `boundary_update` (target_field: `boundary`)
+- `principle_update` (target_field: `principle`)
+
+Any other `change_type` returns `None` from the policy. The V1
+mapping is **locked**. Future Sprints may extend the mapping
+table in `policy.py` **only** via a new ADR; in-place extension
+is a hard-rule violation.
+
+The `proposed_value` is intentionally `None` in V1: the policy
+**never invents the future Knowledge Object value**. Sprint 22.4
+(future) is the first sprint that may fill `proposed_value`,
+and only after a second human approval step.
+
+---
+
+*End of ADR-018 additions for Sprint 22.3.3. The ADR remains the
+single source of truth for the Feedback Learning Loop contract.
+The next architectural change is gated by ADR-020 (Knowledge
+Evolution Safety Principle V1, Proposed) and Sprint 22.4.*

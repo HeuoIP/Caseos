@@ -214,7 +214,7 @@ boundary/principle, Trust labels, Decision Pattern; log of every feedback event
 **Consumer:** the other five components. Feedback Learning Loop is the **only**
 component permitted to overwrite another component's output.
 
-**Authority:** ADR-018 (Proposed).
+**Authority:** ADR-018 (Implemented (Runtime) / Waiting for Knowledge Evolution, per Sprint 22.3.3 freeze).
 ## 3. Architecture Diagram
 
 ```mermaid
@@ -417,7 +417,7 @@ Consumer = none any more.**
 ## 8. Future ADR Mapping
 
 ADR numbering convention: `ADR-NNN-short-name.md`. ADR-013 has been
-filed. As of ADR-018 (2026-07-31), the following slots are **allocated**:
+filed. As of Sprint 22.3.3 (2026-08-03), the following slots are **allocated**: ADR-014..ADR-018 are Post-Phase-3 ADRs (ADR-018 Implemented at runtime, the rest Proposed); ADR-019 (Evidence Retrieval) and ADR-020 (Knowledge Evolution Safety) are Sprint 22.3.3 additions.
 
 | Slot | ADR | Title |
 | --- | --- | --- |
@@ -436,8 +436,9 @@ filed. As of ADR-018 (2026-07-31), the following slots are **allocated**:
 | **Proposed** | **ADR-015**  | **Knowledge Object Model V1** |
 | **Proposed** | **ADR-016**  | **Intelligence Trust Model V1** |
 | **Proposed** | **ADR-017**  | **Recommendation Engine V1** |
-| **Proposed** | **ADR-018**  | **Feedback Learning Loop Contract V1** |
+| **Implemented (Runtime) / Waiting for Knowledge Evolution** | **ADR-018**  | **Feedback Learning Loop Contract V1** (Sprint 22.3.3 freeze: sections 14-17 + 4 hard rules) |
 | **Proposed** | **ADR-019**  | **Evidence Retrieval Intelligence Principle V1** |
+| **Proposed** | **ADR-020**  | **Knowledge Evolution Safety Principle V1** (Sprint 22.3.3: 5 Mandatory Rules -- No Direct Mutation, Version Required, Audit Required, Rollback Required, No Intelligence Rewrite) |
 
 The original Section 8 placeholder in this V2 Blueprint (written
 before ADR-014..ADR-018 were filed) tentatively allocated:
@@ -460,10 +461,10 @@ The four topics the placeholder originally pointed at were:
 
 | Original Placeholder | Realised As |
 | --- | --- |
-| (placeholder ADR-015) Preference Signal Schema V1 | Replaced by **ADR-015 Knowledge Object Model V1** (Knowledge turned out to be a sharper abstraction to fix before typed fields). The Preference Signal Schema now lives at a future slot, tentatively **ADR-020** (ADR-019 was reassigned to Evidence Retrieval per AR-002 Section 7 Sprint 20 Readiness). |
+| (placeholder ADR-015) Preference Signal Schema V1 | Replaced by **ADR-015 Knowledge Object Model V1** (Knowledge turned out to be a sharper abstraction to fix before typed fields). The Preference Signal Schema is unscheduled; the slot **ADR-020** is now consumed by **Knowledge Evolution Safety Principle V1** (Sprint 22.3.3). |
 | (placeholder ADR-016) Recommendation Engine V1 | Realised at **ADR-017** (slot-shifted by Trust Model at ADR-016). |
 | (placeholder ADR-017) Feedback Learning Loop Contract V1 | Realised at **ADR-018** (slot-shifted). |
-| (placeholder ADR-019) Preference Signal Schema V1 | **Superseded** -- ADR-019 was reassigned to **Evidence Retrieval Intelligence Principle V1** (per AR-002 Section 7 Sprint 20 Readiness, before any Sprint 20 implementation begins). The Preference Signal Schema moves to a future slot (tentatively ADR-020). |
+| (placeholder ADR-019) Preference Signal Schema V1 | **Superseded** -- ADR-019 was reassigned to **Evidence Retrieval Intelligence Principle V1** (per AR-002 Section 7 Sprint 20 Readiness, before any Sprint 20 implementation begins). The Preference Signal Schema remains unscheduled. |
 | (placeholder ADR-014) Decision Intelligence Model V2 | Realised at **ADR-014** as **Decision Intelligence Model V1** (V-number adjusted once "Model" was scoped smaller than first imagined). |
 
 If a different architectural decision is required next, the next free number absorbs it.
