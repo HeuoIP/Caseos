@@ -1,21 +1,30 @@
-﻿"""Learning Proposal (Sprint 22.1, ADR-018 Section 3 + Sprint 22.1 spec section 7).
+"""Learning Proposal (Sprint 22.1 + Sprint 22.3, ADR-018 Section 3).
 
 A ``LearningProposal`` is a **suggestion**, not a change. It never
 modifies the Knowledge Object it targets. It carries:
 
-    target_identity    which KO the proposal is about
-    current_state      a snapshot of the KO's ADR-015 fields at
-                       proposal-generation time
-    feedback_summary   the list of feedback events that triggered
-                       this proposal
-    proposed_change    a Markdown description of what *could* change
-    risk               one of: low | medium | high
-    requires_expert_review
-                       whether expert review is required before
-                       the proposal can be approved
-    created_at         ISO timestamp
+    proposal_id            unique identifier
+    feedback_id            the feedback that triggered this proposal
+    target_identity        which KO the proposal is about
+    proposal_type          one of the ADR-018 / 22.3 taxonomy values
+                           (e.g. "boundary_update_candidate",
+                           "principle_update_candidate",
+                           "applicability_update_candidate")
+    current_state          a snapshot of the KO's ADR-015 fields at
+                           proposal-generation time (taken by VALUE,
+                           never by reference)
+    suggested_change       a short human-readable statement of what
+                           could change in the future knowledge
+    reason                 why the proposal was raised (a one- or
+                           two-sentence explanation traceable to the
+                           feedback)
+    requires_human_review  True in 22.3. The proposal is always
+                           gated on a human reviewer. ADR-018
+                           Section 1 + 22.3 Task 4 enforce this.
+    status                 ProposalStatus value (CREATED in V1)
+    created_at             ISO timestamp
 
-The proposal is the operational form of ADR-018 §3.A:
+The proposal is the operational form of ADR-018 Section 3.A:
 
     "The Loop may update three fields:
         - applicability
@@ -25,37 +34,17 @@ The proposal is the operational form of ADR-018 §3.A:
 The proposal expresses *what could change* in those three fields.
 It does NOT write to the KO; the human review step is the gate.
 
-ADR-018 §5 Principle 1:
-
-    "Feedback updates knowledge, not just records activity."
-
-The proposal is the operation that bridges feedback and knowledge
-update. It is the only place where feedback is translated into a
-candidate knowledge update. Whether the proposal is acted upon is
-a human decision (REVIEW_REQUIRED -> APPROVED), and whether the
-act of action translates into a real KO update is a *future*
-sprint (Sprint 22.2+); Sprint 22.1 does NOT implement auto-update.
-
-Risk and review rules (Sprint 22.1 spec section 7):
-
-    * CONTRADICTION_SIGNAL or UNEXPECTED_DISCOVERY -> high risk,
-      requires_expert_review = True.
-    * EXPERT + NEGATIVE_CORRECTION            -> high risk,
-      requires_expert_review = True.
-    * EXPERT + POSITIVE_CONFIRMATION          -> low risk,
-      requires_expert_review = False.
-    * PREFERENCE source                       -> requires review
-                                                (per ADR-018 §1).
-    * Everything else                         -> medium risk.
-
-The proposal function takes a ``current_state`` snapshot by value
-(not by reference) so any subsequent mutation of the corpus does
-not change the proposal's snapshot.
+Sprint 22.3 (this file) lifts the proposal out of the bare 22.1
+shape into the integration contract required by ADR-018:
+10 fields, frozen, JSON-serialisable, and disconnected from any
+``KnowledgeObject`` reference. The proposal object never imports
+from ``caseos.intelligence.*`` or ``caseos.knowledge.retrieval``
+(per the architecture boundary).
 """
 from __future__ import annotations
 
 import uuid
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -71,89 +60,74 @@ def _now_iso() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-@dataclass
+@dataclass(frozen=True)
 class LearningProposal:
-    """A suggested knowledge update. Does NOT modify the KO."""
+    """A suggested knowledge update. Does NOT modify the KO.
+
+    Required fields (Sprint 22.3 spec section Task 1):
+
+        proposal_id            unique id
+        feedback_id            source feedback id
+        target_identity        KO identity
+        proposal_type          taxonomy tag (string)
+        current_state          snapshot dict of KO ADR-015 fields
+        suggested_change       human-readable change description
+        reason                 short explanation
+        requires_human_review  always True in 22.3
+        status                 ProposalStatus value
+        created_at             ISO timestamp
+
+    The dataclass is **frozen**: the proposal is append-only by
+    contract. Lifecycle transitions create new events on the
+    proposal store; the proposal object itself never mutates.
+    """
 
     proposal_id: str
+    feedback_id: str
     target_identity: str
+    proposal_type: str
     current_state: dict[str, Any]
-    feedback_summary: list[dict[str, Any]]  # serialised FeedbackEvents
-    proposed_change: str  # Markdown text
-    risk: str  # "low" | "medium" | "high"
-    requires_expert_review: bool
+    suggested_change: str
+    reason: str
+    requires_human_review: bool
+    status: str
     created_at: str = field(default_factory=_now_iso)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
-def _render_proposal_markdown(
-    feedback_events: list[FeedbackEvent],
-    reasoning: str,
+# ---------------------------------------------------------------------------
+# Proposal taxonomy (Sprint 22.3)
+# ---------------------------------------------------------------------------
+
+PROPOSAL_TYPE_BOUNDARY = "boundary_update_candidate"
+PROPOSAL_TYPE_PRINCIPLE = "principle_update_candidate"
+PROPOSAL_TYPE_APPLICABILITY = "applicability_update_candidate"
+
+_VALID_PROPOSAL_TYPES = frozenset({
+    PROPOSAL_TYPE_BOUNDARY,
+    PROPOSAL_TYPE_PRINCIPLE,
+    PROPOSAL_TYPE_APPLICABILITY,
+})
+
+
+def proposal_type_for_feedback_event(
+    feedback_event: FeedbackEvent,
 ) -> str:
-    """Compose a Markdown block describing the proposed change.
+    """Decide the proposal_type from the strongest feedback signal.
 
-    The output is intentionally textual (not a structured edit).
-    A human reviewer reads the text and decides what to do.
+    The mapping mirrors the 22.1 risk-rule mapping (see
+    ``_assess_risk`` below). The function returns one of the three
+    ADR-018 Section 3.A candidate fields.
+
+    Falls back to ``applicability_update_candidate`` for unknown
+    shapes (the safest field per ADR-018's "Loop never invents new
+    knowledge fields" rule).
     """
-    lines: list[str] = []
-    lines.append(f"### Learning Proposal")
-    lines.append("")
-    lines.append(reasoning.strip())
-    lines.append("")
-    if feedback_events:
-        lines.append("### Triggering Feedback")
-        lines.append("")
-        for ev in feedback_events:
-            lines.append(
-                f"- `{ev.to_status}` from "
-                f"`{ev.snapshot.get('source', '?')}` "
-                f"({ev.snapshot.get('feedback_type', '?')})"
-            )
-            content = (ev.snapshot.get("content") or "").strip()
-            if content:
-                lines.append(f"  - {content}")
-        lines.append("")
-    return "\n".join(lines)
+    src = feedback_event.snapshot.get("source")
+    ftype = feedback_event.snapshot.get("feedback_type")
 
-
-def _assess_risk(
-    feedback_events: list[FeedbackEvent],
-) -> tuple[str, bool]:
-    """Decide risk level and whether expert review is required.
-
-    Returns (risk, requires_expert_review).
-    """
-    if not feedback_events:
-        return "low", False
-
-    # Take the strongest signal among the events. Strongest = highest
-    # source priority (EXPERT first), then most disruptive type.
-    def _event_strength(ev: FeedbackEvent) -> tuple[int, int]:
-        src = ev.snapshot.get("source")
-        ftype = ev.snapshot.get("feedback_type")
-        try:
-            src_priority = SOURCE_PRIORITY[FeedbackSource(src)]
-        except (KeyError, ValueError):
-            src_priority = 0
-        # Type priority: CONTRADICTION > UNEXPECTED > NEGATIVE >
-        # PREFERENCE > POSITIVE.
-        type_priority = {
-            FeedbackType.CONTRADICTION_SIGNAL.value: 5,
-            FeedbackType.UNEXPECTED_DISCOVERY.value: 4,
-            FeedbackType.NEGATIVE_CORRECTION.value: 3,
-            FeedbackType.PREFERENCE_SIGNAL.value: 2,
-            FeedbackType.POSITIVE_CONFIRMATION.value: 1,
-        }.get(str(ftype), 0)
-        return (src_priority, type_priority)
-
-    strongest = max(feedback_events, key=_event_strength)
-    src = strongest.snapshot.get("source")
-    ftype = strongest.snapshot.get("feedback_type")
-
-    # CONTRADICTION_SIGNAL or UNEXPECTED_DISCOVERY -> high risk,
-    # required review.
     try:
         is_disruptive = (
             FeedbackType(ftype) in (
@@ -164,41 +138,60 @@ def _assess_risk(
     except (KeyError, ValueError):
         is_disruptive = False
 
-    # EXPERT + NEGATIVE_CORRECTION -> high risk.
     is_expert_negative = (
         src == FeedbackSource.EXPERT.value
         and ftype == FeedbackType.NEGATIVE_CORRECTION.value
     )
 
     if is_disruptive or is_expert_negative:
-        return "high", True
+        # CONTRADICTION signals almost always point at boundary or
+        # principle. Default to boundary; the caller can override
+        # when more context is available.
+        return PROPOSAL_TYPE_BOUNDARY
 
-    # EXPERT + POSITIVE_CONFIRMATION -> low risk, no review.
     if (
         src == FeedbackSource.EXPERT.value
         and ftype == FeedbackType.POSITIVE_CONFIRMATION.value
     ):
-        return "low", False
+        return PROPOSAL_TYPE_APPLICABILITY
 
-    # PREFERENCE source -> requires review (per ADR-018 §1).
-    if src == FeedbackSource.PREFERENCE.value:
-        return "medium", True
-
-    return "medium", True
+    return PROPOSAL_TYPE_APPLICABILITY
 
 
-def _default_reasoning(
-    feedback_events: list[FeedbackEvent],
-    current_state: dict[str, Any],
-    risk: str,
+# ---------------------------------------------------------------------------
+# Internal helpers
+# ---------------------------------------------------------------------------
+
+def _render_suggested_change(
+    target_field: str, current_state: dict[str, Any]
 ) -> str:
-    """Build a human-readable proposal summary.
+    """Compose a short ``suggested_change`` text."""
+    snippet = current_state.get(target_field)
+    if isinstance(snippet, list) and snippet:
+        snippet_text = "; ".join(str(x) for x in snippet)
+    elif isinstance(snippet, str) and snippet:
+        snippet_text = snippet
+    elif isinstance(snippet, dict):
+        snippet_text = str(snippet)
+    else:
+        snippet_text = "(absent)"
+    return (
+        f"Candidate update for ``{target_field}`` based on the "
+        f"current value: {snippet_text}. The reviewer decides the "
+        "exact edit."
+    )
 
-    The text is intentionally vague -- it tells the reviewer
-    *what kind of change* is being suggested, not the exact edit.
-    ADR-018 §3.A limits the field set to ``applicability``,
-    ``boundary``, and ``principle``.
-    """
+
+def _default_reason(
+    feedback_events: list[FeedbackEvent],
+    proposal_type: str,
+) -> str:
+    """Build a short reason string."""
+    if not feedback_events:
+        return (
+            "No feedback events were available. The proposal is a "
+            "sanity placeholder; the reviewer should reject it."
+        )
     strongest = max(
         feedback_events,
         key=lambda e: (
@@ -211,111 +204,82 @@ def _default_reasoning(
                 FeedbackType.POSITIVE_CONFIRMATION.value: 1,
             }.get(str(e.snapshot.get("feedback_type")), 0),
         ),
-        default=None,
     )
-    if strongest is None:
-        return (
-            "No feedback events were available. The proposal is a "
-            "sanity placeholder; the reviewer should reject it."
-        )
-    ftype = strongest.snapshot.get("feedback_type", "?")
     src = strongest.snapshot.get("source", "?")
-
-    target_field = "principle"
-    if ftype == FeedbackType.CONTRADICTION_SIGNAL.value:
-        target_field = "boundary"
-    elif ftype == FeedbackType.UNEXPECTED_DISCOVERY.value:
-        target_field = "applicability"
-    elif ftype == FeedbackType.PREFERENCE_SIGNAL.value:
-        target_field = "applicability"
-
-    boundary = current_state.get("boundary")
-    applicability = current_state.get("applicability")
-    principle = current_state.get("principle")
-
-    parts: list[str] = []
-    parts.append(
-        f"Based on {len(feedback_events)} feedback event(s) "
-        f"({', '.join(e.snapshot.get('feedback_type', '?') for e in feedback_events)}), "
-        f"the strongest signal is from `{src}` ({ftype})."
+    ftype = strongest.snapshot.get("feedback_type", "?")
+    return (
+        f"Strongest signal: ``{src}`` ({ftype}). "
+        f"Mapping to ``{proposal_type}`` per ADR-018 Section 3.A."
     )
-    parts.append("")
-    parts.append(f"Suggested review field: `{target_field}`.")
-    parts.append("")
-    parts.append("Current state snapshot:")
-    if isinstance(boundary, list) and boundary:
-        parts.append(f"- boundary: {'; '.join(str(b) for b in boundary)}")
-    elif isinstance(boundary, str) and boundary:
-        parts.append(f"- boundary: {boundary}")
-    if isinstance(applicability, dict):
-        parts.append(f"- applicability: {applicability}")
-    if isinstance(principle, str) and principle:
-        parts.append(f"- principle: {principle[:120]}{'...' if len(principle) > 120 else ''}")
-    parts.append("")
-    if risk == "high":
-        parts.append(
-            "**Risk: HIGH.** Human review is required before any "
-            "knowledge update. The Loop must NOT auto-apply."
-        )
-    elif risk == "medium":
-        parts.append(
-            "**Risk: MEDIUM.** A reviewer should evaluate whether "
-            "the principle OR applicability should be refined."
-        )
-    else:
-        parts.append(
-            "**Risk: LOW.** The proposed change is a positive "
-            "confirmation; the existing knowledge stands and may be "
-            "marked as re-validated."
-        )
-    return "\n".join(parts)
 
+
+# ---------------------------------------------------------------------------
+# Public generator
+# ---------------------------------------------------------------------------
 
 def generate_proposal(
     target_identity: str,
     current_state: dict[str, Any],
     feedback_events: list[FeedbackEvent],
     proposal_id: Optional[str] = None,
+    feedback_id: Optional[str] = None,
+    status: str = "CREATED",
 ) -> LearningProposal:
-    """Build a LearningProposal.
+    """Build a LearningProposal matching the 22.3 contract.
 
-    IMPORTANT: this function does NOT mutate ``current_state``.
-    It takes a snapshot by value. The caller (the manager) has
-    already produced the snapshot by reading the corpus; the
-    proposal is constructed from that snapshot and the manager
-    keeps the corpus intact.
+    The function takes a snapshot by value (``dict(current_state or {})``)
+    so the corpus is never mutated. The ``feedback_events`` list is
+    not retained on the proposal -- the proposal records only the
+    triggering ``feedback_id`` (or, when not supplied, the most
+    recent event's feedback_id).
 
-    Args:
-        target_identity: the KO identity.
-        current_state: a snapshot of the KO's relevant fields. The
-            function copies it; the caller's reference is not
-            modified.
-        feedback_events: the events that triggered this proposal.
-        proposal_id: an optional explicit ID (default: UUID).
-
-    Returns:
-        A ``LearningProposal`` with risk + review flag decided.
+    The generator ALWAYS sets ``requires_human_review=True``. ADR-018
+    requires human-in-the-loop in 22.3.
     """
-    # Take a snapshot by value so the proposal is isolated.
     snapshot_state = dict(current_state or {})
-    snapshot_events = [e.to_dict() for e in feedback_events]
 
-    risk, requires_expert_review = _assess_risk(feedback_events)
-    reasoning = _default_reasoning(feedback_events, snapshot_state, risk)
-    markdown = _render_proposal_markdown(feedback_events, reasoning)
+    if feedback_id is None and feedback_events:
+        feedback_id = feedback_events[-1].feedback_id
+    if not feedback_id:
+        feedback_id = ""
+
+    proposal_type = (
+        proposal_type_for_feedback_event(feedback_events[-1])
+        if feedback_events else PROPOSAL_TYPE_APPLICABILITY
+    )
+    reason = _default_reason(feedback_events, proposal_type)
+    suggested_change = _render_suggested_change(
+        _target_field_for_type(proposal_type), snapshot_state
+    )
 
     return LearningProposal(
         proposal_id=proposal_id or str(uuid.uuid4()),
+        feedback_id=feedback_id,
         target_identity=target_identity,
+        proposal_type=proposal_type,
         current_state=snapshot_state,
-        feedback_summary=snapshot_events,
-        proposed_change=markdown,
-        risk=risk,
-        requires_expert_review=requires_expert_review,
+        suggested_change=suggested_change,
+        reason=reason,
+        requires_human_review=True,
+        status=status,
     )
+
+
+def _target_field_for_type(proposal_type: str) -> str:
+    if proposal_type == PROPOSAL_TYPE_BOUNDARY:
+        return "boundary"
+    if proposal_type == PROPOSAL_TYPE_PRINCIPLE:
+        return "principle"
+    if proposal_type == PROPOSAL_TYPE_APPLICABILITY:
+        return "applicability"
+    return "boundary"
 
 
 __all__ = [
     "LearningProposal",
     "generate_proposal",
+    "proposal_type_for_feedback_event",
+    "PROPOSAL_TYPE_BOUNDARY",
+    "PROPOSAL_TYPE_PRINCIPLE",
+    "PROPOSAL_TYPE_APPLICABILITY",
 ]

@@ -1,4 +1,4 @@
-﻿"""Feedback Manager (Sprint 22.1, ADR-018 Section 2 + Sprint 22.1 spec section 8).
+"""Feedback Manager (Sprint 22.1, ADR-018 Section 2 + Sprint 22.1 spec section 8).
 
 The Feedback Manager orchestrates the lifecycle:
 
@@ -333,9 +333,9 @@ class FeedbackManager:
             snapshot={
                 **current.to_dict(),
                 "proposal_id": proposal.proposal_id,
-                "proposal_risk": proposal.risk,
-                "proposal_requires_expert_review":
-                    proposal.requires_expert_review,
+                "proposal_type": proposal.proposal_type,
+                "proposal_requires_human_review":
+                    proposal.requires_human_review,
             },
             note="awaiting human review",
         )
