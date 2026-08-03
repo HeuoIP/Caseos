@@ -69,6 +69,18 @@ from .audit import (
     EvolutionAuditStore,
     EvolutionAuditError,
 )
+from .policy import (
+    ALLOWED_CHANGE_TYPES,
+    FORBIDDEN_CHANGE_TYPES,
+    G2_FORBIDDEN_CHANGE_TYPES,
+    G3_FORBIDDEN_CHANGE_TYPES,
+    G4_FORBIDDEN_CHANGE_TYPES,
+    EvolutionChangePolicy,
+)
+from .governance import (
+    GovernanceResult,
+    EvolutionGovernanceGate,
+)
 from .report import generate_report
 
 __all__ = [
@@ -85,6 +97,16 @@ __all__ = [
     "EvolutionAuditRecord",
     "EvolutionAuditStore",
     "EvolutionAuditError",
+    # Policy (Sprint 22.4-B)
+    "ALLOWED_CHANGE_TYPES",
+    "FORBIDDEN_CHANGE_TYPES",
+    "G2_FORBIDDEN_CHANGE_TYPES",
+    "G3_FORBIDDEN_CHANGE_TYPES",
+    "G4_FORBIDDEN_CHANGE_TYPES",
+    "EvolutionChangePolicy",
+    # Governance (Sprint 22.4-B)
+    "GovernanceResult",
+    "EvolutionGovernanceGate",
     # Report
     "generate_report",
 ]
