@@ -215,49 +215,99 @@ def _check_boundary(boundary_items: list[str], content: str) -> Optional[str]:
     return None
 
 
-def _last_noun(phrase: str) -> str:
-    """Return the last alphabetic token of ``phrase``.
+# Leading verbs stripped from "X" and "Y" of "<X> before <Y>".
+# Order matters: longer phrases first to avoid greedy partial match.
+_LEADING_VERBS: tuple[str, ...] = (
+    "creating", "created", "create",
+    "building", "built", "build",
+    "establishing", "established", "establish",
+    "designing", "designed", "design",
+    "developing", "developed", "develop",
+    "forming", "formed", "form",
+    "adding", "added", "add",
+    "applying", "applied", "apply",
+    "placing", "placed", "place",
+    "making", "made", "make",
+    "introducing", "introduced", "introduce",
+    "setting", "set",
+)
 
-    Used as a proxy for the noun in a "X before Y" directive where
-    ``a`` may be a verb phrase like "create hierarchy" -- the
-    reversal test wants to detect "without hierarchy" in the
-    feedback even though the original verb ("create") is dropped.
+
+def _strip_leading_verb(phrase: str) -> str:
+    """Drop a recognised leading directive verb from ``phrase``.
+
+    "create hierarchy"      -> "hierarchy"
+    "adding facilities"     -> "facilities"
+    "hierarchy"             -> "hierarchy"
+    "play and learn"        -> "play and learn"   (no verb matched)
+
+    Conservative: if the first word is not in the verb list, the
+    phrase is returned unchanged. This avoids accidental stripping
+    of nouns that happen to start with a verb-shaped word.
     """
-    tokens = re.findall(r"[a-z][a-z'-]+", phrase.lower())
-    return tokens[-1] if tokens else phrase.strip().lower()
+    text = (phrase or "").strip()
+    if not text:
+        return text
+    parts = text.split(None, 1)
+    head = parts[0].lower().rstrip(",.;:")
+    for verb in _LEADING_VERBS:
+        if head == verb:
+            return parts[1].strip() if len(parts) > 1 else text
+    return text
+
+
+def _noun_phrase(phrase: str) -> str:
+    """Return the noun phrase X (or Y) used in the reversal test.
+
+    For "Create hierarchy before adding facilities" the regex
+    captures ``a="create hierarchy"`` and ``b="adding facilities"``;
+    this helper turns them into ``X="hierarchy"`` and
+    ``Y="facilities"`` per Sprint 22.2-B.2.1 specification.
+    """
+    stripped = _strip_leading_verb(phrase)
+    return stripped.strip().lower() or phrase.strip().lower()
 
 
 def _check_principle(principle: str, content: str) -> bool:
-    """Return True when feedback reverses a 'X before Y' ordering."""
+    """Return True when feedback reverses a '<X> before <Y>' ordering.
+
+    Per Sprint 22.2-B.2.1:
+
+      * Pattern matched: ``<X> before <Y>``.
+      * X and Y are extracted as the noun phrases (a leading
+        directive verb is dropped: "create hierarchy" -> X =
+        "hierarchy", "adding facilities" -> Y = "facilities").
+      * A conflict fires only when the feedback mentions Y AND
+        uses an explicit reversal cue against X ("without X" /
+        "instead of X"). Single-cue matches are ignored (false-
+        positive guard).
+      * Symmetric handling for the less common "<X> after <Y>"
+        form: a conflict fires only when the feedback mentions X
+        AND skips Y.
+      * When uncertain, the function returns False. False positive
+        is worse than missing conflict.
+    """
     text = (principle or "").strip()
     if not text:
         return False
     content_lc = content.lower()
     m = _ORDER_BEFORE.match(text)
     if m:
-        a = m.group("a").strip().lower()
-        b = m.group("b").strip().lower()
-        a_noun = _last_noun(a)
-        # Reversal: feedback mentions b (or b's noun) AND uses
-        # "without a_noun" / "instead of a_noun".
-        b_present = _phrase_present(b, content) or _phrase_present(
-            _last_noun(b), content
-        )
+        x = _noun_phrase(m.group("a"))
+        y = _noun_phrase(m.group("b"))
+        y_present = _phrase_present(y, content)
         reversal = re.search(
-            r"\bwithout\b\s+" + re.escape(a_noun), content_lc
+            r"\bwithout\b\s+" + re.escape(x), content_lc
         ) or re.search(
-            r"\binstead of\b\s+" + re.escape(a_noun), content_lc
+            r"\binstead of\b\s+" + re.escape(x), content_lc
         )
-        if b_present and reversal:
-            return True
-        return False
+        return bool(y_present and reversal)
     m = _ORDER_AFTER.match(text)
     if m:
-        a = m.group("a").strip().lower()
-        b = m.group("b").strip().lower()
-        if _phrase_present(a, content) and not _phrase_present(b, content):
-            return True
-        return False
+        x = _noun_phrase(m.group("a"))
+        y = _noun_phrase(m.group("b"))
+        # "<X> after <Y>" -- a reversal would skip Y.
+        return bool(_phrase_present(x, content) and not _phrase_present(y, content))
     return False
 
 
