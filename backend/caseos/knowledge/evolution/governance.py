@@ -1,4 +1,4 @@
-﻿"""Evolution Governance Gate V1 (Sprint 22.4-B, ADR-020).
+"""Evolution Governance Gate V1 (Sprint 22.4-B, ADR-020).
 
 The Governance Gate is the **independent validation layer**
 between the Evolution Transaction and any future Knowledge
@@ -62,6 +62,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Optional
 
+from .contracts.change_type import EvolutionChangeType
 from .object import EvolutionTransaction
 from .policy import (
     ALLOWED_CHANGE_TYPES,
@@ -150,25 +151,42 @@ class EvolutionGovernanceGate:
                 reason="transaction is None",
             )
 
-        change_type = getattr(transaction, "change_type", None) or ""
+        # Sprint 22.4-I: ``change_type`` is now an
+        # ``EvolutionChangeType`` enum. We normalise to the
+        # bare string for the G2/G3/G4 frozenset checks
+        # (those sets intentionally remain string-literals),
+        # and we check the enum against ``ALLOWED_CHANGE_TYPES``
+        # which is a frozenset of enum members.
+        raw_change_type = getattr(transaction, "change_type", None) or ""
+        change_type_str = (
+            raw_change_type.value
+            if isinstance(raw_change_type, EvolutionChangeType)
+            else str(raw_change_type)
+        )
 
-        # Cross-check ChangeIntent when provided
+        # Cross-check ChangeIntent when provided. Both sides
+        # are normalised to string for comparison.
         if change_intent is not None:
-            ci_change_type = getattr(change_intent, "change_type", None)
-            if ci_change_type is not None and ci_change_type != change_type:
+            ci_raw = getattr(change_intent, "change_type", None)
+            ci_str = (
+                ci_raw.value
+                if isinstance(ci_raw, EvolutionChangeType)
+                else str(ci_raw) if ci_raw is not None else None
+            )
+            if ci_str is not None and ci_str != change_type_str:
                 return GovernanceResult(
                     approved=False,
                     rule_id="G1",
                     reason=(
                         "change_type mismatch: transaction="
-                        + str(change_type)
+                        + change_type_str
                         + ", change_intent="
-                        + str(ci_change_type)
+                        + ci_str
                     ),
                 )
 
         # G2 -- Identity Protection (most specific first)
-        if change_type in G2_FORBIDDEN_CHANGE_TYPES:
+        if change_type_str in G2_FORBIDDEN_CHANGE_TYPES:
             return GovernanceResult(
                 approved=False,
                 rule_id="G2",
@@ -176,7 +194,7 @@ class EvolutionGovernanceGate:
             )
 
         # G3 -- Evidence Protection
-        if change_type in G3_FORBIDDEN_CHANGE_TYPES:
+        if change_type_str in G3_FORBIDDEN_CHANGE_TYPES:
             return GovernanceResult(
                 approved=False,
                 rule_id="G3",
@@ -184,7 +202,7 @@ class EvolutionGovernanceGate:
             )
 
         # G4 -- Intelligence Isolation
-        if change_type in G4_FORBIDDEN_CHANGE_TYPES:
+        if change_type_str in G4_FORBIDDEN_CHANGE_TYPES:
             return GovernanceResult(
                 approved=False,
                 rule_id="G4",
@@ -194,14 +212,29 @@ class EvolutionGovernanceGate:
                 ),
             )
 
-        # G1 -- Change Type Allowed (generic allow-list)
-        if change_type not in ALLOWED_CHANGE_TYPES:
+        # G1 -- Change Type Allowed (generic allow-list).
+        # ALLOWED_CHANGE_TYPES is a frozenset of enum members.
+        # If raw_change_type is not an enum member, fall back
+        # to a string-coerced membership test.
+        if isinstance(raw_change_type, EvolutionChangeType):
+            allowed_ok = raw_change_type in ALLOWED_CHANGE_TYPES
+        elif isinstance(raw_change_type, str):
+            try:
+                allowed_ok = (
+                    EvolutionChangeType(raw_change_type)
+                    in ALLOWED_CHANGE_TYPES
+                )
+            except ValueError:
+                allowed_ok = False
+        else:
+            allowed_ok = False
+        if not allowed_ok:
             return GovernanceResult(
                 approved=False,
                 rule_id="G1",
                 reason=(
                     "change_type not in V1 allow-list: "
-                    + repr(change_type)
+                    + repr(change_type_str)
                 ),
             )
 

@@ -1,4 +1,4 @@
-﻿"""Evolution Audit Record V1 (Sprint 22.4-E, ADR-020 Rule 3).
+"""Evolution Audit Record V1 (Sprint 22.4-E, ADR-020 Rule 3).
 
 The ``EvolutionAuditRecord`` is the **13-field, immutable
 audit schema** mandated by ADR-020 Rule 3:
@@ -56,6 +56,8 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from typing import Any, Optional
 
+from ..contracts.change_type import EvolutionChangeType
+
 
 def _now() -> datetime:
     return datetime.now(timezone.utc)
@@ -63,6 +65,19 @@ def _now() -> datetime:
 
 def _now_iso() -> str:
     return _now().strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _coerce_change_type(value):
+    # Coerce string -> EvolutionChangeType when possible.
+    # Tolerant: invalid strings stay as strings.
+    if isinstance(value, EvolutionChangeType):
+        return value
+    if isinstance(value, str):
+        try:
+            return EvolutionChangeType(value)
+        except ValueError:
+            return value
+    return value
 
 
 @dataclass(frozen=True)
@@ -83,7 +98,7 @@ class EvolutionAuditRecord:
     new_version: int
     before_snapshot: dict[str, Any]
     after_snapshot: Optional[dict[str, Any]]
-    change_type: str
+    change_type: Any  # EvolutionChangeType (annotation only)
     reason: str
     reviewer: str
     created_at: datetime
@@ -104,6 +119,12 @@ class EvolutionAuditRecord:
                 self, "after_snapshot",
                 copy.deepcopy(self.after_snapshot),
             )
+        # Sprint 22.4-I: coerce string change_type to
+        # EvolutionChangeType. Invalid strings are left as-is
+        # so the audit still records what was attempted.
+        coerced = _coerce_change_type(self.change_type)
+        if coerced is not self.change_type:
+            object.__setattr__(self, "change_type", coerced)
 
     def to_dict(self) -> dict[str, Any]:
         """Return a JSON-safe representation."""
@@ -111,6 +132,9 @@ class EvolutionAuditRecord:
         ts = out.get("created_at")
         if isinstance(ts, datetime):
             out["created_at"] = ts.strftime("%Y-%m-%dT%H:%M:%SZ")
+        ct = out.get("change_type")
+        if isinstance(ct, EvolutionChangeType):
+            out["change_type"] = ct.value
         return out
 
 

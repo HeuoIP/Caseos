@@ -1,4 +1,4 @@
-﻿"""Tests for the Evolution Runtime V2 Full Simulation (Sprint 22.4-F).
+"""Tests for the Evolution Runtime V2 Full Simulation (Sprint 22.4-F).
 
 Coverage per Sprint 22.4-F spec section "测试要求":
 
@@ -196,7 +196,12 @@ class TestAuditCreated:
     ) -> None:
         executor.execute(passing_tx)
         audit = executor.audit_store.list()[0]
-        assert audit.change_type == "boundary_update"
+        # Sprint 22.4-I: change_type is now EvolutionChangeType.
+        from caseos.knowledge.evolution.contracts.change_type import (
+            EvolutionChangeType,
+        )
+        assert audit.change_type == EvolutionChangeType.BOUNDARY_UPDATE
+        assert audit.change_type.value == "boundary_update"
 
     def test_audit_after_snapshot_is_none(
         self, executor, passing_tx,

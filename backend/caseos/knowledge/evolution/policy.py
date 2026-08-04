@@ -4,11 +4,17 @@ The policy describes **which Knowledge fields the evolution
 layer is allowed to change** in V1. It is a pure data
 declaration: no I/O, no side effects, no state.
 
+Sprint 22.4-I contract alignment: the policy now references
+the unified ``EvolutionChangeType`` enum for the allow-list.
+Forbidden change types remain plain strings because they
+describe rejection rules (G2/G3/G4), not allowed evolution
+taxonomy values.
+
 Allowed change types V1 (Sprint 22.4-B spec Task 1):
 
-    boundary_update
-    principle_update
-    applicability_update
+    EvolutionChangeType.BOUNDARY_UPDATE       = "boundary_update"
+    EvolutionChangeType.PRINCIPLE_UPDATE      = "principle_update"
+    EvolutionChangeType.APPLICABILITY_UPDATE  = "applicability_update"
 
 These correspond to the three ADR-018 Section 3.A fields that
 the Feedback Learning Loop is contractually allowed to touch:
@@ -41,21 +47,27 @@ Architecture boundary (Sprint 22.4-B spec Task 4):
         * caseos.knowledge.objects
         * caseos.knowledge.governance
         * caseos.knowledge.feedback
+        * caseos.knowledge.evolution.contracts
         * stdlib
 """
 from __future__ import annotations
 
-from typing import FrozenSet
+from typing import Any, FrozenSet, Union
+
+from .contracts.change_type import EvolutionChangeType
 
 
 # ---------------------------------------------------------------------------
 # Allowed change types (positive allow-list)
 # ---------------------------------------------------------------------------
+# Sprint 22.4-I: the allow-list now stores EvolutionChangeType
+# enum members. Governance and Mutation modules consume this
+# set directly.
 
-ALLOWED_CHANGE_TYPES: FrozenSet[str] = frozenset({
-    "boundary_update",
-    "principle_update",
-    "applicability_update",
+ALLOWED_CHANGE_TYPES: FrozenSet = frozenset({
+    EvolutionChangeType.BOUNDARY_UPDATE,
+    EvolutionChangeType.PRINCIPLE_UPDATE,
+    EvolutionChangeType.APPLICABILITY_UPDATE,
 })
 
 
@@ -94,30 +106,47 @@ FORBIDDEN_CHANGE_TYPES: FrozenSet[str] = frozenset(
 )
 
 
+def _as_string(value: Any) -> str:
+    """Return the bare string form of ``value``.
+
+    ``EvolutionChangeType`` members are reduced to their
+    ``.value`` string. Plain strings pass through unchanged.
+    Anything else is rendered via ``str(...)``.
+    """
+    if isinstance(value, EvolutionChangeType):
+        return value.value
+    return str(value)
+
+
 class EvolutionChangePolicy:
     """Stateless change policy. Pure functions over change_type."""
 
     @staticmethod
-    def is_allowed(change_type: str) -> bool:
+    def is_allowed(change_type: Union[EvolutionChangeType, str]) -> bool:
         """Return True iff the change_type is in the V1 allow-list."""
+        if isinstance(change_type, str):
+            try:
+                change_type = EvolutionChangeType(change_type)
+            except ValueError:
+                return False
         return change_type in ALLOWED_CHANGE_TYPES
 
     @staticmethod
-    def is_forbidden(change_type: str) -> bool:
+    def is_forbidden(change_type: Union[EvolutionChangeType, str]) -> bool:
         """Return True iff the change_type is in any forbidden set."""
-        return change_type in FORBIDDEN_CHANGE_TYPES
+        return _as_string(change_type) in FORBIDDEN_CHANGE_TYPES
 
     @staticmethod
-    def is_g2_forbidden(change_type: str) -> bool:
-        return change_type in G2_FORBIDDEN_CHANGE_TYPES
+    def is_g2_forbidden(change_type: Union[EvolutionChangeType, str]) -> bool:
+        return _as_string(change_type) in G2_FORBIDDEN_CHANGE_TYPES
 
     @staticmethod
-    def is_g3_forbidden(change_type: str) -> bool:
-        return change_type in G3_FORBIDDEN_CHANGE_TYPES
+    def is_g3_forbidden(change_type: Union[EvolutionChangeType, str]) -> bool:
+        return _as_string(change_type) in G3_FORBIDDEN_CHANGE_TYPES
 
     @staticmethod
-    def is_g4_forbidden(change_type: str) -> bool:
-        return change_type in G4_FORBIDDEN_CHANGE_TYPES
+    def is_g4_forbidden(change_type: Union[EvolutionChangeType, str]) -> bool:
+        return _as_string(change_type) in G4_FORBIDDEN_CHANGE_TYPES
 
 
 __all__ = [

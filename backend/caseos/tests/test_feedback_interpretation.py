@@ -1,4 +1,4 @@
-﻿"""Tests for the Feedback Interpretation Policy Foundation (Sprint 22.3.2).
+"""Tests for the Feedback Interpretation Policy Foundation (Sprint 22.3.2).
 
 Coverage per Sprint 22.3.2 spec section "Tests":
 
@@ -39,6 +39,9 @@ from caseos.knowledge.feedback.interpretation import (
     VALID_RISK_LEVELS,
     generate_report,
     validate_change_intent,
+)
+from caseos.knowledge.evolution.contracts.change_type import (
+    EvolutionChangeType,
 )
 
 
@@ -130,7 +133,8 @@ class TestApprovedBoundaryProposal:
         )
         intent = policy.interpret(proposal, knowledge_object_boundary)
         assert intent is not None
-        assert intent.change_type == "boundary_update"
+        assert intent.change_type == EvolutionChangeType.BOUNDARY_UPDATE
+        assert intent.change_type.value == "boundary_update"
         assert intent.target_field == "boundary"
 
     def test_current_value_snapshot(
@@ -253,7 +257,8 @@ class TestApprovedPrincipleProposal:
         )
         intent = policy.interpret(proposal, knowledge_object_principle)
         assert intent is not None
-        assert intent.change_type == "principle_update"
+        assert intent.change_type == EvolutionChangeType.PRINCIPLE_UPDATE
+        assert intent.change_type.value == "principle_update"
         assert intent.target_field == "principle"
 
     def test_current_value_snapshot(

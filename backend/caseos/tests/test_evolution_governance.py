@@ -1,4 +1,4 @@
-﻿"""Tests for the Evolution Governance Gate (Sprint 22.4-B).
+"""Tests for the Evolution Governance Gate (Sprint 22.4-B).
 
 Coverage per Sprint 22.4-B spec section "Task 5 -- Tests":
 
@@ -334,10 +334,15 @@ class TestArchitectureBoundary:
 class TestPolicyData:
 
     def test_allowed_change_types_exact(self) -> None:
+        # Sprint 22.4-I: ALLOWED_CHANGE_TYPES now holds
+        # EvolutionChangeType enum members, not bare strings.
+        from caseos.knowledge.evolution.contracts.change_type import (
+            EvolutionChangeType,
+        )
         assert ALLOWED_CHANGE_TYPES == frozenset({
-            "boundary_update",
-            "principle_update",
-            "applicability_update",
+            EvolutionChangeType.BOUNDARY_UPDATE,
+            EvolutionChangeType.PRINCIPLE_UPDATE,
+            EvolutionChangeType.APPLICABILITY_UPDATE,
         })
 
     def test_forbidden_change_types_superset_of_named(self) -> None:

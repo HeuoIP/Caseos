@@ -1,29 +1,16 @@
-﻿"""EvolutionTransaction Object (Sprint 22.4-A, ADR-020).
+"""Evolution Transaction Object V1 (Sprint 22.4-A, ADR-020 Rule 1).
 
-An ``EvolutionTransaction`` is the **safe transaction-shaped
-wrapper** around an approved ``ChangeIntent``. The transaction
-is the unit of audit, governance validation, and (in a future
-Sprint 22.4.x) the unit of Knowledge Object write-back.
+The transaction is the contract of intent between the
+Interpretation Policy and the Knowledge Evolution runtime.
+It is a safe, never-auto-applied artifact.
 
-V1 hard rule: this object does NOT mutate any external state.
-It is a frozen, JSON-serialisable record that can be validated,
-queued, audited, and rendered as a report. It is NOT applied.
-
-Required fields (Sprint 22.4-A spec Task 1):
-
-    transaction_id         unique identifier
-    proposal_id            the LearningProposal this tx maps from
-    change_intent_id       the ChangeIntent this tx maps from
-    target_identity        the KO this tx would affect
-    target_version         the version this tx would produce
-    change_type            taxonomy (boundary_update / principle_update)
-    before_snapshot        snapshot of the KO field at the
-                           time the tx was created
-    requested_change       human-readable description of the
-                           change (may be None in V1)
-    reviewer               the human who approved the tx
-    status                 EvolutionStatus value
-    created_at             ISO timestamp (datetime)
+Sprint 22.4-I aligned ``change_type`` with the unified
+``EvolutionChangeType`` enum. The field type is annotated
+as ``Any`` because dataclass annotations are informational;
+the value is coerced from a plain string in
+``__post_init__`` so legacy callers that pass
+``"boundary_update"`` keep working. JSON serialisation
+outputs the underlying string value via ``.value``.
 
 Architecture boundary (Sprint 22.4-A spec Task 6):
 
@@ -31,20 +18,17 @@ Architecture boundary (Sprint 22.4-A spec Task 6):
         * caseos.intelligence.*
         * caseos.knowledge.retrieval
     This module MAY import from:
-        * caseos.knowledge.objects
-        * caseos.knowledge.governance
-        * caseos.knowledge.feedback
+        * caseos.knowledge.evolution (sibling modules)
+        * caseos.knowledge.evolution.contracts
         * stdlib
-
-The dataclass is **frozen**. The transaction is append-only by
-contract. ``to_dict`` converts ``created_at`` to an ISO string
-so the result is JSON-safe.
 """
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Optional
+
+from .contracts.change_type import EvolutionChangeType
 
 
 def _now() -> datetime:
@@ -90,14 +74,30 @@ class EvolutionStatus:
     })
 
 
+def _coerce_change_type(value: Any) -> Any:
+    """Coerce ``value`` to ``EvolutionChangeType`` when possible.
+
+    Returns the value unchanged when the value cannot be
+    coerced (e.g. an invalid string). Downstream validators
+    are responsible for rejecting values outside the
+    ``ALLOWED_CHANGE_TYPES`` set.
+    """
+    if isinstance(value, EvolutionChangeType):
+        return value
+    if isinstance(value, str):
+        try:
+            return EvolutionChangeType(value)
+        except ValueError:
+            return value
+    return value
+
+
 @dataclass(frozen=True)
 class EvolutionTransaction:
     """A safe transaction. Never auto-applied.
 
-    The transaction is the contract of intent between the
-    Interpretation Policy and the future Knowledge Evolution
-    runtime. In V1 it stops at APPROVED + Audit Record; the
-    APPLIED transition is gated on a future Sprint 22.4.x.
+    Sprint 22.4-I contract alignment: ``change_type`` is
+    the unified ``EvolutionChangeType`` enum.
     """
 
     transaction_id: str
@@ -105,12 +105,21 @@ class EvolutionTransaction:
     change_intent_id: str
     target_identity: str
     target_version: int
-    change_type: str
-    before_snapshot: dict[str, Any]
+    change_type: Any  # EvolutionChangeType (annotation only)
+    before_snapshot: dict
     requested_change: Optional[str]
     reviewer: str
     status: str
     created_at: datetime = field(default_factory=_now)
+
+    def __post_init__(self) -> None:
+        # Coerce strings to EvolutionChangeType. Invalid strings
+        # remain strings; the Governance Gate (G1) will then
+        # reject them. The dataclass is frozen, so we use
+        # object.__setattr__ for the reassignment.
+        coerced = _coerce_change_type(self.change_type)
+        if coerced is not self.change_type:
+            object.__setattr__(self, "change_type", coerced)
 
     def to_dict(self) -> dict[str, Any]:
         """Return a JSON-safe representation."""
@@ -118,10 +127,10 @@ class EvolutionTransaction:
         ts = out.get("created_at")
         if isinstance(ts, datetime):
             out["created_at"] = ts.strftime("%Y-%m-%dT%H:%M:%SZ")
+        ct = out.get("change_type")
+        if isinstance(ct, EvolutionChangeType):
+            out["change_type"] = ct.value
         return out
 
 
-__all__ = [
-    "EvolutionTransaction",
-    "EvolutionStatus",
-]
+__all__ = ["EvolutionTransaction"]

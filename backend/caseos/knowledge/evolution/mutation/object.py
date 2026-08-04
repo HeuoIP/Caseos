@@ -1,4 +1,4 @@
-﻿"""Mutation Object Schemas V1 (Sprint 22.4-H, ADR-020).
+"""Mutation Object Schemas V1 (Sprint 22.4-H, ADR-020).
 
 Frozen dataclasses that constitute the mutation contract:
 
@@ -35,15 +35,18 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Optional
 
+from ..contracts.change_type import EvolutionChangeType
 
-# V1 allow-list (Sprint 22.4-H spec Task 2 M5).
-# These are the only change_type values the mutation runtime
-# will accept. Anything outside the list is rejected by
-# MutationValidator rule M5.
+
+# V1 allow-list (Sprint 22.4-H spec Task 2 M5; Sprint 22.4-I
+# contract alignment). The mutation runtime now uses the
+# unified ``EvolutionChangeType`` enum (bare names, no
+# ``_candidate`` suffix). Anything outside the allow-list
+# is rejected by MutationValidator rule M5.
 MUTATION_ALLOWED_CHANGE_TYPES = frozenset({
-    "boundary_update_candidate",
-    "principle_update_candidate",
-    "applicability_update_candidate",
+    EvolutionChangeType.BOUNDARY_UPDATE,
+    EvolutionChangeType.PRINCIPLE_UPDATE,
+    EvolutionChangeType.APPLICABILITY_UPDATE,
 })
 
 
@@ -96,7 +99,7 @@ class MutationRequest:
     mutation_id: str
     transaction_id: str
     target_identity: str
-    change_type: str
+    change_type: Any  # EvolutionChangeType (annotation only)
     before_version: int
     change_payload: dict
     reviewer: str
@@ -110,14 +113,40 @@ class MutationRequest:
                 self, "change_payload",
                 copy.deepcopy(self.change_payload),
             )
+        # Coerce string change_type to EvolutionChangeType
+        # for Sprint 22.4-I contract alignment. Invalid
+        # strings remain strings; rule M5 will then reject
+        # the request.
+        if isinstance(self.change_type, str):
+            try:
+                object.__setattr__(
+                    self, "change_type",
+                    EvolutionChangeType(self.change_type),
+                )
+            except ValueError:
+                pass
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> dict:
         """Return a JSON-safe representation."""
-        out = asdict(self)
-        ts = out.get("created_at")
-        if isinstance(ts, datetime):
-            out["created_at"] = ts.strftime("%Y-%m-%dT%H:%M:%SZ")
+        out = {
+            "mutation_id": self.mutation_id,
+            "transaction_id": self.transaction_id,
+            "target_identity": self.target_identity,
+            "change_type": (
+                self.change_type.value
+                if isinstance(self.change_type, EvolutionChangeType)
+                else self.change_type
+            ),
+            "before_version": self.before_version,
+            "change_payload": self.change_payload,
+            "reviewer": self.reviewer,
+            "created_at": self.created_at.strftime("%Y-%m-%dT%H:%M:%SZ")
+                if isinstance(self.created_at, datetime)
+                else self.created_at,
+        }
         return out
+
+
 
 
 @dataclass(frozen=True)

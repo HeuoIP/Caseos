@@ -33,6 +33,9 @@ from caseos.knowledge.evolution.audit_v2 import (
     AuditStoreError,
     EvolutionAuditRecord,
 )
+from caseos.knowledge.evolution.contracts.change_type import (
+    EvolutionChangeType,
+)
 from caseos.knowledge.evolution.governance import GovernanceResult
 from caseos.knowledge.evolution.mutation import (
     MUTATION_ALLOWED_CHANGE_TYPES,
@@ -96,7 +99,7 @@ def _seed_version_store(*, n: int = 1) -> VersionStore:
 
 def _seed_transaction(
     *,
-    change_type: str = "boundary_update_candidate",
+    change_type = EvolutionChangeType.BOUNDARY_UPDATE,
     target_identity: str = KO_ID,
     reviewer: str = REVIEWER,
     status: str = "APPROVED",
@@ -138,7 +141,7 @@ def _seed_request(
     *,
     mutation_id: str = MUT_ID,
     target_identity: str = KO_ID,
-    change_type: str = "boundary_update_candidate",
+    change_type = EvolutionChangeType.BOUNDARY_UPDATE,
     before_version: int = 1,
     reviewer: str = REVIEWER,
     payload: dict | None = None,
@@ -412,7 +415,11 @@ class TestInvalidChangeType:
         "delete",
         "rewrite",
         "unknown",
-        "boundary_update",  # bare form is also rejected (M5 is literal)
+        # Sprint 22.4-I: the bare ``boundary_update`` form is
+        # now the canonical contract and is ACCEPTED. We keep
+        # a separate "legacy candidate" rejection to document
+        # the contract alignment.
+        "boundary_update_candidate",
     ])
     def test_bad_change_type_rejected(
         self, engine, transaction, governance,
@@ -774,9 +781,12 @@ class TestMutationRequestContract:
 
 class TestAllowList:
 
-    def test_three_candidate_forms(self) -> None:
+    def test_three_allowed_forms(self) -> None:
+        # Sprint 22.4-I contract alignment: the allow-list
+        # now holds EvolutionChangeType enum members (bare
+        # names, no _candidate suffix).
         assert MUTATION_ALLOWED_CHANGE_TYPES == frozenset({
-            "boundary_update_candidate",
-            "principle_update_candidate",
-            "applicability_update_candidate",
+            EvolutionChangeType.BOUNDARY_UPDATE,
+            EvolutionChangeType.PRINCIPLE_UPDATE,
+            EvolutionChangeType.APPLICABILITY_UPDATE,
         })

@@ -51,13 +51,14 @@ from ..proposal import (
     PROPOSAL_TYPE_BOUNDARY,
     PROPOSAL_TYPE_PRINCIPLE,
 )
+from ...evolution.contracts.change_type import EvolutionChangeType
 from .object import ChangeIntent, VALID_CHANGE_TYPES
 
 
 # proposal_type -> (change_type, target_field, risk_level)
-_MAPPING_V1: dict[str, tuple[str, str, str]] = {
-    PROPOSAL_TYPE_BOUNDARY: ("boundary_update", "boundary", "high"),
-    PROPOSAL_TYPE_PRINCIPLE: ("principle_update", "principle", "high"),
+_MAPPING_V1: dict[str, tuple[EvolutionChangeType, str, str]] = {
+    PROPOSAL_TYPE_BOUNDARY: (EvolutionChangeType.BOUNDARY_UPDATE, "boundary", "high"),
+    PROPOSAL_TYPE_PRINCIPLE: (EvolutionChangeType.PRINCIPLE_UPDATE, "principle", "high"),
 }
 
 

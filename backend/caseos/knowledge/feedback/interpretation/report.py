@@ -57,7 +57,12 @@ def generate_report(
 
     lines.append("## Change Type")
     lines.append("")
-    lines.append("- change_type: `" + _safe(intent.change_type) + "`")
+    change_type_display = (
+        intent.change_type.value
+        if hasattr(intent.change_type, "value")
+        else str(intent.change_type)
+    )
+    lines.append("- change_type: `" + _safe(change_type_display) + "`")
     lines.append("")
 
     lines.append("## Target Field")

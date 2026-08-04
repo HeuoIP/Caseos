@@ -37,7 +37,7 @@ actual KO update.
 """
 from .object import ChangeIntent, VALID_CHANGE_TYPES, VALID_RISK_LEVELS
 from .policy import InterpretationPolicy
-from .validator import validate_change_intent, REQUIRED_STRING_FIELDS
+from .validator import validate_change_intent, REQUIRED_TEXT_FIELDS
 from .report import generate_report
 
 __all__ = [
@@ -46,6 +46,6 @@ __all__ = [
     "VALID_RISK_LEVELS",
     "InterpretationPolicy",
     "validate_change_intent",
-    "REQUIRED_STRING_FIELDS",
+    "REQUIRED_TEXT_FIELDS",
     "generate_report",
 ]
