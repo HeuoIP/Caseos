@@ -85,6 +85,16 @@ from .boundary import (
     is_evolution_owned_version,
 )
 from .report import generate_admission_report
+from .writer import (
+    CREATED,
+    IDEMPOTENT,
+    REJECTED,
+    WRITE_STATUS_ALLOW_LIST,
+    AdmissionWriteResult,
+    AdmissionWriter,
+    AdmissionWriterError,
+    DuplicateAdmissionError,
+)
 
 __all__ = [
     # Object
@@ -115,4 +125,13 @@ __all__ = [
     "is_evolution_owned_version",
     # Report
     "generate_admission_report",
+    # Writer
+    "AdmissionWriter",
+    "AdmissionWriteResult",
+    "AdmissionWriterError",
+    "DuplicateAdmissionError",
+    "CREATED",
+    "IDEMPOTENT",
+    "REJECTED",
+    "WRITE_STATUS_ALLOW_LIST",
 ]
