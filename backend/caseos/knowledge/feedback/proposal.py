@@ -53,6 +53,7 @@ from .object import (
     FeedbackSource,
     FeedbackType,
     SOURCE_PRIORITY,
+    TYPES_REQUIRING_EXPERT_REVIEW,
 )
 
 
@@ -92,6 +93,8 @@ class LearningProposal:
     requires_human_review: bool
     status: str
     created_at: str = field(default_factory=_now_iso)
+    risk: str = ""
+    requires_expert_review: bool = False
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -161,6 +164,66 @@ def proposal_type_for_feedback_event(
 # ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
+
+def _assess_risk(feedback_event: "FeedbackEvent") -> str:
+    """V1 risk classification for a feedback signal.
+
+    The mapping mirrors the Sprint 22.1 test contract:
+
+        * CONTRADICTION_SIGNAL / UNEXPECTED_DISCOVERY -> "high"
+        * EXPERT + POSITIVE_CONFIRMATION              -> "low"
+        * everything else                              -> "medium"
+
+    The result is consumed by ``generate_proposal`` and exposed
+    on the resulting ``LearningProposal.risk`` field. This is
+    the V1 minimal fix for the contract that the feedback
+    runtime tests assert; the heuristic is deliberately
+    conservative and will be refined in a later sprint.
+    """
+    if feedback_event is None:
+        return "medium"
+    snap = feedback_event.snapshot or {}
+    ftype = snap.get("feedback_type", "")
+    src = snap.get("source", "")
+    try:
+        is_disruptive = (
+            FeedbackType(ftype) in (
+                FeedbackType.CONTRADICTION_SIGNAL,
+                FeedbackType.UNEXPECTED_DISCOVERY,
+            )
+        )
+    except (KeyError, ValueError):
+        is_disruptive = False
+    if is_disruptive:
+        return "high"
+    if (
+        src == FeedbackSource.EXPERT.value
+        and ftype == FeedbackType.POSITIVE_CONFIRMATION.value
+    ):
+        return "low"
+    return "medium"
+
+
+def _requires_expert_review(feedback_event: "FeedbackEvent") -> bool:
+    """V1 expert-review gate for a feedback signal.
+
+    Mirrors ``FeedbackValidator.requires_expert_review`` so the
+    proposal and the validation result agree on whether expert
+    review is needed:
+
+        * CONTRADICTION_SIGNAL / UNEXPECTED_DISCOVERY -> True
+        * everything else                              -> False
+    """
+    if feedback_event is None:
+        return False
+    snap = feedback_event.snapshot or {}
+    ftype = snap.get("feedback_type", "")
+    try:
+        ftype_enum = FeedbackType(ftype)
+    except (KeyError, ValueError):
+        return False
+    return ftype_enum in TYPES_REQUIRING_EXPERT_REVIEW
+
 
 def _render_suggested_change(
     target_field: str, current_state: dict[str, Any]
@@ -251,6 +314,14 @@ def generate_proposal(
     suggested_change = _render_suggested_change(
         _target_field_for_type(proposal_type), snapshot_state
     )
+    risk = (
+        _assess_risk(feedback_events[-1])
+        if feedback_events else "medium"
+    )
+    requires_expert_review = (
+        _requires_expert_review(feedback_events[-1])
+        if feedback_events else False
+    )
 
     return LearningProposal(
         proposal_id=proposal_id or str(uuid.uuid4()),
@@ -261,6 +332,8 @@ def generate_proposal(
         suggested_change=suggested_change,
         reason=reason,
         requires_human_review=True,
+        requires_expert_review=requires_expert_review,
+        risk=risk,
         status=status,
     )
 
